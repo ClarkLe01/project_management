@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./app
+      dockerfile: Dockerfile.prod
+    container_name: web
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/home/app/web/static
+      - media_volume:/home/app/web/media
+    expose:
+      - 8000
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+  db:
+    image: postgres:13.0-alpine
+    container_name: db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.prod.db
+  redis:
+    image: redis:alpine3.16
+    container_name: redis
+
+  celery:
+    restart: always
+    build: ./app
+    container_name: celery
+    command: celery -A app worker -l info
+    volumes:
+      - ./app/:/usr/src/app/
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - web
+      - redis
+      - db
+
+  celery-beat:
+    restart: always
+    build: ./app
+    command: celery -A app beat -l info
+    container_name: celery-beat
+    env_file:
+      - ./.env.prod
+    volumes:
+      - ./app/:/usr/src/app/
+    depends_on:
+      - web
+      - redis
+      - db
+
+  nginx:
+    build: ./nginx
+    restart: always
+    container_name: nginx
+    volumes:
+      - static_volume:/home/app/web/static
+      - media_volume:/home/app/web/media
+    ports:
+      - "1337:80"
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

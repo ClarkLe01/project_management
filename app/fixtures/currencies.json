@@ -1,0 +1,20 @@
+[
+{
+    "model": "utils.currency",
+    "pk": 1,
+    "fields": {
+        "code": "USD",
+        "value": "1.0000",
+        "updated_date": "2022-11-11T09:40:35.024Z"
+    }
+},
+{
+    "model": "utils.currency",
+    "pk": 2,
+    "fields": {
+        "code": "VND",
+        "value": "24867.7607",
+        "updated_date": "2022-11-11T09:40:35.028Z"
+    }
+}
+]
