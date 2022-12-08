@@ -109,20 +109,31 @@ submitButton.addEventListener('click', function (e) {
             console.log('validated!');
 
             if (status === 'Valid') {
-                // Show loading indication
-                submitButton.setAttribute('data-kt-indicator', 'on');
+                let startdate_input = document.querySelector('[name="start_date"]');
+                let enddate_input = document.querySelector('[name="end_date"]');
+                const start = new Date(startdate_input.value);
+                const end = new Date(enddate_input.value);
+                if (start.getTime()>end.getTime()){
+                    let notify_div = document.getElementById('end_date').nextElementSibling.nextElementSibling;
+                    notify_div.innerHTML+='<div data-field="end_date" data-validator="notEmpty">End Date is less than Start Date</div>'
+                }
+                else{
+                    // Show loading indication
+                    submitButton.setAttribute('data-kt-indicator', 'on');
 
-                // Disable button to avoid multiple click
-                submitButton.disabled = true;
+                    // Disable button to avoid multiple click
+                    submitButton.disabled = true;
 
-                // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                setTimeout(function () {
-                    // Remove loading indication
-                    submitButton.removeAttribute('data-kt-indicator');
-                    // Enable button
-                    submitButton.disabled = false;
-                }, 1000);
-                patchProject(window.location.href).then(r => console.log(r) ).catch(e=>console.log(e));
+                    // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                    setTimeout(function () {
+                        // Remove loading indication
+                        submitButton.removeAttribute('data-kt-indicator');
+                        // Enable button
+                        submitButton.disabled = false;
+                    }, 1000);
+                    patchProject(window.location.href).then(r => console.log(r) ).catch(e=>console.log(e));
+
+                }
             }
         });
     }
