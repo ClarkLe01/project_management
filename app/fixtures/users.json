@@ -21,7 +21,7 @@
 },
 {
     "model": "user.user",
-    "pk": 13,
+    "pk": 2,
     "fields": {
         "password": "pbkdf2_sha256$390000$4lAV9GpYFH46sXKqK3xze4$98YYuemyUl/GJqLa2DWGWklL3tdptxU06GUCy5ZR3kk=",
         "last_login": "2022-11-08T17:40:50Z",
@@ -41,7 +41,7 @@
 },
 {
     "model": "user.user",
-    "pk": 14,
+    "pk": 3,
     "fields": {
         "password": "pbkdf2_sha256$390000$4lAV9GpYFH46sXKqK3xze4$98YYuemyUl/GJqLa2DWGWklL3tdptxU06GUCy5ZR3kk=",
         "last_login": "2022-11-08T17:42:53Z",
@@ -61,7 +61,7 @@
 },
 {
     "model": "user.user",
-    "pk": 15,
+    "pk": 4,
     "fields": {
         "password": "pbkdf2_sha256$390000$4lAV9GpYFH46sXKqK3xze4$98YYuemyUl/GJqLa2DWGWklL3tdptxU06GUCy5ZR3kk=",
         "last_login": "2022-11-08T17:43:17Z",
@@ -81,7 +81,7 @@
 },
 {
     "model": "user.user",
-    "pk": 16,
+    "pk": 5,
     "fields": {
         "password": "pbkdf2_sha256$390000$4lAV9GpYFH46sXKqK3xze4$98YYuemyUl/GJqLa2DWGWklL3tdptxU06GUCy5ZR3kk=",
         "last_login": "2022-11-08T17:43:35Z",
@@ -101,7 +101,7 @@
 },
 {
     "model": "user.user",
-    "pk": 17,
+    "pk": 6,
     "fields": {
         "password": "pbkdf2_sha256$390000$4lAV9GpYFH46sXKqK3xze4$98YYuemyUl/GJqLa2DWGWklL3tdptxU06GUCy5ZR3kk=",
         "last_login": "2022-11-08T17:43:55Z",
@@ -121,7 +121,7 @@
 },
 {
     "model": "user.user",
-    "pk": 18,
+    "pk": 7,
     "fields": {
         "password": "pbkdf2_sha256$390000$4lAV9GpYFH46sXKqK3xze4$98YYuemyUl/GJqLa2DWGWklL3tdptxU06GUCy5ZR3kk=",
         "last_login": "2022-11-08T17:44:18Z",
@@ -141,7 +141,7 @@
 },
 {
     "model": "user.user",
-    "pk": 19,
+    "pk": 8,
     "fields": {
         "password": "pbkdf2_sha256$390000$4lAV9GpYFH46sXKqK3xze4$98YYuemyUl/GJqLa2DWGWklL3tdptxU06GUCy5ZR3kk=",
         "last_login": "2022-11-08T17:44:36Z",
@@ -154,26 +154,6 @@
         "first_name": "User",
         "last_name": "Seventh",
         "avatar": "user_19/avatar/08112022174454_300-7.jpg",
-        "groups": [],
-        "user_permissions": [],
-        "langcode_tags": []
-    }
-},
-{
-    "model": "user.user",
-    "pk": 20,
-    "fields": {
-        "password": "pbkdf2_sha256$390000$f89qEDzYGxST8aRHhqKkg1$He2uGsnbMZVk9m5XgrcnYT+loGYheHW+L7G4whvfZKY=",
-        "last_login": "2022-11-25T10:01:21.098Z",
-        "is_superuser": false,
-        "username": "lenguyenhunganh2001@gmail.com",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2022-11-25T10:01:20.934Z",
-        "email": "lenguyenhunganh2001@gmail.com",
-        "first_name": "Clark",
-        "last_name": "Le",
-        "avatar": "",
         "groups": [],
         "user_permissions": [],
         "langcode_tags": []
