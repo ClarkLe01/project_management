@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -29,13 +29,16 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:1337',
     'http://127.0.0.1:1337',
+    'http://3.87.58.132:1337',
+    'http://ec2-3-88-165-222.compute-1.amazonaws.com:1337'
 ]
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'ec2-3-88-165-222.compute-1.amazonaws.com', '3.87.58.132', '[::1]']
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:1337',
     'http://127.0.0.1:1337',
+    'http://3.87.58.132:1337',
+    'http://ec2-3-88-165-222.compute-1.amazonaws.com:1337'
 ]
-
 
 # Application definition
 
@@ -59,7 +62,6 @@ INSTALLED_APPS = [
     'testing',
 ]
 
-
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -71,8 +73,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 CSRF_COOKIE_SECURE = True
-
-
 
 ROOT_URLCONF = 'app.urls'
 
@@ -98,7 +98,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -112,7 +111,6 @@ DATABASES = {
         "PORT": os.environ.get("SQL_PORT", "5432"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -146,7 +144,6 @@ LOGIN_URL = '/signin'
 # # this one is optional
 LOGIN_REDIRECT_URL = '/project'
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -158,14 +155,13 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static')
-    ]
+    os.path.join(BASE_DIR, 'static')
+]
 
 # STATIC_ROOT = BASE_DIR / "static"
 
