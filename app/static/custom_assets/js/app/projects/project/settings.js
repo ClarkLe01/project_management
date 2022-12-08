@@ -114,7 +114,7 @@ submitButton.addEventListener('click', function (e) {
                 const start = new Date(startdate_input.value);
                 const end = new Date(enddate_input.value);
                 if (start.getTime()>end.getTime()){
-                    let notify_div = document.getElementById('end_date').nextElementSibling.nextElementSibling;
+                    let notify_div = document.getElementById('end_date').parentElement.nextElementSibling;
                     notify_div.innerHTML+='<div data-field="end_date" data-validator="notEmpty">End Date is less than Start Date</div>'
                 }
                 else{
