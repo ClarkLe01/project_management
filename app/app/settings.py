@@ -28,14 +28,14 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
 CSRF_TRUSTED_ORIGINS = [
     'http://3.87.58.132:1337',
-    'http://ec2-3-88-165-222.compute-1.amazonaws.com:1337'
+    'https://ec2-3-88-165-222.compute-1.amazonaws.com:1337'
     'http://localhost:1337',
     'http://127.0.0.1:1337'
 ]
 ALLOWED_HOSTS = ['ec2-3-87-58-132.compute-1.amazonaws.com', '3.87.58.132', 'localhost', '127.0.0.1']
 CORS_ORIGIN_WHITELIST = [
     'http://3.87.58.132:1337',
-    'http://ec2-3-88-165-222.compute-1.amazonaws.com:1337'
+    'https://ec2-3-88-165-222.compute-1.amazonaws.com:1337'
     'http://localhost:1337',
     'http://127.0.0.1:1337',
 ]
@@ -73,7 +73,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 CSRF_COOKIE_SECURE = True
-
+CSRF_COOKIE_HTTPONLY = True
 ROOT_URLCONF = 'app.urls'
 
 TEMPLATES = [
