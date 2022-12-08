@@ -17,8 +17,6 @@ class ProjectLangsView(viewsets.ViewSet, ListAPIView):
 
 class ProjectLangsStatisticView(viewsets.ViewSet, ListAPIView):
     serializer_class = ProgrammingLanguageSerializer
-    queryset = Project.objects.exclude(langcode_tags=None).values('langcode_tags').annotate(count=Count('*')).order_by(
-        '-count')
 
     def get_queryset(self):
         return Project.objects.filter(Q(langcode_tags__isnull=False) & Q(created_by=self.request.user)).values(
