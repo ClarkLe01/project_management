@@ -67,6 +67,12 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+
+# Additional configuration settings
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_LOGOUT_ON_GET= True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = True
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -80,7 +86,6 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SOCIALACCOUNT_LOGIN_ON_GET = True
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -151,14 +156,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
 LOGOUT_REDIRECT_URL = "/signin"
-# LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = '/signin'
 #
 # # this one is optional
