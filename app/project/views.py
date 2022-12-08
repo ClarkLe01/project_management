@@ -76,7 +76,7 @@ class ProjectDashBoardView(LoginRequiredMixin, View):
         user = User.objects.get(pk=request.user.id)
         try:
             collaborator_list = [User.objects.get(pk=int(user['value'])) for user in collaborators]
-            lang_list = [ProgrammingLanguage.objects.get(name=lang['value'] for lang in langs)]
+            lang_list = [ProgrammingLanguage.objects.get(name=lang['value']) for lang in langs]
 
         except TypeError:
             return HttpResponse('Bad Request', status=400)
