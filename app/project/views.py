@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 from .models import Project
 from user.models import *
+from utils.models import *
 from django.db.models import Q
 from .forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -68,12 +69,14 @@ class ProjectDashBoardView(LoginRequiredMixin, View):
         description = request.POST.get('description')
         start_date = request.POST.get('start')
         end_date = request.POST.get('end')
+        langs = json.loads(request.POST.get('langs'))
         collaborators = json.loads(request.POST.get('collaborators'))
         cost = request.POST.get('cost')
         base = request.POST.get('base')
         user = User.objects.get(pk=request.user.id)
         try:
             collaborator_list = [User.objects.get(pk=int(user['value'])) for user in collaborators]
+            lang_list = [ProgrammingLanguage.objects.get(name=lang['value'] for lang in langs)]
 
         except TypeError:
             return HttpResponse('Bad Request', status=400)
@@ -87,6 +90,7 @@ class ProjectDashBoardView(LoginRequiredMixin, View):
                                          cost=cost,
                                          base=base)
         project.collaborators.add(*collaborator_list)
+        project.langcode_tags.add(*lang_list)
         project.save()
         for _, file in dict(documents).items():
             file_object = File.objects.create(project=project, file=file[0])

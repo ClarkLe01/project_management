@@ -21,8 +21,12 @@ async function postCreatingProject(url) {
     form_data.append("end", $('#end_date').val());
     form_data.append("cost", $('#cost').val());
     form_data.append("base", $('#base').val());
+    let lang_tags = [];
+    document.getElementById("project_langs").previousSibling.querySelectorAll('tag').forEach(item => lang_tags.unshift(item.__tagifyTagData))
+    form_data.append("langs", JSON.stringify(lang_tags));
+
     let collaborator_tags = [];
-    $('tags>tag').toArray().forEach(item => collaborator_tags.unshift(item.__tagifyTagData))
+    document.getElementById("project_collaborators").previousSibling.querySelectorAll('tag').forEach(item => collaborator_tags.unshift(item.__tagifyTagData))
     form_data.append("collaborators", JSON.stringify(collaborator_tags));
     const response = await fetch(url, {
         method: 'POST',
@@ -301,8 +305,13 @@ myDropzone.on("sendingmultiple", function (file, xhr, formData) {
     formData.append("end", $('#end_date').val());
     formData.append("cost", $('#cost').val());
     formData.append("base", $('#base').val());
+
+    let lang_tags = [];
+    document.getElementById("project_langs").previousSibling.querySelectorAll('tag').forEach(item => lang_tags.unshift(item.__tagifyTagData))
+    formData.append("langs", JSON.stringify(lang_tags));
+
     let collaborator_tags = [];
-    $('tags>tag').toArray().forEach(item => collaborator_tags.unshift(item.__tagifyTagData))
+    document.getElementById("project_collaborators").previousSibling.querySelectorAll('tag').forEach(item => collaborator_tags.unshift(item.__tagifyTagData))
     formData.append("collaborators", JSON.stringify(collaborator_tags));
 });
 
