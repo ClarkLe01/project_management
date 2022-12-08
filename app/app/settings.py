@@ -33,7 +33,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:80',
     'http://127.0.0.1:80',
 ]
-ALLOWED_HOSTS = ['smalldemoclark.live','ec2-44-205-72-194.compute-1.amazonaws.com', '44.205.72.194', 'localhost', '127.0.0.1', '[::1]']
+ALLOWED_HOSTS = ['smalldemoclark.live', 'ec2-44-205-72-194.compute-1.amazonaws.com', '44.205.72.194', 'localhost',
+                 '127.0.0.1', '[::1]']
 CORS_ORIGIN_WHITELIST = [
     'http://smalldemoclark.live',
     'http://44.205.72.194:80',
@@ -71,10 +72,10 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
-
+SOCIALACCOUNT_LOGIN_ON_GET = True
 # Additional configuration settings
 SOCIALACCOUNT_QUERY_EMAIL = True
-ACCOUNT_LOGOUT_ON_GET= True
+ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 # Provider specific settings
@@ -90,7 +91,6 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -101,7 +101,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 
 ROOT_URLCONF = 'app.urls'
 
