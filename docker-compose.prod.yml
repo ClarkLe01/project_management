@@ -29,7 +29,9 @@ services:
 
   celery:
     restart: always
-    build: ./app
+    build:
+      context: ./app
+      dockerfile: Dockerfile.prod
     container_name: celery
     command: celery -A app worker -l info
     volumes:
@@ -43,7 +45,9 @@ services:
 
   celery-beat:
     restart: always
-    build: ./app
+    build:
+      context: ./app
+      dockerfile: Dockerfile.prod
     command: celery -A app beat -l info
     container_name: celery-beat
     env_file:
