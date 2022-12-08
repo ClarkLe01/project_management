@@ -11,18 +11,7 @@ async function postReNewPass(url) {
             'X-CSRFToken': csrftoken
         }
     });
-    if(response.status===404){
-        Swal.fire({
-            text: "Reset Failed!",
-            icon: "error",
-            buttonsStyling: false,
-            confirmButtonText: "Ok, got it!",
-            customClass: {
-                confirmButton: "btn btn-primary"
-            }
-        });
-    }
-    else{
+    if(response.status===200){
         Swal.fire({
             text: "Reset Successful!",
             icon: "success",
@@ -32,7 +21,18 @@ async function postReNewPass(url) {
                 confirmButton: "btn btn-primary"
             }
         }).then((result) => {
-            window.location.replace("");
+            window.location.replace("/project/");
+        });
+    }
+    else{
+        Swal.fire({
+            text: "Reset Failed!",
+            icon: "error",
+            buttonsStyling: false,
+            confirmButtonText: "Ok, got it!",
+            customClass: {
+                confirmButton: "btn btn-primary"
+            }
         });
     }
 }
