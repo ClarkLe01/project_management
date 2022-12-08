@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_celery_results',
     'django_celery_beat',
+    'rest_framework',
     'user',
     'utils',
     'project',
