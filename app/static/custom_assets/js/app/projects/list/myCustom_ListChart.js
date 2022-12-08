@@ -53,3 +53,6 @@ new Chart(tags_chart, {
     }
 });
 
+const langtags_chart = document.getElementById('kt_chartjs_1');
+
+

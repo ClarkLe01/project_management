@@ -12,6 +12,7 @@ class ProgrammingLanguageSerializer(serializers.ModelSerializer):
 
 class ProjectLangStatisticSerializer(serializers.ModelSerializer):
     """Serializes a user profile object"""
+
     count = serializers.IntegerField()
 
     class Meta:
