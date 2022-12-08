@@ -27,7 +27,7 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
 CSRF_TRUSTED_ORIGINS = [
-    'http://*.smalldemoclark.live/',
+    'http://*.smalldemoclark.live',
     'http://44.205.72.194:80',
     'http://ec2-44-205-72-194.compute-1.amazonaws.com:80',
     'http://localhost:80',
@@ -35,7 +35,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 ALLOWED_HOSTS = ['*.smalldemoclark.live','ec2-44-205-72-194.compute-1.amazonaws.com', '44.205.72.194', 'localhost', '127.0.0.1']
 CORS_ORIGIN_WHITELIST = [
-    'http://*.smalldemoclark.live/',
+    'http://*.smalldemoclark.live',
     'http://44.205.72.194:80',
     'http://ec2-44-205-72-194.compute-1.amazonaws.com:80',
     'http://localhost:80',
