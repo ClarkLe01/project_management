@@ -23,7 +23,6 @@ def forgotPassword(request):
 
             # Reset password email
             current_site = get_current_site(request)
-            current_site.domain = '127.0.0.1:8000'
             mail_subject = 'Reset Your Password'
             context_message = {
                 'user': user,
