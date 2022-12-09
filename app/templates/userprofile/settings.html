@@ -130,23 +130,11 @@
                         <!--end::Col-->
                     </div>
                     <!--end::Input group-->
-                    <!--begin::Input group-->
-                    <div class="row mb-6">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Programming Language</label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="col-lg-8 fv-row">
-                            <input class="form-control form-control-solid" value="" id="kt_tagify_code"/>
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
                 </div>
                 <!--end::Card body-->
                 <!--begin::Actions-->
                 <div class="card-footer d-flex justify-content-end py-6 px-9">
-                    <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
+                    <a type="button" href="{% url 'profile' %}" class="btn btn-light btn-active-light-primary me-2">Discard</a>
                     <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
                 </div>
                 <!--end::Actions-->
