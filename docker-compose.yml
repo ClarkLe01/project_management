@@ -41,7 +41,7 @@ services:
   celery-beat:
     restart: always
     build: ./app
-    command: celery -A djangoProject1 beat -l info
+    command: celery -A app beat -l info
     container_name: celery-beat
     env_file:
       - ./.env.dev

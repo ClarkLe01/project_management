@@ -54,3 +54,4 @@ celery==5.2.7
 django-celery-beat==2.4.0
 django-celery-results==2.4.0
 django-rosetta==0.9.8
+coverage==6.5.0

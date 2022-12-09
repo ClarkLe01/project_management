@@ -31,14 +31,15 @@ def forgotPassword(request):
                 'uid': signer.sign(int(user.pk)),
                 'token': default_token_generator.make_token(user),
             }
-            messages = get_template('authentication/reset_password/email_reset_password.html').render(context_message)  # noqa: 501
+            messages = get_template('authentication/reset_password/email_reset_password.html').render(
+                context_message)  # noqa: 501
             send_email = EmailMessage(mail_subject, messages, to=[email])
             send_email.content_subtype = 'html'
             send_email.send(fail_silently=False)
-            return HttpResponse('Password reset email has been sent to your email address.', status=200)    # noqa: 501
+            return HttpResponse('Password reset email has been sent to your email address.', status=200)  # noqa: 501
         else:
             return HttpResponse('Account does not exist!', status=400)
-    return render(request, 'authentication/reset_password/reset_password.html', {'form': ForgetForm()}) # noqa: 501
+    return render(request, 'authentication/reset_password/reset_password.html', {'form': ForgetForm()})  # noqa: 501
 
 
 def resetpassword_validate(request, uidb64, token):
@@ -74,4 +75,5 @@ def resetPassword(request):
         else:
             return HttpResponse('Bad request', status=400)
     else:
-        return render(request, 'authentication/reset_password/new_password.html', {'form': ResetPassForm()})  # noqa: 501
+        return render(request, 'authentication/reset_password/new_password.html',
+                      {'form': ResetPassForm()})  # noqa: 501
