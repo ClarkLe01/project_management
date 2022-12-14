@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
@@ -142,13 +143,32 @@ class DocumentProjectView(LoginRequiredMixin, View):
 class DownloadFile(LoginRequiredMixin, View):
     def get(self, request, pk):
         file = File.objects.get(pk=pk)
-        response = HttpResponse(file, content_type='application/force-download')
-        response['Content-Disposition'] = 'attachment; filename="{0}"'.format(file.filename())
-        return response
+
+        file_size_request = requests.get(request.scheme+'://'+request.META['HTTP_HOST']+file.url(), stream=True)
+        file_size = int(file_size_request.headers['Content-Length'])
+        size = float(file_size / 1000000)
+        size = round(size, 2)
+        if size < 900:
+            block_size = 1024
+            filename = file.filename()
+            with open(filename, 'wb') as f:
+                for data in file_size_request.iter_content(block_size):
+                    f.write(data)
+                f.close()
+            with open(filename, 'rb') as f:
+                data = f.read()
+
+            response = HttpResponse(data, content_type='application/force-download')
+            response['Content-Disposition'] = 'attachment; filename="{0}"'.format(file.filename())
+            return response
+        return HttpResponse('Bad request', status=404)
 
 class DeleteFile(LoginRequiredMixin, View):
     def get(self, request, pk):
-        file = File.objects.get(pk=pk)
-        if os.path.exists(file.url):
-            os.remove(file.ur)
-        return HttpResponse('Success', status=200)
+        try:
+            file = File.objects.get(pk=pk)
+            url_redirect = file.project_id
+            file.delete()
+            return redirect('/documents/{0}/'.format(url_redirect))
+        except File.DoesNotExist:
+            raise File.DoesNotExist('Not exists file')
