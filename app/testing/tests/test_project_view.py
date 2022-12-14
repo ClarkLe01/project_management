@@ -20,6 +20,7 @@ class CreateProjectViewTests(TestCase):
             'start': datetime.now().strftime('%Y-%m-%d'),
             'end': datetime.now().strftime('%Y-%m-%d'),
             'collaborators': '[]',
+            'langs': '[]',
             'cost': 1.00,
             'base': 'USD',
         })

@@ -1,5 +1,5 @@
 from django.test import TestCase
-from djangoProject1.templatetags.math_caculate import minus_int, add, convert_cost
+from app.templatetags.math_caculate import minus_int, add, convert_cost
 from utils.models import Currency
 from decimal import InvalidOperation, Decimal
 

@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import View
+from django.views.generic import View, TemplateView
 from .models import Project
 from user.models import *
 from utils.models import *
@@ -131,3 +131,9 @@ def delete_project(request, pk):
                 raise Project.DoesNotExist('Not exists project')
     else:
         return HttpResponse('Bad request', status=404)
+
+
+class DocumentProjectView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        project = get_object_or_404(Project, id=pk)
+        return render(request, 'projectdetails/files.html', {'project': project})

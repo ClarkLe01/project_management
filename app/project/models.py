@@ -2,7 +2,7 @@ from django.db import models
 from user.models import User
 from utils.models import ProgrammingLanguage, Currency
 from ckeditor.fields import RichTextField
-
+from app.storage import OverwriteStorage
 
 # Create your models here.
 
@@ -34,8 +34,8 @@ def user_project_directory_path(instance, filename):
 
 class File(models.Model):
     project = models.ForeignKey(Project, related_name='files', on_delete=models.CASCADE)
-    file = models.FileField(upload_to=user_project_directory_path, )
-    uploaded_date = models.DateTimeField(auto_now_add=True)
+    file = models.FileField(max_length=500, upload_to=user_project_directory_path, storage=OverwriteStorage())
+    update_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.file.name

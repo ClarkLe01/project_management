@@ -24,6 +24,16 @@
         <!--end::Nav item-->
         <!--begin::Nav item-->
         <li class="nav-item">
+            <a class="nav-link text-active-primary py-5 me-6" href="#">Tasks</a>
+        </li>
+        <!--end::Nav item-->
+        <!--begin::Nav item-->
+        <li class="nav-item">
+            <a class="nav-link text-active-primary py-5 me-6" href="{% url 'project:documents' project.id %}">Files</a>
+        </li>
+        <!--end::Nav item-->
+        <!--begin::Nav item-->
+        <li class="nav-item">
             <a class="nav-link text-active-primary py-5 me-6" href="{% url 'project:update' project.id %}">Settings</a>
         </li>
         <!--end::Nav item-->
