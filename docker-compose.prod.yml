@@ -6,7 +6,7 @@ services:
       context: ./app
       dockerfile: Dockerfile.prod
     container_name: web
-    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    command: /home/app/web/entrypoint.prod.sh
     volumes:
       - static_volume:/home/app/web/static
       - media_volume:/home/app/web/media
