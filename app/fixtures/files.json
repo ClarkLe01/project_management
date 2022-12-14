@@ -52,5 +52,14 @@
         "file": "user_1/projects/project_1/Yêu_cầu_cho_small_demo.docx",
         "update_date": "2022-12-14T04:11:31.053Z"
     }
+},
+{
+    "model": "project.file",
+    "pk": 7,
+    "fields": {
+        "project": 1,
+        "file": "user_1/projects/project_1/ep1-j2ee-mysql-loadCategories.mp4",
+        "update_date": "2022-12-14T09:26:47.188Z"
+    }
 }
 ]

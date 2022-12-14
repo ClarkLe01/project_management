@@ -142,8 +142,13 @@ class DocumentProjectView(LoginRequiredMixin, View):
 class DownloadFile(LoginRequiredMixin, View):
     def get(self, request, pk):
         file = File.objects.get(pk=pk)
-        # with open(file.url, 'rb') as f:
-        #     data = f.read()
         response = HttpResponse(file, content_type='application/force-download')
         response['Content-Disposition'] = 'attachment; filename="{0}"'.format(file.filename())
         return response
+
+class DeleteFile(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        file = File.objects.get(pk=pk)
+        if os.path.exists(file.url):
+            os.remove(file.ur)
+        return HttpResponse('Success', status=200)
