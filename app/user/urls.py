@@ -20,4 +20,5 @@ urlpatterns = [
     path('forgotPassword/', forgotPassword, name='forgotPassword'),
     path('resetpassword_validate/<uidb64>/<token>/', resetpassword_validate, name='resetpassword_validate'), # noqa: 501
     path('resetPassword/', resetPassword, name='resetPassword'),
+
 ]

@@ -3,7 +3,7 @@ from user.models import User
 from utils.models import ProgrammingLanguage, Currency
 from ckeditor.fields import RichTextField
 from app.storage import OverwriteStorage
-
+import os
 # Create your models here.
 
 class Project(models.Model):
@@ -39,3 +39,51 @@ class File(models.Model):
 
     def __str__(self):
         return self.file.name
+    def filename(self):
+        return os.path.basename(self.file.name)
+    def url(self):
+        return self.file.url
+    def extension(self):
+        name, extension = os.path.splitext(self.file.name)
+        return extension
+    def size(self):
+        x = self.file.size
+        y = 512000
+        if x < y:
+            value = round(x / 1000, 2)
+            ext = ' kb'
+        elif x < y * 1000:
+            value = round(x / 1000000, 2)
+            ext = ' Mb'
+        else:
+            value = round(x / 1000000000, 2)
+            ext = ' Gb'
+        return str(value) + ext
+
+    def icon_svg(self):
+        def read_file(path):
+            with open(path, 'r') as file:
+                data = file.read().rstrip()
+            return data
+
+        def get_url_svg_icon(extension):
+            ext_dict = {
+                '.jpg': 'image.svg',
+                '.png': 'image.svg',
+                '.jpeg': 'image.svg',
+                '.doc': 'doc.svg',
+                '.docx': 'doc.svg',
+                '.css': 'css.svg',
+                '.pdf': 'pdf.svg',
+                '.sql': 'sql.svg',
+                '.xml': 'xml.svg',
+                '.html': 'html.svg',
+                '.mp4': 'video-file.svg',
+                '.avi': 'video-file.svg',
+                '.m4a': 'video-file.svg',
+                '.mp3': 'video-file.svg',
+            }
+            if extension in ext_dict.keys():
+                return './static/assets/media/svg/files/'+ext_dict[extension]
+            return './static/assets/media/svg/files/undefined-file.svg'
+        return read_file(get_url_svg_icon(self.extension()))

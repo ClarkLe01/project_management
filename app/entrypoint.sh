@@ -17,5 +17,7 @@ python manage.py loaddata fixtures/langprogramming.json --app utils.ProgrammingL
 python manage.py loaddata fixtures/currencies.json --app utils.Currency
 python manage.py loaddata fixtures/users.json --app user.User
 python manage.py loaddata fixtures/projects.json --app project.Project
+python manage.py loaddata fixtures/files.json --app project.File
+
 exec "$@"
 

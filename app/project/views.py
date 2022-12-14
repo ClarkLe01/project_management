@@ -2,7 +2,7 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View, TemplateView
-from .models import Project
+from .models import Project, File
 from user.models import *
 from utils.models import *
 from django.db.models import Q
@@ -10,7 +10,6 @@ from .forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 import json
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-import ast
 
 PROJECT_PER_PAGE = 2
 
@@ -136,4 +135,15 @@ def delete_project(request, pk):
 class DocumentProjectView(LoginRequiredMixin, View):
     def get(self, request, pk):
         project = get_object_or_404(Project, id=pk)
-        return render(request, 'projectdetails/files.html', {'project': project})
+        files = File.objects.filter(project=project)
+        return render(request, 'projectdetails/files.html', {'project': project, 'files':files})
+
+
+class DownloadFile(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        file = File.objects.get(pk=pk)
+        # with open(file.url, 'rb') as f:
+        #     data = f.read()
+        response = HttpResponse(file, content_type='application/force-download')
+        response['Content-Disposition'] = 'attachment; filename="{0}"'.format(file.filename())
+        return response
