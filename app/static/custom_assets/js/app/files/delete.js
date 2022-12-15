@@ -13,8 +13,16 @@ function popupFileDelete(message, type){
     })
 }
 async function deleteFile(url, n, o){
+    let csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    let form_data = new FormData();
+    form_data.append("delete_files", [o.querySelectorAll(".sorting_1>div>input")[0].value]);
     const response = await fetch(url, {
-        method: 'GET'
+        method: 'POST',
+        mode: 'same-origin',
+        body: form_data,
+        headers: {
+            'X-CSRFToken': csrftoken
+        },
     });
     if(response.status === 200){
         popupFileDelete("You have deleted "+n+"!.","success").then((function(){
@@ -46,9 +54,7 @@ delete_link.forEach(t=>{
             }
         }).then((result)=>{
             if(result.isConfirmed) {
-                deleteFile(t.href, n, o).then(r => {
-                });
-
+                deleteFile('/project/deletefile/', n,o).then(r => {console.log(r)});
             } else {
                 popupFileDelete(n+" was not deleted.","error");
             }

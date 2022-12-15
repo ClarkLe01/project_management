@@ -33,7 +33,7 @@
         "email": "user1@gmail.com",
         "first_name": "User",
         "last_name": "First",
-        "avatar": "user_13/avatar/08112022174248_300-1.jpg",
+        "avatar": "user_2/avatar/08112022174248_300-1.jpg",
         "groups": [],
         "user_permissions": [],
         "langcode_tags": []
@@ -53,7 +53,7 @@
         "email": "user2@gmail.com",
         "first_name": "User",
         "last_name": "Second",
-        "avatar": "user_14/avatar/08112022174311_300-2.jpg",
+        "avatar": "user_3/avatar/08112022174311_300-2.jpg",
         "groups": [],
         "user_permissions": [],
         "langcode_tags": []
@@ -73,7 +73,7 @@
         "email": "user3@gmail.com",
         "first_name": "User",
         "last_name": "Third",
-        "avatar": "user_15/avatar/08112022174331_300-3.jpg",
+        "avatar": "user_4/avatar/08112022174331_300-3.jpg",
         "groups": [],
         "user_permissions": [],
         "langcode_tags": []
@@ -93,7 +93,7 @@
         "email": "user4@gmail.com",
         "first_name": "User",
         "last_name": "Fourth",
-        "avatar": "user_16/avatar/08112022174350_300-4.jpg",
+        "avatar": "user_5/avatar/08112022174350_300-4.jpg",
         "groups": [],
         "user_permissions": [],
         "langcode_tags": []
@@ -113,7 +113,7 @@
         "email": "user5@gmail.com",
         "first_name": "User",
         "last_name": "Fifth",
-        "avatar": "user_17/avatar/08112022174414_300-5.jpg",
+        "avatar": "user_6/avatar/08112022174414_300-5.jpg",
         "groups": [],
         "user_permissions": [],
         "langcode_tags": []
@@ -133,7 +133,7 @@
         "email": "user6@gmail.com",
         "first_name": "User",
         "last_name": "Sixth",
-        "avatar": "user_18/avatar/08112022174432_300-6.jpg",
+        "avatar": "user_7/avatar/08112022174432_300-6.jpg",
         "groups": [],
         "user_permissions": [],
         "langcode_tags": []
@@ -153,7 +153,7 @@
         "email": "user7@gmail.com",
         "first_name": "User",
         "last_name": "Seventh",
-        "avatar": "user_19/avatar/08112022174454_300-7.jpg",
+        "avatar": "user_8/avatar/08112022174454_300-7.jpg",
         "groups": [],
         "user_permissions": [],
         "langcode_tags": []

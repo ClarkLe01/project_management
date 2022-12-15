@@ -54,7 +54,8 @@ var KTFileManagerList=function(){
         const n=document.querySelector('[data-kt-filemanager-table-select="delete_selected"]');
         o.forEach((e=>{
             e.addEventListener("click",(function(){
-                console.log(e),setTimeout((function(){
+                console.log(e);
+                setTimeout((function(){
                     s()
                 }),50)
             }))
@@ -314,4 +315,95 @@ var KTFileManagerList=function(){
                                 toastr.success(f.value+" was created!"),
                                 d.removeAttribute("data-kt-indicator"),
                                 f.value="",
-                                e.draw(!1)}),2e3):d.removeAttribute("data-kt-indicator")}))})),u.addEventListener("click",(e=>{e.preventDefault(),u.setAttribute("data-kt-indicator","on"),setTimeout((function(){u.removeAttribute("data-kt-indicator"),toastr.options={closeButton:!0,debug:!1,newestOnTop:!1,progressBar:!1,positionClass:"toastr-top-right",preventDuplicates:!1,showDuration:"300",hideDuration:"1000",timeOut:"5000",extendedTimeOut:"1000",showEasing:"swing",hideEasing:"linear",showMethod:"fadeIn",hideMethod:"fadeOut"},toastr.error("Cancelled new folder creation"),c()}),1e3)}))})),(()=>{const e="#kt_modal_upload_dropzone",t=document.querySelector(e);var o=t.querySelector(".dropzone-item");o.id="";var n=o.parentNode.innerHTML;o.parentNode.removeChild(o);var r=new Dropzone(e,{url:"path/to/your/server",parallelUploads:10,previewTemplate:n,maxFilesize:1,autoProcessQueue:!1,autoQueue:!1,previewsContainer:e+" .dropzone-items",clickable:e+" .dropzone-select"});r.on("addedfile",(function(o){o.previewElement.querySelector(e+" .dropzone-start").onclick=function(){const e=o.previewElement.querySelector(".progress-bar");e.style.opacity="1";var t=1,n=setInterval((function(){t>=100?(r.emit("success",o),r.emit("complete",o),clearInterval(n)):(t++,e.style.width=t+"%")}),20)},t.querySelectorAll(".dropzone-item").forEach((e=>{e.style.display=""})),t.querySelector(".dropzone-upload").style.display="inline-block",t.querySelector(".dropzone-remove-all").style.display="inline-block"})),r.on("complete",(function(e){const o=t.querySelectorAll(".dz-complete");setTimeout((function(){o.forEach((e=>{e.querySelector(".progress-bar").style.opacity="0",e.querySelector(".progress").style.opacity="0",e.querySelector(".dropzone-start").style.opacity="0"}))}),300)})),t.querySelector(".dropzone-upload").addEventListener("click",(function(){r.files.forEach((e=>{const t=e.previewElement.querySelector(".progress-bar");t.style.opacity="1";var o=1,n=setInterval((function(){o>=100?(r.emit("success",e),r.emit("complete",e),clearInterval(n)):(o++,t.style.width=o+"%")}),20)}))})),t.querySelector(".dropzone-remove-all").addEventListener("click",(function(){Swal.fire({text:"Are you sure you would like to remove all files?",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, remove it!",cancelButtonText:"No, return",customClass:{confirmButton:"btn btn-primary",cancelButton:"btn btn-active-light"}}).then((function(e){e.value?(t.querySelector(".dropzone-upload").style.display="none",t.querySelector(".dropzone-remove-all").style.display="none",r.removeAllFiles(!0)):"cancel"===e.dismiss&&Swal.fire({text:"Your files was not removed!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{confirmButton:"btn btn-primary"}})}))})),r.on("queuecomplete",(function(e){t.querySelectorAll(".dropzone-upload").forEach((e=>{e.style.display="none"}))})),r.on("removedfile",(function(e){r.files.length<1&&(t.querySelector(".dropzone-upload").style.display="none",t.querySelector(".dropzone-remove-all").style.display="none")}))})(),m(),d(),(()=>{const e=document.querySelector("#kt_modal_move_to_folder"),t=e.querySelector("#kt_modal_move_to_folder_form"),o=t.querySelector("#kt_modal_move_to_folder_submit"),n=new bootstrap.Modal(e);var r=FormValidation.formValidation(t,{fields:{move_to_folder:{validators:{notEmpty:{message:"Please select a folder."}}}},plugins:{trigger:new FormValidation.plugins.Trigger,bootstrap:new FormValidation.plugins.Bootstrap5({rowSelector:".fv-row",eleInvalidClass:"",eleValidClass:""})}});o.addEventListener("click",(e=>{e.preventDefault(),o.setAttribute("data-kt-indicator","on"),r&&r.validate().then((function(e){console.log("validated!"),"Valid"==e?setTimeout((function(){Swal.fire({text:"Are you sure you would like to move to this folder",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, move it!",cancelButtonText:"No, return",customClass:{confirmButton:"btn btn-primary",cancelButton:"btn btn-active-light"}}).then((function(e){e.isConfirmed?(t.reset(),n.hide(),toastr.options={closeButton:!0,debug:!1,newestOnTop:!1,progressBar:!1,positionClass:"toastr-top-right",preventDuplicates:!1,showDuration:"300",hideDuration:"1000",timeOut:"5000",extendedTimeOut:"1000",showEasing:"swing",hideEasing:"linear",showMethod:"fadeIn",hideMethod:"fadeOut"},toastr.success("1 item has been moved."),o.removeAttribute("data-kt-indicator")):(Swal.fire({text:"Your action has been cancelled!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{confirmButton:"btn btn-primary"}}),o.removeAttribute("data-kt-indicator"))}))}),500):o.removeAttribute("data-kt-indicator")}))}))})(),f(),KTMenu.createInstances())}}}();KTUtil.onDOMContentLoaded((function(){KTFileManagerList.init()}));
+                                e.draw(!1)}),2e3):d.removeAttribute("data-kt-indicator")}))})),u.addEventListener("click",(e=>{e.preventDefault(),u.setAttribute("data-kt-indicator","on"),setTimeout((function(){u.removeAttribute("data-kt-indicator"),toastr.options={closeButton:!0,debug:!1,newestOnTop:!1,progressBar:!1,positionClass:"toastr-top-right",preventDuplicates:!1,showDuration:"300",hideDuration:"1000",timeOut:"5000",extendedTimeOut:"1000",showEasing:"swing",hideEasing:"linear",showMethod:"fadeIn",hideMethod:"fadeOut"},toastr.error("Cancelled new folder creation"),c()}),1e3)}))})),(()=>{
+                                    const e="#kt_modal_upload_dropzone",
+                                    t=document.querySelector(e);
+                                    var o=t.querySelector(".dropzone-item");
+                                    o.id="";
+                                    var n=o.parentNode.innerHTML;
+                                    o.parentNode.removeChild(o);
+                                    var r= new Dropzone(e,{
+                                        url:"path/to/your/server",
+                                        parallelUploads:10,
+                                        previewTemplate:n,
+                                        maxFilesize:1,
+                                        autoProcessQueue:!1,
+                                        autoQueue:!1,
+                                        previewsContainer:e+" .dropzone-items",
+                                        clickable:e+" .dropzone-select"
+                                    });
+                                    r.on("addedfile",(function(o){
+                                        o.previewElement.querySelector(e+" .dropzone-start").onclick=function(){
+                                            const e=o.previewElement.querySelector(".progress-bar");
+                                            e.style.opacity="1";
+                                            var t=1,n=setInterval((function(){
+                                                t>=100?(r.emit("success",o),r.emit("complete",o),clearInterval(n)):
+                                                    (t++,e.style.width=t+"%")}),20)},
+                                            t.querySelectorAll(".dropzone-item").forEach((e=>{
+                                                e.style.display=""
+                                            })),
+                                            t.querySelector(".dropzone-upload").style.display="inline-block",
+                                            t.querySelector(".dropzone-remove-all").style.display="inline-block"})),
+                                        r.on("complete",(function(e){
+                                            const o=t.querySelectorAll(".dz-complete");
+                                            setTimeout((function(){
+                                                o.forEach((e=>{
+                                                    e.querySelector(".progress-bar").style.opacity="0",
+                                                    e.querySelector(".progress").style.opacity="0",
+                                                    e.querySelector(".dropzone-start").style.opacity="0"
+                                                }))
+                                            }),300)})),
+                                        t.querySelector(".dropzone-upload").addEventListener("click",(function(){
+                                            r.files.forEach((e=>{
+                                                const t=e.previewElement.querySelector(".progress-bar");
+                                                t.style.opacity="1";
+                                                var o=1,
+                                                n=setInterval((function(){
+                                                    o>=100?(r.emit("success",e),r.emit("complete",e),clearInterval(n)):(o++,t.style.width=o+"%")
+                                                }),20)}))})),
+                                        t.querySelector(".dropzone-remove-all").addEventListener("click",(function(){
+                                            Swal.fire({
+                                                text:"Are you sure you would like to remove all files?",
+                                                icon:"warning",
+                                                showCancelButton:!0,
+                                                buttonsStyling:!1,
+                                                confirmButtonText:"Yes, remove it!",
+                                                cancelButtonText:"No, return",
+                                                customClass:{
+                                                    confirmButton:"btn btn-primary",
+                                                    cancelButton:"btn btn-active-light"
+                                                }}).then((function(e){
+                                                    e.value?(
+                                                        t.querySelector(".dropzone-upload").style.display="none",
+                                                        t.querySelector(".dropzone-remove-all").style.display="none",
+                                                        r.removeAllFiles(!0)):"cancel"===e.dismiss&&Swal.fire({
+                                                        text:"Your files was not removed!.",
+                                                        icon:"error",
+                                                        buttonsStyling:!1,
+                                                        confirmButtonText:"Ok, got it!",
+                                                        customClass:{
+                                                            confirmButton:"btn btn-primary"
+                                                        }})
+                                                }))
+                                        })),
+                                        r.on("queuecomplete",(function(e){
+                                            t.querySelectorAll(".dropzone-upload").forEach((e=>{
+                                                e.style.display="none"
+                                            }))})),
+                                        r.on("removedfile",(function(e){
+                                            r.files.length<1&&(t.querySelector(".dropzone-upload").style.display="none",
+                                            t.querySelector(".dropzone-remove-all").style.display="none")
+                                        }))
+                                })(),
+                m(),
+                d(),
+                (()=>{
+                    const e=document.querySelector("#kt_modal_move_to_folder"),
+                    t=e.querySelector("#kt_modal_move_to_folder_form"),
+                    o=t.querySelector("#kt_modal_move_to_folder_submit"),
+                    n=new bootstrap.Modal(e);
+                    var r=FormValidation.formValidation(t,{
+                        fields:{
+                            move_to_folder:{
+                                validators:{
+                                    notEmpty:{message:"Please select a folder."}}}},plugins:{trigger:new FormValidation.plugins.Trigger,bootstrap:new FormValidation.plugins.Bootstrap5({rowSelector:".fv-row",eleInvalidClass:"",eleValidClass:""})}});o.addEventListener("click",(e=>{e.preventDefault(),o.setAttribute("data-kt-indicator","on"),r&&r.validate().then((function(e){console.log("validated!"),"Valid"==e?setTimeout((function(){Swal.fire({text:"Are you sure you would like to move to this folder",icon:"warning",showCancelButton:!0,buttonsStyling:!1,confirmButtonText:"Yes, move it!",cancelButtonText:"No, return",customClass:{confirmButton:"btn btn-primary",cancelButton:"btn btn-active-light"}}).then((function(e){e.isConfirmed?(t.reset(),n.hide(),toastr.options={closeButton:!0,debug:!1,newestOnTop:!1,progressBar:!1,positionClass:"toastr-top-right",preventDuplicates:!1,showDuration:"300",hideDuration:"1000",timeOut:"5000",extendedTimeOut:"1000",showEasing:"swing",hideEasing:"linear",showMethod:"fadeIn",hideMethod:"fadeOut"},toastr.success("1 item has been moved."),o.removeAttribute("data-kt-indicator")):(Swal.fire({text:"Your action has been cancelled!.",icon:"error",buttonsStyling:!1,confirmButtonText:"Ok, got it!",customClass:{confirmButton:"btn btn-primary"}}),o.removeAttribute("data-kt-indicator"))}))}),500):o.removeAttribute("data-kt-indicator")}))}))})(),f(),KTMenu.createInstances())}}}();KTUtil.onDOMContentLoaded((function(){KTFileManagerList.init()}));
