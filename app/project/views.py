@@ -148,7 +148,7 @@ class DownloadFile(LoginRequiredMixin, View):
         file_size = int(file_size_request.headers['Content-Length'])
         size = float(file_size / 1000000)
         size = round(size, 2)
-        if size < 900:
+        if size < 25:
             block_size = 1024
             filename = file.filename()
             with open(filename, 'wb') as f:
