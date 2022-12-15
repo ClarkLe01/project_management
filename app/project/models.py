@@ -85,5 +85,5 @@ class File(models.Model):
             }
             if extension in ext_dict.keys():
                 return './static/assets/media/svg/files/'+ext_dict[extension]
-            return './static/assets/media/svg/files/undefined-files.svg'
+            return './static/assets/media/svg/files/undefined-file.svg'
         return read_file(get_url_svg_icon(self.extension()))

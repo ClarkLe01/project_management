@@ -136,7 +136,9 @@ def delete_project(request, pk):
 class DocumentProjectView(LoginRequiredMixin, View):
     def get(self, request, pk):
         project = get_object_or_404(Project, id=pk)
-        files = File.objects.filter(project=project)
+        print(project.files)
+        files = File.objects.all()
+        print(files)
         return render(request, 'projectdetails/files.html', {'project': project, 'files':files})
 
 
@@ -167,11 +169,10 @@ class DeleteFile(LoginRequiredMixin, View):
     def get(self, request, pk):
         try:
             file = File.objects.get(pk=pk)
-            url_redirect = file.project_id
             file.delete()
-            return redirect('/documents/{0}/'.format(url_redirect))
+            return HttpResponse('Ok', status=200)
         except File.DoesNotExist:
-            raise File.DoesNotExist('Not exists files')
+            return HttpResponse('Not exists files', status=400)
 
 class UploadFile(LoginRequiredMixin,View):
     def post(self, request, pk):
