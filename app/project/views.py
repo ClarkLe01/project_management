@@ -171,4 +171,8 @@ class DeleteFile(LoginRequiredMixin, View):
             file.delete()
             return redirect('/documents/{0}/'.format(url_redirect))
         except File.DoesNotExist:
-            raise File.DoesNotExist('Not exists file')
+            raise File.DoesNotExist('Not exists files')
+
+class UploadFile(LoginRequiredMixin,View):
+    def post(self, request, pk):
+        pass

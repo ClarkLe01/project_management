@@ -41,7 +41,7 @@ class CustomUserManager(BaseUserManager):
 
 
 def user_avatar_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    # files will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     dt_string = datetime.now().strftime("%d%m%Y%H%M%S_")
     filename = dt_string + filename
     return 'user_{0}/avatar/{1}'.format(instance.id, filename)

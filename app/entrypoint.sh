@@ -19,5 +19,6 @@ python manage.py loaddata fixtures/users.json --app user.User
 python manage.py loaddata fixtures/projects.json --app project.Project
 python manage.py loaddata fixtures/files.json --app project.File
 python manage.py runserver 0.0.0.0:8000
+
 exec "$@"
 

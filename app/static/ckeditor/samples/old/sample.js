@@ -4,7 +4,7 @@
  */
 
 // Tool scripts for the sample pages.
-// This file can be ignored and is not required to make use of CKEditor.
+// This files can be ignored and is not required to make use of CKEditor.
 
 ( function() {
 	CKEDITOR.on( 'instanceReady', function( ev ) {

@@ -155,7 +155,7 @@ $("#kt_account_deactivate_account_submit").on('click', function(e){
         if (result.isConfirmed) {
             Swal.fire(
                 'Deleted!',
-                'Your file has been deleted.',
+                'Your files has been deleted.',
                 'success'
             ).then(() => {
                 $("#delete_form").submit();

@@ -28,7 +28,7 @@ class Project(models.Model):
 
 
 def user_project_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    # files will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_{0}/projects/project_{1}/{2}'.format(instance.project.created_by.id, instance.project.id, filename)
 
 
@@ -85,5 +85,5 @@ class File(models.Model):
             }
             if extension in ext_dict.keys():
                 return './static/assets/media/svg/files/'+ext_dict[extension]
-            return './static/assets/media/svg/files/undefined-file.svg'
+            return './static/assets/media/svg/files/undefined-files.svg'
         return read_file(get_url_svg_icon(self.extension()))
