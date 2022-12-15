@@ -12,17 +12,20 @@ function popupFileDelete(message, type){
         }
     })
 }
-async function deleteFile(url, n){
+async function deleteFile(url, n, o){
     const response = await fetch(url, {
         method: 'GET'
     });
     if(response.status === 200){
         popupFileDelete("You have deleted "+n+"!.","success").then((function(){
-            table.row($(o)).remove().draw()
+            table.row($(o)).remove().draw();
+            location.reload();
         }));
     }
     else{
-        popupFileDelete("Something wrong! Please perform again!","error");
+        popupFileDelete("Something wrong! Please perform again!","error").then(()=>{
+            location.reload();
+        });
     }
 }
 delete_link.forEach(t=>{
@@ -43,7 +46,9 @@ delete_link.forEach(t=>{
             }
         }).then((result)=>{
             if(result.isConfirmed) {
-                deleteFile(t.href, n).then(r => console.log(r));
+                deleteFile(t.href, n, o).then(r => {
+                });
+
             } else {
                 popupFileDelete(n+" was not deleted.","error");
             }
