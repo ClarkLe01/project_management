@@ -87,3 +87,10 @@ class File(models.Model):
                 return './static/assets/media/svg/files/'+ext_dict[extension]
             return './static/assets/media/svg/files/undefined-file.svg'
         return read_file(get_url_svg_icon(self.extension()))
+
+
+
+class Tasks(models.Model):
+    name = models.CharField(max_length=255)
+    status = models.PositiveSmallIntegerField(default=0)
+
