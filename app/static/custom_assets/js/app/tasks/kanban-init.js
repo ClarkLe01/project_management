@@ -139,25 +139,33 @@ const isDragging = (e) => {
     });
 }
 
-let kanbanBoardTitle = document.querySelectorAll('.kanban-title-board');
-let kanbanBoardMain = document.querySelectorAll('.kanban-drag');
-let kanbanBoardFooter = document.querySelectorAll('.kanban-container>div>footer');
-kanbanBoardTitle.forEach(t=>{
+let kanbanBoardTitles = document.querySelectorAll('.kanban-title-board');
+let kanbanBoardMains = document.querySelectorAll('.kanban-drag');
+let kanbanBoardItems = document.querySelectorAll('.kanban-item');
+let kanbanBoardFooters = document.querySelectorAll('.kanban-container>div>footer');
+kanbanBoardTitles.forEach(t=>{
     t.classList.add('d-flex');
     t.classList.add('justify-content-center');
 });
-kanbanBoardMain.forEach(t=>{
+kanbanBoardMains.forEach(t=>{
     t.classList.add('card');
 });
-kanbanBoardFooter.forEach(t=>{
+kanbanBoardItems.forEach(t=>{
+    t.classList.add('fw-bold');
+    console.log(t.dataset.eid)
+    t.setAttribute("data-bs-toggle", "modal");
+    t.setAttribute("data-bs-target", "#kt_modal_new_task");
+});
+kanbanBoardFooters.forEach(t=>{
     t.classList.add('d-flex');
     t.classList.add('justify-content-center');
 });
-
 let createTaskKanbanBtn = document.createElement("button");
-createTaskKanbanBtn.setAttribute("class", "btn btn-primary w-100 my-3");
+createTaskKanbanBtn.setAttribute("class", "btn btn-primary er w-100 fs-6 px-8 my-4");
+createTaskKanbanBtn.setAttribute("data-bs-toggle", "modal");
+createTaskKanbanBtn.setAttribute("data-bs-target", "#kt_modal_new_task");
 createTaskKanbanBtn.innerHTML += "Create New Task";
-kanbanBoardFooter[0].appendChild(createTaskKanbanBtn)
+kanbanBoardFooters[0].appendChild(createTaskKanbanBtn)
 createTaskKanbanBtn.addEventListener('click',(e)=>{
     e.preventDefault();
     console.log("Create New Task")

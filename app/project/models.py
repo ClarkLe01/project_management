@@ -91,6 +91,8 @@ class File(models.Model):
 
 
 class Tasks(models.Model):
-    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     status = models.PositiveSmallIntegerField(default=0)
-
+    assignee = models.CharField(max_length=255)
+    due_date = models.DateTimeField()
+    target_details = models.CharField(max_length=255)
