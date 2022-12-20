@@ -10,18 +10,20 @@ class Task(models.Model):
     INPROCESS = 'inprocess'
     WORKING = 'working'
     DONE = 'done'
-    STATUS_CHOICES = [(BACKLOG,'backlog'), (INPROCESS,'inprocess'), (WORKING,'working'), (DONE,'done')]
+    STATUS_CHOICES = [(BACKLOG, 'backlog'), (INPROCESS, 'inprocess'), (WORKING, 'working'), (DONE, 'done')]
     status = models.CharField(max_length=255, choices=STATUS_CHOICES, default=BACKLOG)
     assignee = models.CharField(max_length=255)
     due_date = models.DateTimeField()
     target_details = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.project.name+' - '+self.title
+        return self.project.name + ' - ' + self.title
+
 
 class TaskComment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     description = models.CharField(max_length=255)
+
     def __str__(self):
         return self.task.title

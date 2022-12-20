@@ -149,7 +149,7 @@ fetch(`detail/${$("#project_id").val()}/tasklistapi`)
         kanbanBoardItems.forEach(t=>{
             t.classList.add('fw-bold');
             t.setAttribute("data-bs-toggle", "modal");
-            t.setAttribute("data-bs-target", "#kt_modal_new_task");
+            t.setAttribute("data-bs-target", `#kt_modal_update_task_${t.dataset.eid}`);
         });
         kanbanBoardFooters.forEach(t=>{
             t.classList.add('d-flex');

@@ -6,56 +6,56 @@
       "name": "Python"
     }
   },
-   {
+  {
     "model": "utils.ProgrammingLanguage",
     "pk": 2,
     "fields": {
       "name": "C/C++"
     }
   },
-   {
+  {
     "model": "utils.ProgrammingLanguage",
     "pk": 3,
     "fields": {
       "name": "Java"
     }
   },
-   {
+  {
     "model": "utils.ProgrammingLanguage",
     "pk": 4,
     "fields": {
       "name": "Javascript"
     }
   },
-   {
+  {
     "model": "utils.ProgrammingLanguage",
     "pk": 5,
     "fields": {
       "name": "C#"
     }
   },
-   {
+  {
     "model": "utils.ProgrammingLanguage",
     "pk": 6,
     "fields": {
       "name": "Mathlab"
     }
   },
-   {
+  {
     "model": "utils.ProgrammingLanguage",
     "pk": 7,
     "fields": {
       "name": "Nodejs"
     }
   },
-   {
+  {
     "model": "utils.ProgrammingLanguage",
     "pk": 8,
     "fields": {
       "name": "ReactJs"
     }
   },
-   {
+  {
     "model": "utils.ProgrammingLanguage",
     "pk": 9,
     "fields": {
