@@ -1,7 +1,8 @@
 from django.contrib import admin
 from .models import *
 from .forms import ProjectForm
-
+from project.files.models import File
+from project.tasks.models import Task, TaskComment
 class CollaboratorInline(admin.TabularInline):
     model = Project.collaborators.through
 
@@ -32,3 +33,5 @@ class ProjectsAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Project, ProjectsAdmin)
 admin.site.register(File)
+admin.site.register(Task)
+admin.site.register(TaskComment)

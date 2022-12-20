@@ -3,7 +3,7 @@ from user.login.views import LoginView
 from user.register.views import RegisterView
 from .views import ProjectDashBoardView, ProjectViewDetailView, UpdateProjectView, delete_project
 from project.files.views import DocumentProjectView, DownloadFile, DeleteFile
-from project.tasks.views import TasksProjectView
+from project.tasks.views import TasksProjectView, TaskKanbanBoardApiView, UpdateTaskView
 
 app_name = 'project'
 urlpatterns = [
@@ -14,5 +14,7 @@ urlpatterns = [
     path('detail/<int:pk>/documents', DocumentProjectView.as_view(), name='documents'),
     path('downloadfile/<int:pk>', DownloadFile.as_view(), name='downloadfile'),
     path('deletefile/', DeleteFile.as_view(), name='deletefile'),
-    path('detail/<int:pk>/tasks', TasksProjectView.as_view(), name='tasks')
+    path('detail/<int:pk>/tasks', TasksProjectView.as_view(), name='tasks'),
+    path('detail/<int:pk>/tasklistapi', TaskKanbanBoardApiView.as_view(), name='tasklistapi'),
+    path('task/<int:pk>/update', UpdateTaskView.as_view(), name='updatetask'),
 ]

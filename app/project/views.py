@@ -4,7 +4,8 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View, TemplateView
-from .models import Project, File
+from .models import Project
+from project.files.models import File
 from user.models import *
 from utils.models import *
 from django.db.models import Q

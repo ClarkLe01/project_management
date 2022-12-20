@@ -1,12 +1,11 @@
 import requests
-from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
-from project.models import Project, File
+from .models import File
+from project.models import Project
 from user.models import *
 from utils.models import *
-from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 import os
 
