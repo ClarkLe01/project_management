@@ -121,11 +121,11 @@
                 <!--begin::Modal body-->
                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                     <!--begin:Form-->
-                    <form id="kt_modal_new_target_form" class="form" action="#">
+                    <form id="kt_modal_new_target_form" class="form" method="post">
                         <!--begin::Heading-->
                         <div class="mb-13 text-center">
                             <!--begin::Title-->
-                            <h1 class="mb-3">Set First Target</h1>
+                            <h1 class="mb-3">Set Tasks</h1>
                             <!--end::Title-->
                             <!--begin::Description-->
                             <div class="text-muted fw-semibold fs-5">If you need more info, please check
@@ -137,11 +137,11 @@
                         <div class="d-flex flex-column mb-8 fv-row">
                             <!--begin::Label-->
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">Target Title</span>
+                                <span class="required">Task Title</span>
                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
                             <!--end::Label-->
-                            <input type="text" class="form-control form-control-solid" placeholder="Enter Target Title" name="target_title" />
+                            <input type="text" class="form-control form-control-solid" placeholder="Enter Target Title" name="task_title" />
                         </div>
                         <!--end::Input group-->
                         <!--begin::Input group-->
@@ -149,7 +149,7 @@
                             <!--begin::Col-->
                             <div class="col-md-6 fv-row">
                                 <label class="required fs-6 fw-semibold mb-2">Assign</label>
-                                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="target_assign">
+                                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a Team Member" name="task_assign">
                                     <option value="">Select user...</option>
                                     <option value="1">Karina Clark</option>
                                     <option value="2">Robert Doe</option>
@@ -176,7 +176,7 @@
                                     <!--end::Svg Icon-->
                                     <!--end::Icon-->
                                     <!--begin::Datepicker-->
-                                    <input class="form-control form-control-solid ps-12" placeholder="Select a date" name="due_date" />
+                                    <input class="form-control form-control-solid ps-12 js-datepicker" placeholder="Select a date" name="due_date" />
                                     <!--end::Datepicker-->
                                 </div>
                                 <!--end::Input-->
@@ -186,8 +186,8 @@
                         <!--end::Input group-->
                         <!--begin::Input group-->
                         <div class="d-flex flex-column mb-8">
-                            <label class="fs-6 fw-semibold mb-2">Target Details</label>
-                            <textarea class="form-control form-control-solid" rows="3" name="target_details" placeholder="Type Target Details"></textarea>
+                            <label class="fs-6 fw-semibold mb-2">Task Details</label>
+                            <textarea class="form-control form-control-solid" rows="3" name="task_details" placeholder="Type Target Details"></textarea>
                         </div>
                         <!--end::Input group-->
                         <!--begin::Actions-->
@@ -217,4 +217,5 @@
 {% block js %}
     <script src="{% static 'assets/plugins/custom/jkanban/jkanban.bundle.js' %}"></script>
     <script src="{% static 'custom_assets/js/app/tasks/kanban-init.js' %}"></script>
+    <script src="{% static 'custom_assets/js/app/projects/fields/tagify.js' %}"></script>
 {% endblock %}
