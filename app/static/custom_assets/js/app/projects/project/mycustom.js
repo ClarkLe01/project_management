@@ -14,7 +14,6 @@ function popup(message, type){
 async function postCreatingProject(url) {
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     let form_data = new FormData();
-    console.log(editor.getData())
     form_data.append("name", $('#project_name').val());
     form_data.append("description", editor.getData());
     form_data.append("start", $('#start_date').val());

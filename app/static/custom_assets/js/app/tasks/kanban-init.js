@@ -11,10 +11,10 @@ async function updateTaskStatus(id, status) {
         }
     });
     if(response.status===200){
-        location.reload();
+        console.log("Update status successfully");
     }
     else{
-        location.reload();
+        console.log("Error: " + response.status);
     }
 }
 
@@ -24,12 +24,12 @@ fetch(`detail/${$("#project_id").val()}/tasklistapi`)
         let id = '#kt_docs_jkanban_basic';
         const element = document.querySelector("#kt_docs_jkanban_basic")
         const kanbanHeight = element.getAttribute('data-jkanban-height');
-        let backlog_data = [], inprocess_data=[], working_data = [], done_data = [];
+        let backlog_data = [], todo_data=[], working_data = [], done_data = [];
         data.forEach(e=>{
             if(e.status === 'backlog') {
                 backlog_data.push({'id': e.id, 'title': e.title})
-            } else if(e.status === 'inprocess'){
-                inprocess_data.push({'id': e.id, 'title': e.title})
+            } else if(e.status === 'todo'){
+                todo_data.push({'id': e.id, 'title': e.title})
             } else if(e.status === 'working'){
                 working_data.push({'id': e.id, 'title': e.title})
             } else if(e.status === 'done'){
@@ -44,10 +44,10 @@ fetch(`detail/${$("#project_id").val()}/tasklistapi`)
                 'item': backlog_data
             },
             {
-                'id': 'inprocess',
-                'title': 'In Process',
+                'id': 'todo',
+                'title': 'To Do',
                 'class': 'card-title, warning',
-                'item': inprocess_data
+                'item': todo_data
             },
             {
                 'id': 'working',
@@ -81,9 +81,21 @@ fetch(`detail/${$("#project_id").val()}/tasklistapi`)
             },
 
             click: function (el) {
-
+                fetch(`task/${el.dataset.eid}`).then(res => res.json())
+                    .then(data => {
+                        $("#selected_task").val(data.id);
+                        $("#update_task_title").val(data.title);
+                        const fp = flatpickr($("#update_due_date"),{});
+                        fp.setDate(data.due_date);
+                        $("#update_task_details").val(data.task_details);
+                        $("#update_task_assign").select2("val",data.assignee.toString());
+                    })
+                $("#kt_modal_update_task").modal("show");
             },
         });
+        $('#kt_modal_update_task').on('hidden.bs.modal', function (e) {
+            $("#selected_task").val('');
+        })
 
         const allBoards = document.querySelectorAll('.kanban-drag');
         allBoards.forEach(board => {
@@ -148,8 +160,8 @@ fetch(`detail/${$("#project_id").val()}/tasklistapi`)
         });
         kanbanBoardItems.forEach(t=>{
             t.classList.add('fw-bold');
-            t.setAttribute("data-bs-toggle", "modal");
-            t.setAttribute("data-bs-target", `#kt_modal_update_task_${t.dataset.eid}`);
+            // t.setAttribute("data-bs-toggle", "modal");
+            // t.setAttribute("data-bs-target", `#kt_modal_update_task_${t.dataset.eid}`);
         });
         kanbanBoardFooters.forEach(t=>{
             t.classList.add('d-flex');

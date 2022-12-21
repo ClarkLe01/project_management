@@ -6,7 +6,7 @@ from project.tasks.models import Task
 class TaskKanbanSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ['id','title','status']
+        fields = ['id','title','status', 'assignee', 'due_date', 'task_details']
 
 
 

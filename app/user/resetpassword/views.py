@@ -31,8 +31,8 @@ def forgotPassword(request):
                 'uid': signer.sign(int(user.pk)),
                 'token': default_token_generator.make_token(user),
             }
-            messages = get_template('authentication/reset_password/email_reset_password.html').render(
-                context_message)  # noqa: 501
+            messages = get_template('authentication/reset_password/email_reset_password.html').\
+                render(context_message)  # noqa: 501
             send_email = EmailMessage(mail_subject, messages, to=[email])
             send_email.content_subtype = 'html'
             send_email.send(fail_silently=False)

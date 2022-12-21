@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'utils',
     'project',
     'testing',
+    'drf_yasg',
 ]
 
 SITE_ID = 1

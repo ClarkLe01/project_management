@@ -7,14 +7,14 @@ class Task(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     BACKLOG = 'backlog'
-    INPROCESS = 'inprocess'
+    TODO = 'todo'
     WORKING = 'working'
     DONE = 'done'
-    STATUS_CHOICES = [(BACKLOG, 'backlog'), (INPROCESS, 'inprocess'), (WORKING, 'working'), (DONE, 'done')]
+    STATUS_CHOICES = [(BACKLOG, 'backlog'), (TODO, 'todo'), (WORKING, 'working'), (DONE, 'done')]
     status = models.CharField(max_length=255, choices=STATUS_CHOICES, default=BACKLOG)
-    assignee = models.CharField(max_length=255)
-    due_date = models.DateTimeField()
-    target_details = models.CharField(max_length=255)
+    assignee = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    due_date = models.DateField()
+    task_details = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.project.name + ' - ' + self.title

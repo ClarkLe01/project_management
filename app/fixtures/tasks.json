@@ -6,9 +6,9 @@
             "project": 1,
             "title": "Task 1",
             "status": "backlog",
-            "assignee": "test",
-            "due_date": "2022-12-20T16:39:12Z",
-            "target_details": "test"
+            "assignee": 1,
+            "due_date": "2022-12-21",
+            "task_details": "Test"
         }
     },
     {
@@ -18,9 +18,9 @@
             "project": 1,
             "title": "Task 2",
             "status": "backlog",
-            "assignee": "a",
-            "due_date": "2022-12-20T16:39:31Z",
-            "target_details": "a"
+            "assignee": 5,
+            "due_date": "2022-12-20",
+            "task_details": "a"
         }
     },
     {
@@ -29,10 +29,10 @@
         "fields": {
             "project": 1,
             "title": "Task 3",
-            "status": "inprocess",
-            "assignee": "test",
-            "due_date": "2022-12-20T16:40:00Z",
-            "target_details": "test"
+            "status": "todo",
+            "assignee": 6,
+            "due_date": "2022-12-20",
+            "task_details": "test"
         }
     },
     {
@@ -41,10 +41,10 @@
         "fields": {
             "project": 1,
             "title": "Task 4",
-            "status": "inprocess",
-            "assignee": "test",
-            "due_date": "2022-12-20T16:40:00Z",
-            "target_details": "test"
+            "status": "todo",
+            "assignee": 7,
+            "due_date": "2022-12-20",
+            "task_details": "test"
         }
     },
     {
@@ -54,9 +54,9 @@
             "project": 1,
             "title": "Task 5",
             "status": "working",
-            "assignee": "test",
-            "due_date": "2022-12-20T16:40:00Z",
-            "target_details": "test"
+            "assignee": 8,
+            "due_date": "2022-12-02",
+            "task_details": "test"
         }
     },
     {
@@ -66,9 +66,9 @@
             "project": 1,
             "title": "Task 6",
             "status": "working",
-            "assignee": "test",
-            "due_date": "2022-12-20T16:40:00Z",
-            "target_details": "test"
+            "assignee": 8,
+            "due_date": "2022-12-17",
+            "task_details": "test"
         }
     },
     {
@@ -78,9 +78,45 @@
             "project": 1,
             "title": "Task 7",
             "status": "done",
-            "assignee": "test",
-            "due_date": "2022-12-20T16:40:00Z",
-            "target_details": "test"
+            "assignee": 7,
+            "due_date": "2022-12-15",
+            "task_details": "test"
+        }
+    },
+    {
+        "model": "project.task",
+        "pk": 8,
+        "fields": {
+            "project": 1,
+            "title": "Task 8",
+            "status": "backlog",
+            "assignee": 6,
+            "due_date": "2022-12-14",
+            "task_details": "ok con de"
+        }
+    },
+    {
+        "model": "project.task",
+        "pk": 9,
+        "fields": {
+            "project": 1,
+            "title": "Task 9",
+            "status": "backlog",
+            "assignee": 5,
+            "due_date": "2022-12-12",
+            "task_details": "ok "
+        }
+    },
+    {
+        "model": "project.task",
+        "pk": 10,
+        "fields": {
+            "project": 1,
+            "title": "Task 10",
+            "status": "backlog",
+            "assignee": 7,
+            "due_date": "2022-12-01",
+            "task_details": ""
         }
     }
 ]
