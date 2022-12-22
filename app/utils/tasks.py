@@ -1,5 +1,6 @@
 from celery.utils.log import get_task_logger
 import requests
+from django.core.mail import EmailMessage
 from utils.models import Currency
 from project.models import Project
 from datetime import datetime
@@ -34,3 +35,11 @@ def updated_currency_exchange_rate():
         logger.info("The Currency Data updated at " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))  # noqa: 501
     else:
         logger.error("The Currency API Call failed at " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))  # noqa: 501
+
+
+@shared_task
+def send_email(mail_subject, messages, recipients):
+    email = EmailMessage(mail_subject, messages, to=recipients)
+    print(recipients)
+    email.content_subtype = 'html'
+    email.send(fail_silently=True)

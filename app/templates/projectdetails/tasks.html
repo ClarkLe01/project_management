@@ -246,14 +246,29 @@
                         </div>
                         <!--end::Heading-->
                         <!--begin::Input group-->
-                        <div class="d-flex flex-column mb-8 fv-row">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">Task Title</span>
-                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
-                            </label>
-                            <!--end::Label-->
-                            <input type="text" id="update_task_title" class="form-control form-control-solid" placeholder="Enter Task Title" name="task_title" />
+                        <div class="row g-9 mb-8">
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">Task Title</span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                                </label>
+                                <!--end::Label-->
+                                <input type="text" id="update_task_title" class="form-control form-control-solid" placeholder="Enter Task Title" name="task_title" />
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <label class="required fs-6 fw-semibold mb-2">Status</label>
+                                <select class="form-select form-select-solid" id="update_task_status" data-control="select2" data-hide-search="true" data-placeholder="Select a status" name="task_status">
+                                    <option value="0">Back Log</option>
+                                    <option value="1">To Do</option>
+                                    <option value="2">Working</option>
+                                    <option value="3">Done</option>
+                                </select>
+                            </div>
+                            <!--end::Col-->
                         </div>
                         <!--end::Input group-->
                         <!--begin::Input group-->
@@ -302,7 +317,7 @@
                         <!--end::Input group-->
                         <!--begin::Actions-->
                         <div class="text-center ">
-                            <button type="button" id="kt_modal_update_task_delete" class="btn btn-danger me-3" data-bs-dismiss="modal">Delete</button>
+                            <button type="button" id="kt_modal_update_task_delete" class="btn btn-danger me-3">Delete</button>
                             <button type="submit" id="kt_modal_update_task_submit" class="btn btn-primary">
                                 <span class="indicator-label">Submit</span>
                                 <span class="indicator-progress">Please wait...
@@ -319,7 +334,6 @@
         </div>
         <!--end::Modal dialog-->
     </div>
-
     {% csrf_token %}
 {% endblock %}
 {% block js %}
@@ -328,4 +342,5 @@
     <script src="{% static 'custom_assets/js/app/projects/fields/datepicker.js' %}"></script>
     <script src="{% static 'custom_assets/js/app/tasks/create-task.js' %}"></script>
     <script src="{% static 'custom_assets/js/app/tasks/update-task.js' %}"></script>
+    <script src="{% static 'custom_assets/js/app/tasks/delete-task.js' %}"></script>
 {% endblock %}

@@ -1,5 +1,4 @@
 import os
-
 from celery import Celery
 from celery.schedules import crontab
 
@@ -27,6 +26,4 @@ app.conf.beat_schedule = {
 app.autodiscover_tasks()
 
 
-@app.task(bind=True)
-def debug_task(self):
-    print(f'Request: {self.request!r}')
+

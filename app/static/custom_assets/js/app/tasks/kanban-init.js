@@ -88,6 +88,15 @@ fetch(`detail/${$("#project_id").val()}/tasklistapi`)
                         const fp = flatpickr($("#update_due_date"),{});
                         fp.setDate(data.due_date);
                         $("#update_task_details").val(data.task_details);
+                        console.log(data.status)
+                        let status = {
+                            "backlog": 0,
+                            "todo": 1,
+                            "working": 2,
+                            "done": 3,
+                        }
+                        console.log(status[data.status])
+                        $("#update_task_status").select2("val",status[data.status].toString());
                         $("#update_task_assign").select2("val",data.assignee.toString());
                     })
                 $("#kt_modal_update_task").modal("show");

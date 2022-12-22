@@ -1,4 +1,4 @@
-function popup(message, type){
+function popup(message, type)   {
     return Swal.fire({
         text: message,
         icon: type,
@@ -113,7 +113,7 @@ submitButton.addEventListener('click', function (e) {
                             form.reset();
                         }
                     }))
-            }),1500);
+            }),200);
         }
         else{
             Swal.fire({
