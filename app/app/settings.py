@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'project',
     'testing',
     'drf_yasg',
+    'guardian',
 ]
 
 SITE_ID = 1
@@ -160,7 +161,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend'
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
 ]
 
 LOGOUT_REDIRECT_URL = "/signin"

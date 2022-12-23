@@ -3,6 +3,9 @@ from .models import *
 from .forms import ProjectForm
 from project.files.models import File
 from project.tasks.models import Task, TaskComment
+from guardian.admin import GuardedModelAdmin
+
+
 class CollaboratorInline(admin.TabularInline):
     model = Project.collaborators.through
 
@@ -11,7 +14,7 @@ class LangCodeInline(admin.TabularInline):
     model = Project.langcode_tags.through
 
 
-class ProjectsAdmin(admin.ModelAdmin):
+class ProjectsAdmin(GuardedModelAdmin):
     form = ProjectForm
     list_display = ['name', 'description', 'start_date', 'end_date', 'status', 'cost', 'base',
                     'created_by']

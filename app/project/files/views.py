@@ -15,14 +15,14 @@ class DocumentProjectView(LoginRequiredMixin, View):
         print(pk)
         project = get_object_or_404(Project, id=pk)
         files = File.objects.filter(project=project)
-        return render(request, 'projectdetails/files.html', {'project': project, 'files':files})
+        return render(request, 'projectdetails/files.html', {'project': project, 'files': files})
 
 
 class DownloadFile(LoginRequiredMixin, View):
     def get(self, request, pk):
         file = File.objects.get(pk=pk)
 
-        file_size_request = requests.get(request.scheme+'://'+request.META['HTTP_HOST']+file.url(), stream=True)
+        file_size_request = requests.get(request.scheme + '://' + request.META['HTTP_HOST'] + file.url(), stream=True)
         file_size = int(file_size_request.headers['Content-Length'])
         size = float(file_size / 1000000)
         size = round(size, 2)
@@ -41,24 +41,26 @@ class DownloadFile(LoginRequiredMixin, View):
             return response
         return HttpResponse('Bad request', status=400)
 
+
 class DeleteFile(LoginRequiredMixin, View):
     def post(self, request):
         try:
             delete_files = [int(x) for x in request.POST.get('delete_files').split(',')]
             files = File.objects.filter(id__in=delete_files)
             for file in files:
-                print('.'+file.url())
-                os.remove('.'+file.url())
+                print('.' + file.url())
+                os.remove('.' + file.url())
                 file.delete()
             return HttpResponse('Ok', status=200)
         except Exception:
             return HttpResponse('Bad Request', status=400)
 
 
-class UploadFile(LoginRequiredMixin,View):
+class UploadFile(LoginRequiredMixin, View):
     def post(self, request):
         pass
 
-class RenameFile(LoginRequiredMixin,View):
+
+class RenameFile(LoginRequiredMixin, View):
     def post(self, request):
         pass

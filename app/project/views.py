@@ -1,5 +1,6 @@
 import requests
 from django.conf import settings
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
@@ -93,14 +94,14 @@ class ProjectDashBoardView(LoginRequiredMixin, View):
                                          base=base)
         project.collaborators.add(*collaborator_list)
         project.langcode_tags.add(*lang_list)
-        project.save()
+
         for _, file in dict(documents).items():
             file_object = File.objects.create(project=project, file=file[0])
             print(file_object)
         return HttpResponse('Created', status=201)
 
-
 class ProjectViewDetailView(LoginRequiredMixin, View):
+
     def get(self, request, pk):
         project = get_object_or_404(Project, id=pk)
         return render(request, 'projectdetails/overview.html', {'project': project})

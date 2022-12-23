@@ -105,9 +105,7 @@ let projectlangs= [];
 fetch('/utils/projectlangs/', {method: 'GET', mode: 'same-origin',})
     .then(response => response.json())
     .then(data=>{
-        console.log(data)
         data.forEach(project => {
-            console.log(project.name)
             projectlangs.unshift(project.name)
         })
 
@@ -121,7 +119,7 @@ fetch('/utils/projectlangs/', {method: 'GET', mode: 'same-origin',})
                 maxItems: 20,           // <- mixumum allowed rendered suggestions
                 classname: "tagify__inline__suggestions", // <- custom classname for this dropdown, so it could be targeted
                 enabled: 0,             // <- show suggestions on focus
-                closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
+                closeOnSelect: true    // <- do not hide the suggestions dropdown once an item has been selected
             }
         });
     });

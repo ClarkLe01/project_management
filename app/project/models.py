@@ -4,6 +4,8 @@ from utils.models import ProgrammingLanguage, Currency
 from ckeditor.fields import RichTextField
 from app.storage import OverwriteStorage
 import os
+
+
 # Create your models here.
 
 class Project(models.Model):
@@ -25,6 +27,3 @@ class Project(models.Model):
 
     class Meta:
         db_table = 'Project'
-
-
-
