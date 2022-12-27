@@ -27,3 +27,12 @@ class Project(models.Model):
 
     class Meta:
         db_table = 'Project'
+        permissions = [
+            ("olp_view_project", "OLP can view project"),
+            ("olp_update_project", "OLP can update project"),
+            ("olp_delete_project", "OLP can delete project"),
+            ("olp_view_collaborator_project", "OLP can view project"),
+            ("olp_add_collaborator_project", "OLP can add collaborator project"),
+            ("olp_update_collaborator_project", "OLP can update collaborator project"),
+            ("olp_delete_collaborator_project", "OLP can delete collaborator project"),
+        ]

@@ -6,13 +6,14 @@ from project.models import Project
 from ..models import User
 from django.contrib.auth.hashers import check_password
 
+
 class UserProfile(View):
     template_name = 'userprofile/overview.html'
 
     def get(self, request, pk=None):
         context = {
             'user': User.objects.get(id=pk),
-            'projects': Project.objects.filter(created_by=pk or request.user.id) # noqa: 501
+            'projects': Project.objects.filter(created_by=pk or request.user.id)  # noqa: 501
         }
         return render(request, self.template_name, context)
 
@@ -39,9 +40,9 @@ class UpdateOwnProfile(LoginRequiredMixin, View):
             user = None
         if user is None:
             return HttpResponse('Not Found', status=404)
-        if fname:
+        if fname and fname != '':
             user.first_name = fname
-        if lname:
+        if lname and lname != '':
             user.last_name = lname
         if files:
             user.avatar = files
@@ -61,7 +62,7 @@ class UpdatePass(LoginRequiredMixin, View):
         return render(request, self.template_name)
 
     def post(self, request):
-        currentpass = request.FILES.get("current_password")
+        currentpass = request.POST.get("current_password")
         newpass = request.POST.get("new_password")
         try:
             user = User.objects.get(id=request.user.id)
@@ -69,11 +70,9 @@ class UpdatePass(LoginRequiredMixin, View):
             user = None
         if user is None:
             return HttpResponse('Not Found', status=404)
-        if check_password(currentpass,user.password):
+        if check_password(currentpass, user.password):
             user.set_password(newpass)
             user.save()
             return HttpResponse('OK', status=200)
         else:
             return HttpResponse('Bad Request', status=400)
-
-

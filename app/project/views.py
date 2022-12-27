@@ -14,8 +14,11 @@ from .forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 import json
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from guardian.shortcuts import get_objects_for_user
+from guardian.core import ObjectPermissionChecker
+from django.core.exceptions import PermissionDenied
 
-PROJECT_PER_PAGE = 2
+PROJECT_PER_PAGE = 9
 
 
 def get_project_object(id, status=None):
@@ -27,7 +30,7 @@ def get_project_object(id, status=None):
 class ProjectDashBoardView(LoginRequiredMixin, View):
 
     def get(self, request):
-        projects = get_project_object(id=request.user.id)
+        projects = get_objects_for_user(request.user, 'project.olp_view_project', klass=Project)
         base = request.GET.get('base', 'USD')
         start = request.GET.get('start', None)
         end = request.GET.get('end', None)
@@ -100,17 +103,26 @@ class ProjectDashBoardView(LoginRequiredMixin, View):
             print(file_object)
         return HttpResponse('Created', status=201)
 
+
 class ProjectViewDetailView(LoginRequiredMixin, View):
 
     def get(self, request, pk):
+        checker = ObjectPermissionChecker(request.user)
         project = get_object_or_404(Project, id=pk)
-        return render(request, 'projectdetails/overview.html', {'project': project})
+        if checker.has_perm('olp_view_project', project):
+            return render(request, 'projectdetails/overview.html', {'project': project})
+        else:
+            raise PermissionDenied
 
 
 class UpdateProjectView(LoginRequiredMixin, View):
     def get(self, request, pk):
+        checker = ObjectPermissionChecker(request.user)
         project = get_object_or_404(Project, id=pk)
-        return render(request, 'projectdetails/settings.html', {'project': project})
+        if checker.has_perm('olp_view_project', project):
+            return render(request, 'projectdetails/settings.html', {'project': project})
+        else:
+            raise PermissionDenied
 
     def post(self, request, pk):
         project = Project.objects.get(id=pk)
@@ -125,14 +137,13 @@ class UpdateProjectView(LoginRequiredMixin, View):
 
 
 def delete_project(request, pk):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            try:
-                Project.objects.get(id=pk).delete()
-                return redirect('/project')
-            except Project.DoesNotExist:
-                raise Project.DoesNotExist('Not exists project')
+    checker = ObjectPermissionChecker(request.user)
+    project = Project.objects.get(id=pk)
+    if request.user.is_authenticated and checker.has_perm('olp_delete_project', project) and request.method == 'POST':
+        try:
+            project.delete()
+            return redirect('/project')
+        except Project.DoesNotExist:
+            raise Project.DoesNotExist('Not exists project')
     else:
         return HttpResponse('Bad request', status=404)
-
-
