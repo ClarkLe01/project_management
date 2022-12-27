@@ -3,11 +3,11 @@ async function postChangePass(url) {
     let form_data = new FormData();
     form_data.append('current_password', $('#currentpassword').val());
     form_data.append('new_password', $('#newpassword').val());
-    const response = await fetch(url,{
+    const response = await fetch(url, {
         method: 'POST',
         mode: 'same-origin',
         body: form_data,
-        headers:{
+        headers: {
             'X-CSRFToken': csrftoken
         }
     });
@@ -22,6 +22,7 @@ async function postChangePass(url) {
             }
         }).then((function() {
             c();
+            location.reload();
         }))
     }
     else{
@@ -84,9 +85,9 @@ let c = function() {
     i.classList.toggle("d-none");
     form_change_pass.reset();
 };
-i.addEventListener("click", (function() {
+i.addEventListener("click", ()=> {
     c();
-}));
+});
 let l = document.getElementById("kt_password_cancel");
 l.addEventListener("click", (function() {
     c();
@@ -96,7 +97,7 @@ form_change_pass.querySelector("#kt_password_submit").addEventListener("click", 
     if(pass_validator){
         pass_validator.validate().then((status)=> {
             if(status === 'Valid'){
-                postChangePass();
+                postChangePass('updatepass/').then(r => console.log(r));
             } else{
                 swal.fire({
                     text: "Sorry, looks like there are some errors detected, please try again.",
@@ -109,6 +110,5 @@ form_change_pass.querySelector("#kt_password_submit").addEventListener("click", 
                 })
             }
         })
-
     }
 }));

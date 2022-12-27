@@ -1,6 +1,7 @@
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.shortcuts import render, get_object_or_404
 from django.views import View
 from project.models import Project
 from ..models import User
@@ -56,23 +57,14 @@ class OwnProfile(LoginRequiredMixin, UserProfile):
 
 
 class UpdatePass(LoginRequiredMixin, View):
-    template_name = 'userprofile/settings.html'
-
-    def get(self, request):
-        return render(request, self.template_name)
-
     def post(self, request):
         currentpass = request.POST.get("current_password")
         newpass = request.POST.get("new_password")
-        try:
-            user = User.objects.get(id=request.user.id)
-        except User.DoesNotExist:
-            user = None
-        if user is None:
-            return HttpResponse('Not Found', status=404)
+        user = get_object_or_404(User, id=request.user.id)
         if check_password(currentpass, user.password):
             user.set_password(newpass)
             user.save()
+            update_session_auth_hash(request, user)
             return HttpResponse('OK', status=200)
         else:
-            return HttpResponse('Bad Request', status=400)
+            return HttpResponseBadRequest()
