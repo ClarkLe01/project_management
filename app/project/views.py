@@ -1,19 +1,17 @@
-import requests
-from django.conf import settings
-from django.contrib.auth.decorators import permission_required
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import View, TemplateView
+from django.views.generic import View
 from .models import Project
 from project.files.models import File
+from project.tasks.models import Task
 from user.models import *
 from utils.models import *
 from django.db.models import Q
 from .forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 import json
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import PageNotAnInteger, Paginator
 from guardian.shortcuts import get_objects_for_user
 from guardian.core import ObjectPermissionChecker
 from django.core.exceptions import PermissionDenied
@@ -109,8 +107,9 @@ class ProjectViewDetailView(LoginRequiredMixin, View):
     def get(self, request, pk):
         checker = ObjectPermissionChecker(request.user)
         project = get_object_or_404(Project, id=pk)
+        tasks = Task.objects.filter(project=project)
         if checker.has_perm('olp_view_project', project):
-            return render(request, 'projectdetails/overview.html', {'project': project})
+            return render(request, 'projectdetails/overview.html', {'project': project, 'tasks': tasks})
         else:
             raise PermissionDenied
 
@@ -119,8 +118,9 @@ class UpdateProjectView(LoginRequiredMixin, View):
     def get(self, request, pk):
         checker = ObjectPermissionChecker(request.user)
         project = get_object_or_404(Project, id=pk)
+        tasks = Task.objects.filter(project=project)
         if checker.has_perm('olp_view_project', project):
-            return render(request, 'projectdetails/settings.html', {'project': project})
+            return render(request, 'projectdetails/settings.html', {'project': project, 'tasks': tasks})
         else:
             raise PermissionDenied
 

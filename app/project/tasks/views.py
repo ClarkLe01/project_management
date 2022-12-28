@@ -8,6 +8,7 @@ from project.tasks.models import Task, TaskComment
 from django.http import HttpResponse
 from user.models import User
 
+
 class TasksProjectView(LoginRequiredMixin, View):
     def get(self, request, pk):
         project = get_object_or_404(Project, id=pk)
@@ -17,15 +18,15 @@ class TasksProjectView(LoginRequiredMixin, View):
     def post(self, request, pk):
         project = get_object_or_404(Project, id=pk)
         task_title = request.POST.get("task_title")
-        assignee = User.objects.get(id= request.POST.get("task_assign"))
+        assignee = User.objects.get(id=request.POST.get("task_assign"))
         due_date = request.POST.get("due_date")
         task_details = request.POST.get("task_details")
         task = Task.objects.create(
-            project = project,
-            title = task_title,
-            assignee = assignee,
-            due_date = due_date,
-            task_details = task_details
+            project=project,
+            title=task_title,
+            assignee=assignee,
+            due_date=due_date,
+            task_details=task_details
         )
         return HttpResponse('Created', status=201)
 
@@ -59,6 +60,7 @@ class UpdateTaskView(LoginRequiredMixin, View):
         task.save()
         return HttpResponse('Success', status=200)
 
+
 class DeleteTaskView(LoginRequiredMixin, View):
     def post(self, request):
         pk = request.POST.get('task_id')
@@ -69,8 +71,7 @@ class DeleteTaskView(LoginRequiredMixin, View):
             return HttpResponse('Success', status=200)
         return HttpResponse('Bad Request', status=400)
 
+
 class TaskApiView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TaskKanbanSerializer
     queryset = Task.objects.all()
-
-

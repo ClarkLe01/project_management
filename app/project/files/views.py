@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 from .models import File
 from project.models import Project
+from project.tasks.models import Task
 from user.models import *
 from utils.models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,7 +16,8 @@ class DocumentProjectView(LoginRequiredMixin, View):
         print(pk)
         project = get_object_or_404(Project, id=pk)
         files = File.objects.filter(project=project)
-        return render(request, 'projectdetails/files.html', {'project': project, 'files': files})
+        tasks = Task.objects.filter(project=project)
+        return render(request, 'projectdetails/files.html', {'project': project, 'files': files, 'tasks': tasks})
 
 
 class DownloadFile(LoginRequiredMixin, View):

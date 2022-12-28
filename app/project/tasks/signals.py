@@ -10,6 +10,3 @@ def notify_author(sender, instance, created, **kwargs):
     pass
 
 
-@receiver(pre_save, sender=Task)
-def notify_author(sender, instance, created, **kwargs):
-    pass
