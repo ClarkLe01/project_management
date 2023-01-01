@@ -34,8 +34,39 @@ async function deleteFile(url, e, n, o){
         });
     }
 }
+async function deleteMultipleFile(url, e, o){
+    let csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    let form_data = new FormData();
+    let deleteIdFiles = [];
+    o.forEach(t=>{
+        if(t.checked){
+            deleteIdFiles.push(t.closest("tbody tr").querySelector("input.form-check-input").value);
+            e.row($(t.closest("tbody tr"))).remove().draw();
+        }
+    });
+    form_data.append("delete_files", deleteIdFiles.toString());
+    const response = await fetch(url, {
+        method: 'POST',
+        mode: 'same-origin',
+        body: form_data,
+        headers: {
+            'X-CSRFToken': csrftoken
+        },
+    });
+    if(response.status === 200){
+        popupFileDelete("You have deleted all selected files or folders!.","success").then((function(){
+            location.reload();
+        }));
+    }
+    else{
+        popupFileDelete("Something wrong! Please perform again!","error").then(()=>{
+            location.reload();
+        });
+    }
+}
 let KTFileManagerList=function(){
     let e,t,o,n,r,a;
+    // Delete a file
     const l=()=>{
         t.querySelectorAll('[data-kt-filemanager-table-filter="delete_row"]').forEach(
             (t=>{
@@ -58,17 +89,6 @@ let KTFileManagerList=function(){
                         }).then((function(t){
                             if(t.isConfirmed){
                                 deleteFile('/project/deletefile/',e,n,o).then(r => {console.log(r)});
-                                // Swal.fire({
-                                //     text:"You have deleted "+n+"!.",
-                                //     icon:"success",
-                                //     buttonsStyling:!1,
-                                //     confirmButtonText:"Ok, got it!",
-                                //     customClass:{
-                                //         confirmButton:"btn fw-bold btn-primary"
-                                //     }
-                                // }).then((function(){
-                                //     e.row($(o)).remove().draw()
-                                // }))
                             }
                             else{
                                 Swal.fire({
@@ -86,6 +106,7 @@ let KTFileManagerList=function(){
                 )
             })
         )};
+    // Delete multiple file
     const i=()=>{
         let o=t.querySelectorAll('[type="checkbox"]');
         "folders"===t.getAttribute("data-kt-filemanager-table")&&(
@@ -113,28 +134,36 @@ let KTFileManagerList=function(){
                     cancelButton:"btn fw-bold btn-active-light-primary"
                 }
             }).then((function(n){
-                n.value?Swal.fire({
-                    text:"You have deleted all selected  files or folders!.",
-                    icon:"success",
-                    buttonsStyling:!1,
-                    confirmButtonText:"Ok, got it!",
-                    customClass:{
-                        confirmButton:"btn fw-bold btn-primary"
-                    }
-                }).then((function(){
-                    o.forEach((t=>{
-                        t.checked&&e.row($(t.closest("tbody tr"))).remove().draw()})
-                    );
-                    t.querySelectorAll('[type="checkbox"]')[0].checked=!1
-                })):"cancel"===n.dismiss&&Swal.fire({
-                    text:"Selected  files or folders was not deleted.",
-                    icon:"error",
-                    buttonsStyling:!1,
-                    confirmButtonText:"Ok, got it!",
-                    customClass:{
-                        confirmButton:"btn fw-bold btn-primary"
-                    }
-                })
+                if(n.isConfirmed){
+                    deleteMultipleFile('/project/deletefile/', e, o).then(r => {
+                        console.log(r);
+                        t.querySelectorAll('[type="checkbox"]')[0].checked=!1;
+                    });
+                    // Swal.fire({
+                    //     text:"You have deleted all selected files or folders!.",
+                    //     icon:"success",
+                    //     buttonsStyling:!1,
+                    //     confirmButtonText:"Ok, got it!",
+                    //     customClass:{
+                    //         confirmButton:"btn fw-bold btn-primary"
+                    //     }
+                    // }).then((function(){
+                    //     o.forEach((t=>{
+                    //         t.checked&&e.row($(t.closest("tbody tr"))).remove().draw()})
+                    //     );
+                    //     t.querySelectorAll('[type="checkbox"]')[0].checked=!1;
+                    // }))
+                }else{
+                    Swal.fire({
+                        text:"Selected files or folders was not deleted.",
+                        icon:"error",
+                        buttonsStyling:!1,
+                        confirmButtonText:"Ok, got it!",
+                        customClass:{
+                            confirmButton:"btn fw-bold btn-primary"
+                        }
+                    })
+                }
             }))
         }))
     };
