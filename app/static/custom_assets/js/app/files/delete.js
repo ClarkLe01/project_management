@@ -1,5 +1,5 @@
 "use strict";
-let delete_link = document.querySelectorAll('[data-kt-filemanager-table-filter="delete_row"]');
+let delete_link = document.querySelector("#kt_file_manager_list").querySelectorAll('[data-kt-filemanager-table-filter="delete_row"]');
 let table = $("#kt_file_manager_list").DataTable();
 function popupFileDelete(message, type){
     return Swal.fire({
@@ -26,7 +26,7 @@ async function deleteFile(url, n, o){
     });
     if(response.status === 200){
         popupFileDelete("You have deleted "+n+"!.","success").then((function(){
-            table.row($(o)).remove().draw();
+            // table.row($(o)).remove().draw();
             location.reload();
         }));
     }
