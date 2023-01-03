@@ -158,7 +158,7 @@ function addComment(object){
 
     /*This is row for each object*/
     let row = document.createElement("div");
-    row.className="row";
+    row.className="comment-object row";
     row.appendChild(col1);
     row.appendChild(col2);
     row.setAttribute("id", `row_${object.id}`)

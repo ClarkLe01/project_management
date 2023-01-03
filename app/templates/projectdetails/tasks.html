@@ -504,6 +504,17 @@
                 ckfinder: {
                     uploadUrl: '/ckeditor/upload/'
                 },
+                // Custom function to handle image uploads
+                filebrowserUpload: function( file ) {
+                    // Maximum image size (in bytes)
+                    const maxSize = 500000;
+
+                    if (file.data.size > maxSize) {
+                        // Reject the image
+                        file.preventDefault();
+                        alert("The image size is too large.");
+                    }
+                }
             })
             .then(newEditor => {
                 editor = newEditor;
