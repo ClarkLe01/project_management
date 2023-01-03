@@ -251,7 +251,7 @@ let KTFileManagerList=function(){
                 }).then((function(t){
                     t.value?
                         Swal.fire({
-                            text:"You have renamed "+r+"!.",
+                            text:"You have renamed successfully!.",
                             icon:"success",
                             buttonsStyling:!1,
                             confirmButtonText:"Ok, got it!",

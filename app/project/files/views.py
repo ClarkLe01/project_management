@@ -9,15 +9,21 @@ from user.models import *
 from utils.models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 import os
+from guardian.core import ObjectPermissionChecker
+from django.core.exceptions import PermissionDenied
 
 
 class DocumentProjectView(LoginRequiredMixin, View):
     def get(self, request, pk):
-        print(pk)
+        checker = ObjectPermissionChecker(request.user)
         project = get_object_or_404(Project, id=pk)
         files = File.objects.filter(project=project)
         tasks = Task.objects.filter(project=project)
-        return render(request, 'projectdetails/files.html', {'project': project, 'files': files, 'tasks': tasks})
+        if checker.has_perm('olp_view_project', project):
+            return render(request, 'projectdetails/files.html', {'project': project, 'files': files, 'tasks': tasks})
+        else:
+            raise PermissionDenied
+
 
 
 class DownloadFile(LoginRequiredMixin, View):

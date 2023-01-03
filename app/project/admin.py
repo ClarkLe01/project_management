@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import *
 from .forms import ProjectForm
 from project.files.models import File
-from project.tasks.models import Task, TaskComment
+from project.tasks.models import Task, TaskComment, TaskHistory
 from guardian.admin import GuardedModelAdmin
 
 
@@ -38,3 +38,4 @@ admin.site.register(Project, ProjectsAdmin)
 admin.site.register(File)
 admin.site.register(Task)
 admin.site.register(TaskComment)
+admin.site.register(TaskHistory)

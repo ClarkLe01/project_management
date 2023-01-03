@@ -354,7 +354,7 @@
                         <div class="comments-container row">
                             <div class="tab-content">
                                 <div class="card-body p-0 tab-pane fade show active" style="overflow-y: scroll; height: 450px;" role="tabpanel" aria-labelledby="kt_activity_comments_tab" id="kt_comments">
-                                    <div class="row mb-8">
+                                    <div class="row mb-8" id="comment_action">
                                         <div class="col-md-1">
                                             <div class="symbol symbol-50px symbol-circle">
                                                 {% if user.avatar %}
@@ -365,40 +365,16 @@
                                             </div>
                                         </div>
                                         <div class="col-md-10">
-                                            <div class="form-group d-none">
+                                            <div class="form-group">
                                                 <input type="text" class="form-control" id="comment_input" placeholder="Enter comment" disabled>
                                             </div>
-                                            <div class="">
+                                            <div class="d-none">
                                                 <div id="kt_docs_ckeditor_document_toolbar"></div>
                                                 <div id="kt_docs_ckeditor_document" class="form-control form-control-solid" name="project_description"></div>
                                             </div>
-                                            <div class="d-flex justify-content-end my-2">
-                                                <button class="btn btn-primary btn-sm mx-2">Save</button>
-                                                <button class="btn btn-secondary btn-sm ">Cancel</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <div class="symbol symbol-50px symbol-circle">
-                                                {% if user.avatar %}
-                                                    <img class="h-30px w-30px symbol-label" src="{{request.user.avatar.url}}" alt="" />
-                                                {% else %}
-                                                    <img class="h-30px w-30px symbol-label" src="{% static 'assets/media/avatars/blank.png' %}" alt="" />
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="header-comment d-flex">
-                                                <div class="person-comment"><span class="fs-6 fw-bold">{{ request.user.first_name }} {{ request.user.last_name }}</span></div>
-                                                <div class="time-comment mx-3"><span class="fs-6 text-gray-400">December 28, 2022 at 8:57 AM</span></div>
-                                            </div>
-                                            <div class="content-comment py-3 row">
-                                                <p style="">This is comment This is comment This is comment This is comment This is comment This is comment This is comment This is comment This is comment This is comment This is comment This is comment This is comment This is comment This is comment This is comment This is comment </p>
-                                            </div>
-                                            <div class="action-comment d-flex justify-content-end my-2">
-                                                <button class="btn btn-link btn-sm mx-2 fw-bold">Edit</button>
-                                                <button class="btn btn-link btn-sm fw-bold">Delete</button>
+                                            <div class="d-flex justify-content-end my-2 d-none">
+                                                <button class="btn btn-primary btn-sm mx-2" id="save_comment">Save</button>
+                                                <button class="btn btn-secondary btn-sm " id="cancel_comment">Cancel</button>
                                             </div>
                                         </div>
                                     </div>
@@ -539,4 +515,5 @@
                 console.error(error);
             });
     </script>
+    <script src="{% static 'custom_assets/js/app/tasks/test.js' %}"></script>
 {% endblock %}
