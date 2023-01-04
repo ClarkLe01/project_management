@@ -139,15 +139,18 @@ function addComment(object){
     col2.appendChild(divContainerCkeditor);
     col2.appendChild(divContainerActionCkeditor);
 
-
+    // Create row for the comment object
     let row = document.createElement("div");
     row.className="comment-object row";
+    // Append the image and content columns to the row
     row.appendChild(col1);
     row.appendChild(col2);
     row.setAttribute("id", `comment_${object.id}`)
+    // Insert the row at the beginning of the comments element
     document.getElementById("comments").prepend(row);
 
     let editor;
+    // Create a new CKEditor instance and append its toolbar to the container
     DecoupledEditor
         .create(document.querySelector(`#edit-ckeditor-${object.id}`),{
             ckfinder: {
@@ -172,7 +175,7 @@ function addComment(object){
             console.error(error);
         });
 
-
+    // Set up the delete button to display a confirmation dialog
     deleteBtn.addEventListener('click',(e)=>{
         e.preventDefault();
         Swal.fire({
@@ -195,13 +198,15 @@ function addComment(object){
             }
         });
     });
+
+    // s function shows the CKEditor and hide the comment and action buttons
     const s = (e,divComment,divContainerAction,divContainerCkeditor,divContainerActionCkeditor,editor,data)=>{
         e.preventDefault();
-        divComment.classList.add('d-none');
-        divContainerAction.classList.add('d-none');
-        divContainerCkeditor.classList.remove('d-none');
-        divContainerActionCkeditor.classList.remove('d-none');
-        editor.setData(data);
+        divComment.classList.add('d-none'); // hide the comment
+        divContainerAction.classList.add('d-none'); // hide the action buttons
+        divContainerCkeditor.classList.remove('d-none'); // show the CKEditor
+        divContainerActionCkeditor.classList.remove('d-none'); // Show the CKEditor action buttons
+        editor.setData(data); // set the CKEditor data to the comment text
     }
     const h = (e,divComment,divContainerAction,divContainerCkeditor,divContainerActionCkeditor,editor,data)=>{
         e.preventDefault();
@@ -211,9 +216,11 @@ function addComment(object){
         divContainerActionCkeditor.classList.add('d-none');
         editor.setData(data);
     }
+    // When the "Edit" button is clicked, show the CKEditor and hide the comment and action buttons
     editBtn.addEventListener('click',(e)=>{
         s(e,divComment,divContainerAction,divContainerCkeditor,divContainerActionCkeditor,editor,object.description);
     })
+    // When the "Cancel" button is clicked, hide the CKEditor and show the comment and action buttons
     cancelBtn.addEventListener('click',(e)=>{
         h(e,divComment,divContainerAction,divContainerCkeditor,divContainerActionCkeditor,editor,"");
     })
