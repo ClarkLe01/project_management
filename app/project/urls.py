@@ -3,7 +3,7 @@ from user.login.views import LoginView
 from user.register.views import RegisterView
 from .views import ProjectDashBoardView, ProjectViewDetailView, UpdateProjectView, delete_project
 from project.files.views import DocumentProjectView, DownloadFile, DeleteFile
-from project.tasks.views import TasksProjectView, TaskKanbanBoardApiView, UpdateTaskView, DeleteTaskView, TaskApiView, TasksCommentListView, DeleteTaskCommentView
+from project.tasks.views import TasksProjectView, TaskKanbanBoardApiView, UpdateTaskView, DeleteTaskView, TaskApiView
 
 app_name = 'project'
 urlpatterns = [
@@ -19,6 +19,4 @@ urlpatterns = [
     path('task/<int:pk>/update', UpdateTaskView.as_view(), name='updatetask'),
     path('task/delete', DeleteTaskView.as_view(), name='deletetask'),
     path('task/<int:pk>', TaskApiView.as_view(), name='retriveupdatedestroptask'),
-    path('task/<int:pk>/comments', TasksCommentListView.as_view(), name='taskcomments'),
-    path('comments/delete', DeleteTaskCommentView.as_view(), name='deletecomment'),
 ]

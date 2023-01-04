@@ -58,6 +58,7 @@ urlpatterns += i18n_patterns(
     path('project/', include('project.urls')),
     path('accounts/', include('allauth.urls')),
     path('utils/', include('utils.urls')),
+    path('task/', include('task.urls')),
     prefix_default_language=False,
 )
 

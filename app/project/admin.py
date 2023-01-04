@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import *
 from .forms import ProjectForm
 from project.files.models import File
-from project.tasks.models import Task, TaskComment, TaskHistory
+from project.tasks.models import Task
 from guardian.admin import GuardedModelAdmin
 
 
@@ -27,15 +27,7 @@ class ProjectsAdmin(GuardedModelAdmin):
     exclude = ('members', 'langcode_tags')
 
 
-# class ProjectsWithCostAdmin(admin.ModelAdmin):
-#     list_display = ['project__name', 'project__description', 'project__start_date',
-#                     'project__end_date', 'project__status', 'value', 'base',
-#                     'project__created_by']
-
-
 # Register your models here.
 admin.site.register(Project, ProjectsAdmin)
 admin.site.register(File)
 admin.site.register(Task)
-admin.site.register(TaskComment)
-admin.site.register(TaskHistory)

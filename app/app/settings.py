@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'testing',
     'drf_yasg',
     'guardian',
+    'task',
 ]
 
 SITE_ID = 1
@@ -194,7 +195,7 @@ STATICFILES_DIRS = [
 # STATIC_ROOT = BASE_DIR / "static"
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media" 
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -204,6 +205,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CKEDITOR_UPLOAD_PATH = 'ckeditor_test/'
 # CKEDITOR_FILENAME_GENERATOR = 'utils.views.get_filename'
 CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'height': 300,
+        'width': '100%',
+        'removePlugins': 'stylesheetparser',
+        'extraPlugins': ','.join(['uploadimage', 'image2']),
+        'image2_alignClasses': ['image-align-left', 'image-align-center', 'image-align-right'],
+        'image2_captionedClass': 'image-captioned',
+        'image_prefillDimensions': True,
+        'uploadUrl': '/ckeditor/upload/',
+        'image_maxSize': '50000'  # maximum size in bytes
+    },
+}
 
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
 CELERY_RESULT_BACKEND = 'django-db'

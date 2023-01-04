@@ -351,7 +351,8 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="comments-container row">
+
+                        <div class="comments-container row w-80">
                             <div class="tab-content">
                                 <div class="card-body p-0 tab-pane fade show active" style="overflow-y: scroll; height: 450px;" role="tabpanel" aria-labelledby="kt_activity_comments_tab" id="kt_comments">
                                     <div class="row mb-8" id="comment_action">
@@ -377,6 +378,9 @@
                                                 <button class="btn btn-secondary btn-sm " id="cancel_comment">Cancel</button>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row" id="comments">
+
                                     </div>
                                 </div>
                                 <div class="card-body p-0 tab-pane fade" style="overflow-y: scroll; height: 450px;" role="tabpanel" aria-labelledby="kt_activity_histories_tab" id="kt_histories">
@@ -437,8 +441,6 @@
                                                         </div>
                                                     </div>
 
-
-
                                                 </div>
                                             </div>
                                         </div>
@@ -491,11 +493,14 @@
         })
     </script>
     <script src="{% static 'assets/plugins/custom/jkanban/jkanban.bundle.js' %}"></script>
-    <script src="{% static 'custom_assets/js/app/tasks/kanban-init.js' %}"></script>
     <script src="{% static 'custom_assets/js/app/projects/fields/datepicker.js' %}"></script>
     <script src="{% static 'custom_assets/js/app/tasks/create-task.js' %}"></script>
     <script src="{% static 'custom_assets/js/app/tasks/update-task.js' %}"></script>
     <script src="{% static 'custom_assets/js/app/tasks/delete-task.js' %}"></script>
+    <script src="{% static 'custom_assets/js/app/comments/create-comment.js' %}"></script>
+    <script src="{% static 'custom_assets/js/app/comments/delete-comment.js' %}"></script>
+    <script src="{% static 'custom_assets/js/app/comments/update-comment.js' %}"></script>
+    <script src="{% static 'custom_assets/js/app/tasks/kanban-init.js' %}"></script>
     <script src="{% static 'ckeditor5-decoupled-document/ckeditor.js'%}"></script>
     <script>
         let editor;
@@ -526,5 +531,4 @@
                 console.error(error);
             });
     </script>
-    <script src="{% static 'custom_assets/js/app/tasks/test.js' %}"></script>
 {% endblock %}
