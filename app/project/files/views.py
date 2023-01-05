@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 from .models import File
 from project.models import Project
-from project.tasks.models import Task
+from task.models import Task
 from user.models import *
 from utils.models import *
 from django.contrib.auth.mixins import LoginRequiredMixin

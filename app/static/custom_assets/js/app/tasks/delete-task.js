@@ -40,7 +40,7 @@ deleteTaskBtn.addEventListener("click", (e)=>{
     }).then((result)=>{
         if(result.isConfirmed) {
             let id = $("#selected_task").val();
-            deleteTask('task/delete', id).then(r => {console.log(r)});
+            deleteTask('../task/delete', id).then(r => {console.log(r)});
         } else {
             popup("The task was not deleted.", "error").then(()=>{
                 window.location.reload();

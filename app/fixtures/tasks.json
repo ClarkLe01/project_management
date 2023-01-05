@@ -1,6 +1,6 @@
 [
     {
-        "model": "project.task",
+        "model": "task.task",
         "pk": 1,
         "fields": {
             "project": 1,
@@ -12,7 +12,7 @@
         }
     },
     {
-        "model": "project.task",
+        "model": "task.task",
         "pk": 2,
         "fields": {
             "project": 1,
@@ -24,7 +24,7 @@
         }
     },
     {
-        "model": "project.task",
+        "model": "task.task",
         "pk": 3,
         "fields": {
             "project": 1,
@@ -36,7 +36,7 @@
         }
     },
     {
-        "model": "project.task",
+        "model": "task.task",
         "pk": 4,
         "fields": {
             "project": 1,
@@ -48,7 +48,7 @@
         }
     },
     {
-        "model": "project.task",
+        "model": "task.task",
         "pk": 5,
         "fields": {
             "project": 1,
@@ -60,7 +60,7 @@
         }
     },
     {
-        "model": "project.task",
+        "model": "task.task",
         "pk": 6,
         "fields": {
             "project": 1,
@@ -72,7 +72,7 @@
         }
     },
     {
-        "model": "project.task",
+        "model": "task.task",
         "pk": 7,
         "fields": {
             "project": 1,
@@ -84,7 +84,7 @@
         }
     },
     {
-        "model": "project.task",
+        "model": "task.task",
         "pk": 8,
         "fields": {
             "project": 1,
@@ -96,7 +96,7 @@
         }
     },
     {
-        "model": "project.task",
+        "model": "task.task",
         "pk": 9,
         "fields": {
             "project": 1,
@@ -108,7 +108,7 @@
         }
     },
     {
-        "model": "project.task",
+        "model": "task.task",
         "pk": 10,
         "fields": {
             "project": 1,

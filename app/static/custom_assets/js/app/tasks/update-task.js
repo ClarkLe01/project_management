@@ -2,7 +2,7 @@ async function updateTaskStatus(id, status) {
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     let form_data = new FormData();
     form_data.append('task_status', status);
-    const response = await fetch(`task/${id}/update`,{
+    const response = await fetch(`../task/${id}/update`,{
         method: 'POST',
         mode: 'same-origin',
         body: form_data,

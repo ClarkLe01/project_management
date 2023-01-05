@@ -2,9 +2,10 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
+from rest_framework import generics
+
 from .models import Project
 from project.files.models import File
-from project.tasks.models import Task
 from user.models import *
 from utils.models import *
 from django.db.models import Q
@@ -16,13 +17,18 @@ from guardian.shortcuts import get_objects_for_user
 from guardian.core import ObjectPermissionChecker
 from django.core.exceptions import PermissionDenied
 
+from task.serializers import TaskKanbanSerializer
+from user.models import User
+from utils.models import ProgrammingLanguage
+from task.models import Task
+
 PROJECT_PER_PAGE = 9
 
 
-def get_project_object(id, status=None):
+def get_project_object(idp, status=None):
     if status is None:
-        return Project.objects.filter(created_by=id)
-    return Project.objects.filter(Q(created_by=id) & Q(status=status))
+        return Project.objects.filter(created_by=idp)
+    return Project.objects.filter(Q(created_by=idp) & Q(status=status))
 
 
 class ProjectDashBoardView(LoginRequiredMixin, View):
@@ -61,9 +67,9 @@ class ProjectDashBoardView(LoginRequiredMixin, View):
             'base': base,
             'query_string': query_string,
             'own_projects': projects,
-            'completed_projects': get_project_object(id=request.user.id, status=2),
-            'pending_projects': get_project_object(id=request.user.id, status=0),
-            'inprogress_projects': get_project_object(id=request.user.id, status=1)
+            'completed_projects': get_project_object(idp=request.user.id, status=2),
+            'pending_projects': get_project_object(idp=request.user.id, status=0),
+            'inprogress_projects': get_project_object(idp=request.user.id, status=1)
         }
         return render(request, 'projectmanagement/projectlist.html', context)
 
@@ -147,3 +153,36 @@ def delete_project(request, pk):
             raise Project.DoesNotExist('Not exists project')
     else:
         return HttpResponse('Bad request', status=404)
+
+
+class TasksProjectView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        checker = ObjectPermissionChecker(request.user)
+        project = get_object_or_404(Project, id=pk)
+        tasks = Task.objects.filter(project=project)
+        if checker.has_perm('olp_view_project', project):
+            return render(request, 'projectdetails/tasks.html', {'project': project, 'tasks': tasks})
+        else:
+            raise PermissionDenied
+
+    def post(self, request, pk):
+        project = get_object_or_404(Project, id=pk)
+        task_title = request.POST.get("task_title")
+        assignee = User.objects.get(id=request.POST.get("task_assign"))
+        due_date = request.POST.get("due_date")
+        task_details = request.POST.get("task_details")
+        task = Task.objects.create(
+            project=project,
+            title=task_title,
+            assignee=assignee,
+            due_date=due_date,
+            task_details=task_details
+        )
+        return HttpResponse('Created', status=201)
+
+
+class TaskKanbanBoardApiView(generics.ListAPIView):
+    serializer_class = TaskKanbanSerializer
+
+    def get_queryset(self):
+        return Task.objects.filter(project__id=self.kwargs['pk'])

@@ -199,30 +199,43 @@ function addComment(object){
         });
     });
 
+
     // s function shows the CKEditor and hide the comment and action buttons
-    const s = (e,divComment,divContainerAction,divContainerCkeditor,divContainerActionCkeditor,editor,data)=>{
-        e.preventDefault();
+    const s = (divComment,divContainerAction,divContainerCkeditor,divContainerActionCkeditor,editor,data)=>{
         divComment.classList.add('d-none'); // hide the comment
         divContainerAction.classList.add('d-none'); // hide the action buttons
         divContainerCkeditor.classList.remove('d-none'); // show the CKEditor
         divContainerActionCkeditor.classList.remove('d-none'); // Show the CKEditor action buttons
         editor.setData(data); // set the CKEditor data to the comment text
     }
-    const h = (e,divComment,divContainerAction,divContainerCkeditor,divContainerActionCkeditor,editor,data)=>{
-        e.preventDefault();
+    const h = (divComment,divContainerAction,divContainerCkeditor,divContainerActionCkeditor,editor,data)=>{
         divComment.classList.remove('d-none');
         divContainerAction.classList.remove('d-none');
         divContainerCkeditor.classList.add('d-none');
         divContainerActionCkeditor.classList.add('d-none');
         editor.setData(data);
     }
+    // Set up the save button to save comment's updates
+    saveBtn.addEventListener("click",(e)=>{
+        e.preventDefault();
+        updateComment(object.id, editor.getData()).then(data => {
+            // (data!==undefined) && (divComment.innerHTML=editor.getData());
+            if (data!==undefined){
+                divComment.innerHTML=data.description;
+            }
+            h(divComment,divContainerAction,divContainerCkeditor,divContainerActionCkeditor,editor,"");
+        });
+
+    })
     // When the "Edit" button is clicked, show the CKEditor and hide the comment and action buttons
     editBtn.addEventListener('click',(e)=>{
-        s(e,divComment,divContainerAction,divContainerCkeditor,divContainerActionCkeditor,editor,object.description);
+        e.preventDefault();
+        s(divComment,divContainerAction,divContainerCkeditor,divContainerActionCkeditor,editor,object.description);
     })
     // When the "Cancel" button is clicked, hide the CKEditor and show the comment and action buttons
     cancelBtn.addEventListener('click',(e)=>{
-        h(e,divComment,divContainerAction,divContainerCkeditor,divContainerActionCkeditor,editor,"");
+        e.preventDefault();
+        h(divComment,divContainerAction,divContainerCkeditor,divContainerActionCkeditor,editor,"");
     })
 
 }

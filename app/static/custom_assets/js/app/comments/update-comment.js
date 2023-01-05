@@ -1,8 +1,8 @@
-async function updateComment(id) {
+async function updateComment(id, comment) {
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     let form_data = new FormData();
-    form_data.append('comment_id', id);
-    const response = await fetch(`comments/delete`,{
+    form_data.append('comment', comment);
+    const response = await fetch(`../task/comments/${id}/update`,{
         method: 'POST',
         mode: 'same-origin',
         body: form_data,
@@ -11,16 +11,10 @@ async function updateComment(id) {
         }
     });
     if(response.status===200){
-        console.log("Update status successfully");
+        return await response.json();
     }
     else{
         console.log("Error: " + response.status);
+        return undefined;
     }
 }
-
-// function showCkeditorCommentObject(){
-//
-// }
-// function hideCkeditorCommentObject(){
-//
-// }

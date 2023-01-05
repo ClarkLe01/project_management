@@ -2,8 +2,8 @@ from django.contrib import admin
 from .models import *
 from .forms import ProjectForm
 from project.files.models import File
-from project.tasks.models import Task
 from guardian.admin import GuardedModelAdmin
+from simple_history.admin import SimpleHistoryAdmin
 
 
 class CollaboratorInline(admin.TabularInline):
@@ -30,4 +30,3 @@ class ProjectsAdmin(GuardedModelAdmin):
 # Register your models here.
 admin.site.register(Project, ProjectsAdmin)
 admin.site.register(File)
-admin.site.register(Task)

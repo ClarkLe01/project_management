@@ -61,7 +61,7 @@ fetch(`detail/${$("#project_id").val()}/tasklistapi`)
             },
 
             click: function (el) {
-                fetch(`task/${el.dataset.eid}`).then(res => res.json())
+                fetch(`../task/${el.dataset.eid}`).then(res => res.json())
                     .then(data => {
                         $("#selected_task").val(data.id);
                         $("#update_task_title").val(data.title);
