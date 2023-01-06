@@ -18,7 +18,8 @@ python manage.py loaddata fixtures/users.json --app user.User
 python manage.py loaddata fixtures/projects.json --app project.Project
 python manage.py loaddata fixtures/files.json --app project.File
 python manage.py loaddata fixtures/tasks.json --app project.Task
-gunicorn app.wsgi:application --bind 0.0.0.0:8000
+#gunicorn app.wsgi:application --bind 0.0.0.0:8000
+daphne -b 0.0.0.0 -p 8000 app.asgi:application
 exec "$@"
 
 
