@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <!--begin::Head-->
@@ -51,7 +52,9 @@
 </div>
 <!--end::Root-->
 {% include 'projectmanagement/_partial/_utils.html' %}
+{{ request.user.email|json_script:"email" }}
 {% block js %}{% endblock %}
+<script src="{% static 'custom_assets/js/app/notifications/notify.js' %}"></script>
 </body>
 <!--end::Body-->
 </html>

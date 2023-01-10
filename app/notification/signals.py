@@ -16,6 +16,7 @@
 # @receiver(post_save, sender=Notification)
 # def notify(sender, instance, created, **kwargs):
 #     if created:
-#         instance.group("notifications-{}".format(instance.recipient.pk)).send({
+#         instance.group("notifications-{}".format(instance.user.pk)).send({
 #             "text": instance.message
 #         })
+
