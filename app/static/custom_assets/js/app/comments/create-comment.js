@@ -17,12 +17,12 @@ const parent = document.querySelector("#comments");
 const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
         if (mutation.type === 'childList') {
-            mutation.addedNodes.forEach((node) => {
-                if (node.classList.contains('comment-object')) {
-                    // do something with the added child node with class 'my-class'
-                    console.log("ok")
-                }
-            });
+            if (mutation.addedNodes.length > 0) {
+                console.log('row added');
+            }
+            if (mutation.removedNodes.length > 0) {
+                console.log('row removed');
+            }
         }
     });
 });

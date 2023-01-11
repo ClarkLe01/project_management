@@ -55,10 +55,11 @@ fetch(`detail/${$("#project_id").val()}/tasklistapi`)
             },
 
             dragendEl: function (el) {
-                updateTaskStatus(el.dataset.eid, kanban.getParentBoardID(el.dataset.eid)).then(r => console.log('r'));
                 document.removeEventListener('mousemove', isDragging);
             },
-
+            dropEl: function (el, target, source, sibling) {
+                updateTaskStatus(el.dataset.eid, kanban.getParentBoardID(el.dataset.eid)).then(r => console.log('r'));
+            },
             click: function (el) {
                 fetch(`../task/${el.dataset.eid}`).then(res => res.json())
                     .then(data => {
@@ -67,7 +68,6 @@ fetch(`detail/${$("#project_id").val()}/tasklistapi`)
                         const fp = flatpickr($("#update_due_date"),{});
                         fp.setDate(data.due_date);
                         $("#update_task_details").val(data.task_details);
-                        console.log(data.status)
                         let status = {
                             "backlog": 0,
                             "todo": 1,
@@ -82,12 +82,6 @@ fetch(`detail/${$("#project_id").val()}/tasklistapi`)
                     .then(data => {
                         data.forEach(comment => {
                             addComment(comment);
-                        })
-                    });
-                fetch(`../history/task/${el.dataset.eid}`,{mode: 'cors'}).then(res => res.json())
-                    .then(data => {
-                        data.forEach(history => {
-                            addHistory(history);
                         })
                     });
                 $("#kt_modal_update_task").modal("show");
