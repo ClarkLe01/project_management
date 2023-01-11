@@ -384,66 +384,8 @@
                                     </div>
                                 </div>
                                 <div class="card-body p-0 tab-pane fade" style="overflow-y: scroll; height: 450px;" role="tabpanel" aria-labelledby="kt_activity_histories_tab" id="kt_histories">
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <div class="symbol symbol-50px symbol-circle">
-                                                {% if user.avatar %}
-                                                    <img class="h-30px w-30px symbol-label" src="{{request.user.avatar.url}}" alt="" />
-                                                {% else %}
-                                                    <img class="h-30px w-30px symbol-label" src="{% static 'assets/media/avatars/blank.png' %}" alt="" />
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-10 mb-5">
-                                            <div class="title-event d-flex">
-                                                <div class="person-vent"><span class="fs-6 fw-bold">{{ request.user.first_name }} {{ request.user.last_name }}</span></div>
-                                                <div class="action-event mx-2"><span class="fs-6">delete <span class="fw-bold">Comments</span> </span></div>
-                                                <div class="time-event"><span class="fs-6 text-gray-400">December 28, 2022 at 8:57 AM</span></div>
-                                            </div>
-                                            <div class="content-event d-flex">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <div class="symbol symbol-50px symbol-circle">
-                                                {% if user.avatar %}
-                                                    <img class="h-30px w-30px symbol-label" src="{{request.user.avatar.url}}" alt="" />
-                                                {% else %}
-                                                    <img class="h-30px w-30px symbol-label" src="{% static 'assets/media/avatars/blank.png' %}" alt="" />
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="title-event d-flex">
-                                                <div class="person-vent"><span class="fs-6 fw-bold">{{ request.user.first_name }} {{ request.user.last_name }}</span></div>
-                                                <div class="action-event mx-2"><span class="fs-6">changed the <span class="fw-bold">Assignee</span> </span></div>
-                                                <div class="time-event"><span class="fs-6 text-gray-400">December 21, 2022 at 8:47 AM</span></div>
-                                            </div>
-                                            <div class="content-event d-flex">
-                                                <div class="action-event"><span class="fs-6">None</span></div>
-                                                <div class="action-effect mx-2">
-                                                    <span class="fs-6"><i class="bi bi-arrow-right"></i></span>
-                                                </div>
-                                                <div class="action-event">
-                                                    <div class="row">
-                                                        <div class="col-md-1">
-                                                            <div class="symbol symbol-30px symbol-circle">
-                                                                {% if user.avatar %}
-                                                                    <img class="h-20px w-20px symbol-label" src="{{request.user.avatar.url}}" alt="" />
-                                                                {% else %}
-                                                                    <img class="h-20px w-20px symbol-label" src="{% static 'assets/media/avatars/blank.png' %}" alt="" />
-                                                                {% endif %}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-auto mx-3">
-                                                            <span class="fs-6 align-items-center">{{ request.user.first_name }} {{ request.user.last_name }}</span>
-                                                        </div>
-                                                    </div>
+                                    <div class="row" id="histories">
 
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -500,6 +442,7 @@
     <script src="{% static 'custom_assets/js/app/comments/create-comment.js' %}"></script>
     <script src="{% static 'custom_assets/js/app/comments/delete-comment.js' %}"></script>
     <script src="{% static 'custom_assets/js/app/comments/update-comment.js' %}"></script>
+    <script src="{% static 'custom_assets/js/app/comments/add-history.js' %}"></script>
     <script src="{% static 'custom_assets/js/app/tasks/kanban-init.js' %}"></script>
     <script src="{% static 'ckeditor5-decoupled-document/ckeditor.js'%}"></script>
     <script>

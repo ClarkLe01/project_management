@@ -22,6 +22,8 @@ from user.models import User
 from utils.models import ProgrammingLanguage
 from task.models import Task
 
+from history.models import TaskHistory
+
 PROJECT_PER_PAGE = 9
 
 
@@ -178,6 +180,7 @@ class TasksProjectView(LoginRequiredMixin, View):
             due_date=due_date,
             task_details=task_details
         )
+        TaskHistory.objects.create(task=task, user=request.user, action="added", object="Task")
         return HttpResponse('Created', status=201)
 
 

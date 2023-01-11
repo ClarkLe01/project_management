@@ -1,13 +1,15 @@
 # myapp/models.py
 from django.db import models
 from user.models import User
+from project.models import Project
+from task.models import Task
 
 
 class Notification(models.Model):
-    title = models.CharField(max_length=100)
-    message = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.CharField(max_length=255)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=False)
 
 
 class TestNotify(models.Model):
