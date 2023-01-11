@@ -9,6 +9,7 @@ from .models import TaskComment, Task
 from .serializers import TaskCommentSerializer, TaskKanbanSerializer
 from project.models import Project
 from user.models import User
+from history.models import TaskHistory
 
 
 # Create your views here.
@@ -20,7 +21,6 @@ class UpdateTaskView(LoginRequiredMixin, View):
         task_assign = request.POST.get('task_assign')
         due_date = request.POST.get('due_date')
         task_details = request.POST.get('task_details')
-        print(status, task_title, task_assign, task_details)
         if status is not None and status != '':
             task.status = status
         if task_title is not None and task_title != '':
@@ -32,6 +32,8 @@ class UpdateTaskView(LoginRequiredMixin, View):
         if task_details is not None and task_details != '':
             task.task_details = task_details
         task.save()
+        TaskHistory.objects.create(task=task, user=request.user,
+                                   action="updated", object="Task")
         return HttpResponse('Success', status=200)
 
 
@@ -40,7 +42,6 @@ class DeleteTaskView(LoginRequiredMixin, View):
         pk = request.POST.get('task_id')
         if pk is not None and pk != '':
             task = get_object_or_404(Task, id=pk)
-            print(task)
             task.delete()
             return HttpResponse('Success', status=200)
         return HttpResponse('Bad Request', status=400)
@@ -64,6 +65,9 @@ class TasksCommentCreateView(LoginRequiredMixin, View):
         content = request.POST.get('comment')
         task = get_object_or_404(Task, id=pk)
         comment = TaskComment.objects.create(user=request.user, description=content, task=task)
+        TaskHistory.objects.create(task=task, user=request.user,
+                                   action="added", object="Comment",
+                                   reference=comment.pk)
         return JsonResponse(TaskCommentSerializer(comment, many=False).data, status=201)
 
 
@@ -81,6 +85,7 @@ class DeleteTaskCommentView(LoginRequiredMixin, View):
         pk = request.POST.get('comment_id')
         if pk is not None and pk != '':
             comment = get_object_or_404(TaskComment, id=pk)
+            TaskHistory.objects.create(task=comment.task, user=request.user, action="deleted", object="Comment")
             comment.delete()
             return HttpResponse('Success', status=200)
         return HttpResponse('Bad Request', status=400)

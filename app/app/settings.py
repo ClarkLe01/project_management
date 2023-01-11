@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'notification',
     'simple_history',
     'channels',
+    'history',
 
 ]
 

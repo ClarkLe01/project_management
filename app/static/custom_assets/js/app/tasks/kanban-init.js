@@ -55,7 +55,6 @@ fetch(`detail/${$("#project_id").val()}/tasklistapi`)
             },
 
             dragendEl: function (el) {
-                console.log('dragendEl')
                 updateTaskStatus(el.dataset.eid, kanban.getParentBoardID(el.dataset.eid)).then(r => console.log('r'));
                 document.removeEventListener('mousemove', isDragging);
             },
@@ -85,14 +84,20 @@ fetch(`detail/${$("#project_id").val()}/tasklistapi`)
                             addComment(comment);
                         })
                     });
+                fetch(`../history/task/${el.dataset.eid}`,{mode: 'cors'}).then(res => res.json())
+                    .then(data => {
+                        data.forEach(history => {
+                            addHistory(history);
+                        })
+                    });
                 $("#kt_modal_update_task").modal("show");
             },
         });
         let ktUpdateModalTask = $("#kt_modal_update_task");
         ktUpdateModalTask.on('hidden.bs.modal', function (e) {
-            console.log("hide");
             $("#selected_task").val('');
             removeAllComment();
+            removeAllHistory();
         })
 
         const allBoards = document.querySelectorAll('.kanban-drag');
@@ -181,6 +186,7 @@ fetch(`detail/${$("#project_id").val()}/tasklistapi`)
     .catch((error) => {
         console.error('Error:', error);
     });
+
 
 
 

@@ -12,6 +12,25 @@ async function createComment() {
     });
     return await response.json();
 }
+
+const parent = document.querySelector("#comments");
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+            mutation.addedNodes.forEach((node) => {
+                if (node.classList.contains('comment-object')) {
+                    // do something with the added child node with class 'my-class'
+                    console.log("ok")
+                }
+            });
+        }
+    });
+});
+observer.observe(parent, {
+    childList: true,
+    subtree: true,
+});
+
 function addComment(object){
     // Create and set up the element for displaying the avatar of the user who made the comment
     let img = document.createElement("img");
@@ -230,6 +249,7 @@ function addComment(object){
     // When the "Edit" button is clicked, show the CKEditor and hide the comment and action buttons
     editBtn.addEventListener('click',(e)=>{
         e.preventDefault();
+        observer.disconnect();
         s(divComment,divContainerAction,divContainerCkeditor,divContainerActionCkeditor,editor,object.description);
     })
     // When the "Cancel" button is clicked, hide the CKEditor and show the comment and action buttons

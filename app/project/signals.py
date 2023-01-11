@@ -36,9 +36,9 @@ def add_collaborators(sender, instance, action, **kwargs):
     if action == 'post_add':
         # This will give you the users BEFORE any removals have happened
         recipients = [recipient.email for recipient in instance.collaborators.all()]
-        print("Add collaborators to project", instance.collaborators.all())
         mail_subject = 'Invitation to join Project ID {0}'.format(instance.id)
-        messages = "You are invited in Project {0} at {1}".format(instance.id, instance.created_date)
+        messages = "You are invited in Project {0} at {1} by {2}".\
+            format(instance.id, instance.created_date, instance.created_by)
         send_email.delay(mail_subject, messages, recipients)
 
 
