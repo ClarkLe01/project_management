@@ -2,9 +2,8 @@ async function updateTaskStatus(id, status) {
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     let form_data = new FormData();
     form_data.append('task_status', status);
-    const response = await fetch(`../task/${id}/update`,{
+    const response = await fetch(`${window.location.origin}/task/${id}/update`,{
         method: 'POST',
-        mode: 'same-origin',
         body: form_data,
         headers:{
             'X-CSRFToken': csrftoken
@@ -118,7 +117,7 @@ updateTaskSubmitButton.addEventListener('click', function (e) {
                 updateTaskSubmitButton.removeAttribute("data-kt-indicator");
                 updateTaskSubmitButton.disabled=false;
                 let id = $("#selected_task").val();
-                postUpdateTask(`task/${id}/update`)
+                postUpdateTask(`${window.location.origin}/task/${id}/update`)
                     .then((function(result){
                         if(result.isConfirmed){
                             updateTaskForm.reset();

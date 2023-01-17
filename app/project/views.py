@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 from rest_framework import generics
-
+import bugsnag
 from .models import Project
 from project.files.models import File
 from user.models import *
@@ -146,13 +146,16 @@ class UpdateProjectView(LoginRequiredMixin, View):
 
 def delete_project(request, pk):
     checker = ObjectPermissionChecker(request.user)
-    project = Project.objects.get(id=pk)
+    try:
+        project = Project.objects.get(id=pk)
+    except Project.DoesNotExist as e:
+        bugsnag.notify(e)
+        e.skip_bugsnag = True
+        raise e('Not exists project')
+
     if request.user.is_authenticated and checker.has_perm('olp_delete_project', project) and request.method == 'POST':
-        try:
-            project.delete()
-            return redirect('/project')
-        except Project.DoesNotExist:
-            raise Project.DoesNotExist('Not exists project')
+        project.delete()
+        return redirect('/project')
     else:
         return HttpResponse('Bad request', status=404)
 

@@ -10,8 +10,8 @@ import channels.layers
 @receiver(post_save, sender=TaskHistory)
 def notify_task_update(sender, instance, created, **kwargs):
     if instance.object == "Task":
-        message = "{0} {1} {2} in Project {3} (ID: {4}) ".format(instance.action, instance.object, instance.task.title,
-                                                                 instance.task.project.name, instance.task.project.id)
+        message = "{0} {1} in Project {2} (ID: {3}) ".format(instance.action, instance.task.title,
+                                                             instance.task.project.name, instance.task.project.id)
     elif instance.object == "Comment":
         message = "{0} {1} in {2}".format(instance.action, instance.object, instance.task.title)
     else:

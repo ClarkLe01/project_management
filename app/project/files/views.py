@@ -11,6 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import os
 from guardian.core import ObjectPermissionChecker
 from django.core.exceptions import PermissionDenied
+import bugsnag
 
 
 class DocumentProjectView(LoginRequiredMixin, View):
@@ -23,7 +24,6 @@ class DocumentProjectView(LoginRequiredMixin, View):
             return render(request, 'projectdetails/files.html', {'project': project, 'files': files, 'tasks': tasks})
         else:
             raise PermissionDenied
-
 
 
 class DownloadFile(LoginRequiredMixin, View):
@@ -60,7 +60,8 @@ class DeleteFile(LoginRequiredMixin, View):
                 os.remove('.' + file.url())
                 file.delete()
             return HttpResponse('Ok', status=200)
-        except Exception:
+        except Exception as e:
+            bugsnag.notify(e)
             return HttpResponse('Bad Request', status=400)
 
 

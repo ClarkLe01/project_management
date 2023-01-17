@@ -99,7 +99,13 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+BUGSNAG = {
+    'api_key': 'bd4ce061becdd0566e1fee174d7b98b6',
+    'project_root': BASE_DIR,
+}
+
 MIDDLEWARE = [
+    'bugsnag.django.middleware.BugsnagMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
