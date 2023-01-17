@@ -2,6 +2,8 @@ from decimal import Decimal, InvalidOperation
 from django import template
 from utils.models import Currency
 import math
+from datetime import datetime
+
 register = template.Library()
 
 
@@ -34,3 +36,4 @@ def convert_cost(cost, base, target_code):
         return str(round(Decimal(cost) * ratio, 2)) + ' ' + target_code
     except InvalidOperation:
         raise InvalidOperation('Type Error of Number Input')
+

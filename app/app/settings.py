@@ -126,6 +126,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'project.context_processors.counter',
+                'notification.context_processors.notifications'
             ],
             'libraries': {
                 'math_caculate': 'app.templatetags.math_caculate',

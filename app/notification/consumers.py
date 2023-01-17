@@ -29,14 +29,14 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.accept()
         await self.send(json.dumps({
             "type": "websocket.send",
-            "text": "hello world"
+            "value": "connect successful!"
         }))
-        self.room_name = 'test_consumer'
         self.room_group_name = f"user_{self.scope['user'].pk}"
+        print("channel_name", self.channel_name)
         await self.channel_layer.group_add(self.room_group_name, self.channel_name)
         await self.send(json.dumps({
             "type": "websocket.send",
-            "text": "room made"
+            "value": "hello " + self.room_group_name
         }))
 
     async def websocket_receive(self, event):
@@ -64,5 +64,3 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             "type": "websocket.send",
             "data": event
         }))
-        print('I am here')
-        print(event)

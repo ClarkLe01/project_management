@@ -60,6 +60,7 @@ urlpatterns += i18n_patterns(
     path('utils/', include('utils.urls')),
     path('task/', include('task.urls')),
     path('history/', include('history.urls')),
+    path('notification/', include('notification.urls')),
     prefix_default_language=False,
 )
 

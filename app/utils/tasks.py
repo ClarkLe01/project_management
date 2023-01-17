@@ -31,7 +31,8 @@ def updated_currency_exchange_rate():
         for code in body['data'].keys():
             obj, created = Currency.objects.update_or_create(code=code, defaults=body['data'].get(code))  # noqa: 501
             if created:
-                logger.info("Create new code {0} at {1}".format(code, datetime.now().strftime("%d/%m/%Y %H:%M:%S")))  # noqa: 501
+                logger.info("Create new code {0} at {1}".format(code, datetime.now().strftime(
+                    "%d/%m/%Y %H:%M:%S")))  # noqa: 501
         logger.info("The Currency Data updated at " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))  # noqa: 501
     else:
         logger.error("The Currency API Call failed at " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))  # noqa: 501

@@ -84,6 +84,12 @@ fetch(`detail/${$("#project_id").val()}/tasklistapi`)
                             addComment(comment);
                         })
                     });
+                fetch(`../history/task/${el.dataset.eid}`,{mode: 'cors'}).then(res => res.json())
+                    .then(data => {
+                        data.forEach(history => {
+                            addHistory(history);
+                        })
+                    });
                 $("#kt_modal_update_task").modal("show");
             },
         });
