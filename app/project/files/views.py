@@ -1,3 +1,5 @@
+import glob
+
 import requests
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
@@ -72,4 +74,21 @@ class UploadFile(LoginRequiredMixin, View):
 
 class RenameFile(LoginRequiredMixin, View):
     def post(self, request):
-        pass
+        file_id = request.POST.get('file_id')
+        new_name = request.POST.get('new_name')
+        try:
+            file = File.objects.get(id=file_id)
+            list_path = file.file.url.split('/')[:-1][1:]
+            path = os.path.join(*list_path)
+            all_files = glob.glob(path + '/*')
+            new_path = path + '/' + new_name
+            if new_path in all_files:
+                return HttpResponse('Bad request', status=400)
+            else:
+                os.rename('.' + file.file.url, './' + new_path)
+                file.file.name = new_path.replace('media/', '')
+                file.save()
+                return HttpResponse('Successful', status=200)
+        except File.DoesNotExist as e:
+            bugsnag.notify(e)
+            return HttpResponse('Not Found', status=404)

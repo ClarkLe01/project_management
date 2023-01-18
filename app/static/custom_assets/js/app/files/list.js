@@ -64,6 +64,58 @@ async function deleteMultipleFile(url, e, o){
         });
     }
 }
+
+async function updateFileName(id, newname, e, l) {
+    let csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    let form_data = new FormData();
+    form_data.append("file_id", id);
+    form_data.append("new_name", newname);
+    const response = await fetch('renamefile', {
+        method: 'POST',
+        mode: 'same-origin',
+        body: form_data,
+        headers: {
+            'X-CSRFToken': csrftoken
+        },
+    });
+    if(response.status === 200){
+        Swal.fire({
+            text:"You have renamed successfully!.",
+            icon:"success",
+            buttonsStyling:!1,
+            confirmButtonText:"Ok, got it!",
+            customClass:{confirmButton:"btn fw-bold btn-primary"}
+        }).then((function(){
+            location.reload();
+            // const t=document.querySelector("#kt_file_manager_rename_input").value;
+            // const o=`<div class="d-flex align-items-center">\n                                        ${i.outerHTML}\n                                        <a href="?page=apps/file-manager/files/" class="text-gray-800 text-hover-primary">${t}</a>\n                                    </div>`;
+            // e.cell($(l)).data(o).draw();
+        }))
+    }
+    else if(response.status === 400){
+        Swal.fire({
+            text: " File name existed!!",
+            icon:"error",
+            buttonsStyling:!1,
+            confirmButtonText:"Ok, got it!",
+            customClass:{
+                confirmButton:"btn fw-bold btn-primary"
+            }
+        })
+    }
+    else{
+        Swal.fire({
+            text: "Something went wrong!",
+            icon:"error",
+            buttonsStyling:!1,
+            confirmButtonText:"Ok, got it!",
+            customClass:{
+                confirmButton:"btn fw-bold btn-primary"
+            }
+        })
+    }
+}
+
 let KTFileManagerList=function(){
     let e,t,o,n,r,a;
     // Delete a file
@@ -235,6 +287,7 @@ let KTFileManagerList=function(){
         });
         document.querySelector("#kt_file_manager_rename_folder").addEventListener("click",(t=>{
             t.preventDefault();
+            let bn = document.querySelector("#kt_file_manager_rename_input").value;
             c&&c.validate().then((function(t){
                 console.log("validated!");
                 "Valid"===t&&Swal.fire({
@@ -249,19 +302,12 @@ let KTFileManagerList=function(){
                         cancelButton:"btn fw-bold btn-active-light-primary"
                     }
                 }).then((function(t){
-                    t.value?
+                    const a=document.querySelector("#kt_file_manager_rename_input").value;
+                    const id = document.querySelector("#kt_file_manager_rename_input").parentElement.parentElement.parentElement.getAttribute("data-id");
+                    if(t.isConfirmed){
+                        updateFileName(id, a, e, l).then(r => console.log(r));
+                    } else{
                         Swal.fire({
-                            text:"You have renamed successfully!.",
-                            icon:"success",
-                            buttonsStyling:!1,
-                            confirmButtonText:"Ok, got it!",
-                            customClass:{confirmButton:"btn fw-bold btn-primary"}
-                        }).then((function(){
-                            const t=document.querySelector("#kt_file_manager_rename_input").value;
-                            const o=`<div class="d-flex align-items-center">\n                                        ${i.outerHTML}\n                                        <a href="?page=apps/file-manager/files/" class="text-gray-800 text-hover-primary">${t}</a>\n                                    </div>`;
-                            e.cell($(l)).data(o).draw()
-                        })):
-                        "cancel"===t.dismiss&&Swal.fire({
                             text:r+" was not renamed.",
                             icon:"error",
                             buttonsStyling:!1,
@@ -270,6 +316,7 @@ let KTFileManagerList=function(){
                                 confirmButton:"btn fw-bold btn-primary"
                             }
                         })
+                    }
                 }))
             }))
         }));
