@@ -266,19 +266,14 @@ btn_submit.addEventListener("click",(
         setTimeout((function(){
                 btn_submit.removeAttribute("data-kt-indicator")
                 btn_submit.disabled=!1
-            }
-        ))
+            }),2e3)
         if (myDropzone.getQueuedFiles().length > 0) {
             myDropzone.processQueue();
         }
         else {
-            // Upload anyway without files
-            // let blob = new Blob();
-            // console.log(myDropzone.defaultOptions.chunking);
-            // blob.upload = { 'chunked': myDropzone.defaultOptions.chunking };
             postCreatingProject('/project/').then(r => console.log(r));
         }
-    }),2e3)
+    }))
 
 $('#filter_form').on('submit',(e)=>{
     e.preventDefault();

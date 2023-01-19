@@ -39,8 +39,6 @@ socket.onclose = function() {
 };
 socket.onmessage = function(e) {
   let data = JSON.parse(event.data);
-  console.log(data);
-  console.log("data" in data);
   if ("data" in data){
     data = JSON.parse(data.data.value);
     let notHasNotificationReport = document.getElementById("no-notification");
@@ -63,7 +61,6 @@ setInterval(() => {
 
 fetch(`${window.location.origin}/notification`,{mode: 'cors'}).then(res => res.json())
     .then(data => {
-      console.log(data.length);
       if(data.length > 0){
         data.forEach(notification => {addNotification(notification)});
       }

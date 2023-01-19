@@ -404,7 +404,7 @@ var KTFileManagerList=function(){
                     let n=o.parentNode.innerHTML;
                     o.parentNode.removeChild(o);
                     let r= new Dropzone(e,{
-                        url:"path/to/your/server",
+                        url:"/a/a/",
                         parallelUploads:10,
                         previewTemplate:n,
                         maxFilesize:1,
@@ -414,18 +414,13 @@ var KTFileManagerList=function(){
                         clickable:e+" .dropzone-select"
                     });
                     r.on("addedfile",(function(o){
-                        o.previewElement.querySelector(e+" .dropzone-start").onclick=function(){
-                            const e=o.previewElement.querySelector(".progress-bar");
-                            e.style.opacity="1";
-                            let t=1,n=setInterval((function(){
-                                t>=100?(r.emit("success",o),r.emit("complete",o),clearInterval(n)):
-                                    (t++,e.style.width=t+"%")}),20)},
-                            t.querySelectorAll(".dropzone-item").forEach((e=>{
-                                e.style.display=""
-                            })),
+                        t.querySelectorAll(".dropzone-item").forEach((e=>{
+                            e.style.display=""
+                        })),
                             t.querySelector(".dropzone-upload").style.display="inline-block",
                             t.querySelector(".dropzone-remove-all").style.display="inline-block"}));
                     r.on("complete",(function(e){
+                        console.log("complete")
                         const o=t.querySelectorAll(".dz-complete");
                         setTimeout((function(){
                             o.forEach((e=>{
@@ -435,6 +430,7 @@ var KTFileManagerList=function(){
                             }))
                         }),300)}));
                     t.querySelector(".dropzone-upload").addEventListener("click",(function(){
+                        console.log("upload-click")
                         r.files.forEach((e=>{
                             const t=e.previewElement.querySelector(".progress-bar");
                             t.style.opacity="1";
@@ -468,6 +464,7 @@ var KTFileManagerList=function(){
                         }))
                     }));
                     r.on("queuecomplete",(function(e){
+                        console.log("queuecompletez")
                         t.querySelectorAll(".dropzone-upload").forEach((e=>{
                             e.style.display="none"
                         }))}));

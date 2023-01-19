@@ -115,7 +115,17 @@ async function updateFileName(id, newname, e, l) {
         })
     }
 }
-
+function popup(message, type){
+    return Swal.fire({
+        text: message,
+        icon: type,
+        buttonsStyling: false,
+        confirmButtonText: "Ok, got it!",
+        customClass: {
+            confirmButton: "btn btn-primary"
+        }
+    })
+}
 let KTFileManagerList=function(){
     let e,t,o,n,r,a;
     // Delete a file
@@ -521,6 +531,95 @@ let KTFileManagerList=function(){
                         }),1e3)
                     }))
                 }));
+                (()=>{
+                    const e="#kt_modal_upload_dropzone";
+                    const t=document.querySelector(e);
+                    let o = t.querySelector(".dropzone-item");
+                    o.id="";
+                    let n=o.parentNode.innerHTML;
+                    o.parentNode.removeChild(o);
+                    let r= new Dropzone(e,{
+                        url:"/project/uploadfile",
+                        parallelUploads: 20,
+                        previewTemplate:n,
+                        uploadMultiple: true,
+                        maxFiles: 100,
+                        maxFilesize:1,
+                        autoProcessQueue:!1,
+                        previewsContainer:e+" .dropzone-items",
+                        clickable:e+" .dropzone-select"
+                    });
+                    r.on("sendingmultiple",(file,xhr, formData)=>{
+                        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        let project_id = $("#project_id").val();
+                        formData.append("project_id", project_id)
+                    });
+                    r.on("addedfile",(function(o){
+                        t.querySelectorAll(".dropzone-item").forEach((e=>{
+                            e.style.display=""
+                        })),
+                            t.querySelector(".dropzone-upload").style.display="inline-block",
+                            t.querySelector(".dropzone-remove-all").style.display="inline-block"
+                    }));
+                    r.on("complete",(function(e){
+                        const o=t.querySelectorAll(".dz-complete");
+                        setTimeout((function(){
+                            o.forEach((e=>{
+                                e.querySelector(".progress-bar").style.opacity="0",
+                                    e.querySelector(".progress").style.opacity="0"
+                            }))
+                        }),300)}));
+                    t.querySelector(".dropzone-upload").addEventListener("click",(function(e){
+                        e.preventDefault();
+                        e.stopPropagation();
+                        r.processQueue();
+                    }));
+                    t.querySelector(".dropzone-remove-all").addEventListener("click",(function(){
+                        Swal.fire({
+                            text:"Are you sure you would like to remove all files?",
+                            icon:"warning",
+                            showCancelButton:!0,
+                            buttonsStyling:!1,
+                            confirmButtonText:"Yes, remove it!",
+                            cancelButtonText:"No, return",
+                            customClass:{
+                                confirmButton:"btn btn-primary",
+                                cancelButton:"btn btn-active-light"
+                            }}).then((function(e){
+                            e.value?(
+                                t.querySelector(".dropzone-upload").style.display="none",
+                                    t.querySelector(".dropzone-remove-all").style.display="none",
+                                    r.removeAllFiles(!0)):"cancel"===e.dismiss&&Swal.fire({
+                                text:"Your files was not removed!.",
+                                icon:"error",
+                                buttonsStyling:!1,
+                                confirmButtonText:"Ok, got it!",
+                                customClass:{
+                                    confirmButton:"btn btn-primary"
+                                }})
+                        }))
+                    }));
+                    r.on('successmultiple', function(files, response) {
+                        popup("Upload Successful!","success").then((result) => {
+                            location.reload();
+                        })
+                    });
+                    r.on('errormultiple', function(files, response) {
+                        // t.querySelector(".dropzone-upload").style.display="inline-block";
+                        files.forEach((file) => {
+                            file.previewElement.querySelector("[data-dz-errormessage]").textContent = "error";
+                        })
+                        popup("Upload Failed!","error");
+                    });
+                    r.on("removedfile",(function(e){
+                        r.files.length<1&&(t.querySelector(".dropzone-upload").style.display="none",
+                            t.querySelector(".dropzone-remove-all").style.display="none")
+                    }));
+                    $('#kt_modal_upload').on('hide.bs.modal', (function (e) {
+                        r.removeAllFiles(true);
+                    }));
+                })();
                 m();
                 d();
                 (()=>{

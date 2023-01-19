@@ -69,7 +69,16 @@ class DeleteFile(LoginRequiredMixin, View):
 
 class UploadFile(LoginRequiredMixin, View):
     def post(self, request):
-        pass
+        files = request.FILES
+        project_id = request.POST.get('project_id')
+        try:
+            project = Project.objects.get(id=project_id)
+            for _, file in dict(files).items():
+                file_object = File.objects.create(project=project, file=file[0])
+            return HttpResponse('Success', status=200)
+        except Project.DoesNotExist as e:
+            bugsnag.notify(e)
+            return HttpResponse('Not Found', status=404)
 
 
 class RenameFile(LoginRequiredMixin, View):

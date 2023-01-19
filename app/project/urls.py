@@ -7,7 +7,7 @@ from .views import (ProjectDashBoardView,
                     delete_project,
                     TasksProjectView,
                     TaskKanbanBoardApiView)
-from project.files.views import DocumentProjectView, DownloadFile, DeleteFile, RenameFile
+from project.files.views import DocumentProjectView, DownloadFile, DeleteFile, RenameFile, UploadFile
 
 app_name = 'project'
 urlpatterns = [
@@ -17,6 +17,7 @@ urlpatterns = [
     path('detail/<int:pk>/delete', delete_project, name='delete'),
     path('detail/<int:pk>/documents', DocumentProjectView.as_view(), name='documents'),
     path('downloadfile/<int:pk>', DownloadFile.as_view(), name='downloadfile'),
+    path('uploadfile', UploadFile.as_view(), name='uploadfile'),
     path('deletefile', DeleteFile.as_view(), name='deletefile'),
     path('renamefile', RenameFile.as_view(), name='renamefile'),
     path('detail/<int:pk>/tasks', TasksProjectView.as_view(), name='tasks'),
