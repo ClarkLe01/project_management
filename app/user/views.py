@@ -1,4 +1,6 @@
+import bugsnag
 import rollbar
+import sentry_sdk
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -25,6 +27,8 @@ def trigger_error(request):
         return HttpResponse('Success', status=200)
     except ZeroDivisionError:
         rollbar.report_exc_info()
+        bugsnag.notify(ZeroDivisionError("Zero Dvision Error"))
+        sentry_sdk.capture_exception(ZeroDivisionError("Zero Dvision Error"))
         return HttpResponse('Bad Request', status=400)
 
 

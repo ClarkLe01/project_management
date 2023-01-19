@@ -127,6 +127,7 @@ BUGSNAG = {
     'api_key': 'bd4ce061becdd0566e1fee174d7b98b6',
     'project_root': str(BASE_DIR),
 }
+bugsnag.configure(**BUGSNAG)
 bugsnag.notify(Exception('Bugsnag is configured correctly'), severity='info')
 
 MIDDLEWARE = [
