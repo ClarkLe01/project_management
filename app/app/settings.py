@@ -118,6 +118,7 @@ ROLLBAR = {
     'branch': 'master',
     'root': str(BASE_DIR),
 }
+rollbar.init(**ROLLBAR)
 capture_message("Sentry is configured correctly", level='info')
 rollbar.report_message('Rollbar is configured correctly', level='info')
 
