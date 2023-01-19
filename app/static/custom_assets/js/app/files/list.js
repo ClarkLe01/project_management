@@ -150,7 +150,7 @@ let KTFileManagerList=function(){
                             }
                         }).then((function(t){
                             if(t.isConfirmed){
-                                deleteFile('/project/deletefile/',e,n,o).then(r => {console.log(r)});
+                                deleteFile('/project/deletefile',e,n,o).then(r => {console.log(r)});
                             }
                             else{
                                 Swal.fire({
@@ -197,24 +197,10 @@ let KTFileManagerList=function(){
                 }
             }).then((function(n){
                 if(n.isConfirmed){
-                    deleteMultipleFile('/project/deletefile/', e, o).then(r => {
+                    deleteMultipleFile('/project/deletefile', e, o).then(r => {
                         console.log(r);
                         t.querySelectorAll('[type="checkbox"]')[0].checked=!1;
                     });
-                    // Swal.fire({
-                    //     text:"You have deleted all selected files or folders!.",
-                    //     icon:"success",
-                    //     buttonsStyling:!1,
-                    //     confirmButtonText:"Ok, got it!",
-                    //     customClass:{
-                    //         confirmButton:"btn fw-bold btn-primary"
-                    //     }
-                    // }).then((function(){
-                    //     o.forEach((t=>{
-                    //         t.checked&&e.row($(t.closest("tbody tr"))).remove().draw()})
-                    //     );
-                    //     t.querySelectorAll('[type="checkbox"]')[0].checked=!1;
-                    // }))
                 }else{
                     Swal.fire({
                         text:"Selected files or folders was not deleted.",

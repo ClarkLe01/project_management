@@ -54,6 +54,7 @@ class DownloadFile(LoginRequiredMixin, View):
 
 class DeleteFile(LoginRequiredMixin, View):
     def post(self, request):
+        print("Delete file")
         try:
             delete_files = [int(x) for x in request.POST.get('delete_files').split(',')]
             files = File.objects.filter(id__in=delete_files)
