@@ -16,6 +16,7 @@ import sentry_sdk
 import rollbar
 from sentry_sdk import capture_message
 from sentry_sdk.integrations.django import DjangoIntegration
+import bugsnag
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -111,6 +112,7 @@ sentry_sdk.init(
     # We recommend adjusting this value in production.
     traces_sample_rate=1.0
 )
+capture_message("Sentry is configured correctly", level='info')
 
 ROLLBAR = {
     'access_token': '29eb9def40af4e7e8bd8f537e1829b74',
@@ -119,13 +121,13 @@ ROLLBAR = {
     'root': str(BASE_DIR),
 }
 rollbar.init(**ROLLBAR)
-capture_message("Sentry is configured correctly", level='info')
 rollbar.report_message('Rollbar is configured correctly', level='info')
 
 BUGSNAG = {
     'api_key': 'bd4ce061becdd0566e1fee174d7b98b6',
     'project_root': str(BASE_DIR),
 }
+bugsnag.notify(Exception('Bugsnag is configured correctly'), severity='info')
 
 MIDDLEWARE = [
     'bugsnag.django.middleware.BugsnagMiddleware',
