@@ -1,4 +1,6 @@
+import rollbar
 from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.views import View
 from django.views.generic import TemplateView
@@ -17,6 +19,15 @@ class HomeView(TemplateView):
         return context
 
 
+def trigger_error(request):
+    try:
+        division_by_zero = 1 / 0
+        return HttpResponse('Success', status=200)
+    except ZeroDivisionError:
+        rollbar.report_exc_info()
+        return HttpResponse('Bad Request', status=400)
+
+
 class LogoutView(View):
     def get(self, request):
         if request.user.is_authenticated:
@@ -30,7 +41,7 @@ class CollaboratorViewSetAPI(generics.ListAPIView):
     def get_queryset(self):
         if self.request.user.id is None:
             return User.objects.filter(Q(is_active=True))
-        return User.objects.filter(Q(is_active=True) & ~Q(id=self.request.user.id)) # noqa: 501
+        return User.objects.filter(Q(is_active=True) & ~Q(id=self.request.user.id))  # noqa: 501
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)

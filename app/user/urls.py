@@ -3,12 +3,13 @@ from user.login.views import LoginView
 from user.register.views import RegisterView
 from user.profile.views import UserProfile, UpdateOwnProfile, OwnProfile, UpdatePass
 from user.resetpassword.views import forgotPassword, resetpassword_validate, resetPassword # noqa: 501
-from .views import CollaboratorViewSetAPI, LogoutView, HomeView
+from .views import CollaboratorViewSetAPI, LogoutView, HomeView, trigger_error
 
 
 app_name = 'user'
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
+    path('sentry-debug', trigger_error),
     path('signin/', LoginView.as_view(), name='signin'),
     path('signup/', RegisterView.as_view(), name='signup'),
     path('signout/', LogoutView.as_view(), name='signout'),

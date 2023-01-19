@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import sentry_sdk
+import rollbar
+from sentry_sdk import capture_message
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -76,7 +80,6 @@ INSTALLED_APPS = [
     'simple_history',
     'channels',
     'history',
-
 ]
 
 SITE_ID = 1
@@ -99,9 +102,28 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+sentry_sdk.init(
+    dsn="https://1ad9bec7b9e04a548ce1fe4aeec249e0@o4504529265426432.ingest.sentry.io/4504529267261440",
+    integrations=[DjangoIntegration()],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0
+)
+
+ROLLBAR = {
+    'access_token': '29eb9def40af4e7e8bd8f537e1829b74',
+    'environment': 'development' if DEBUG else 'production',
+    'branch': 'master',
+    'root': str(BASE_DIR),
+}
+capture_message("Sentry is configured correctly", level='info')
+rollbar.report_message('Rollbar is configured correctly', level='info')
+
 BUGSNAG = {
     'api_key': 'bd4ce061becdd0566e1fee174d7b98b6',
-    'project_root': BASE_DIR,
+    'project_root': str(BASE_DIR),
 }
 
 MIDDLEWARE = [
@@ -116,6 +138,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -262,5 +285,9 @@ CHANNEL_LAYERS = {
             "hosts": ["redis://redis:6379/0"],
         },
     },
+}
+
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'rollbar.contrib.django_rest_framework.post_exception_handler'
 }
 

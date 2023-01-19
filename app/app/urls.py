@@ -52,6 +52,7 @@ if 'rosetta' in settings.INSTALLED_APPS:
         re_path(r'^rosetta/', include('rosetta.urls'))
     ]
 
+
 urlpatterns += i18n_patterns(
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     path('', include('user.urls')),
