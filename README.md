@@ -42,7 +42,7 @@
 
 ## Database Diagram
 
-
+![image](https://github.com/ClarkLe01/project_management/blob/main/docs/db-diagram.png?raw=true)
 
 ## Installation
 
