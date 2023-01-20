@@ -27,53 +27,58 @@
 
 ## Prerequisites
 
-Saleor is a rapidly-growing open source e-commerce platform that has served high-volume companies from branches like publishing and apparel since 2012. Based on Python and Django, the latest major update introduces a modular front end powered by a GraphQL API and written with React and TypeScript.
+- [Docker](https://www.docker.com/)
+- [Python 3.x](https://www.python.org/)
 
 ## Repository Structure
 
     .
-    ├── build                   # Compiled files (alternatively `dist`)
-    ├── docs                    # Documentation files (alternatively `doc`)
-    ├── src                     # Source files (alternatively `lib` or `app`)
-    ├── test                    # Automated tests (alternatively `spec` or `tests`)
-    ├── tools                   # Tools and utilities
-    ├── LICENSE
-    └── README.md
-
-> Use short lowercase names at least for the top-level files and folders except
-> `LICENSE`, `README.md`
+    ├── app                      # Source code
+    ├── nginx                    # Nginx Configuration
+    ├── .dockerignore
+    ├── .env.prod.db.sample      # environment variables file for db images
+    ├── .env.prod.sample         # environment variables file for other images
+    ├── .gitignore
+    ├── README.md
+    ├── docker-compose.prod.yml  # build image for production
+    └── docker-compose.yml       # build image for development
 
 ## Database Diagram
 
-[See the Saleor docs](https://docs.saleor.io/docs/3.x/developer/installation) for step-by-step installation and deployment instructions.
 
-Note:
-The `main` branch is the development version of Saleor and it may be unstable. To use the latest stable version, download it from the [Releases](https://github.com/saleor/saleor/releases/) page or switch to a release tag.
-
-The current production-ready version is 3.x and you should use this version for all three components:
-
-- Saleor: https://github.com/saleor/saleor/releases/
-- Dashboard: https://github.com/saleor/saleor-dashboard/releases/
-- Storefront: https://github.com/saleor/react-storefront/releases/
 
 ## Installation
 
-[See the Saleor docs](https://docs.saleor.io/docs/3.x/developer/installation) for step-by-step installation and deployment instructions.
+_Below is an step of how you can deploy and setting up the app._
 
-Note:
-The `main` branch is the development version of Saleor and it may be unstable. To use the latest stable version, download it from the [Releases](https://github.com/saleor/saleor/releases/) page or switch to a release tag.
+1. Clone the repo
+   ```sh
+   git clone https://github.com/ClarkLe01/project_management.git
+   ```
+2. Open folder repo & Install requirements
+   ```sh
+   pip install -r .\app\requirements.txt
+   ```
+4. Create .env.dev file for development based on .env.prod.sample and change DEBUG=1
+5. Create .env.prod file for production based on .env.prod.sample and change DEBUG=0
+6. Create .env.prod.db file for database environments based on .env.prod.db.sample
+7. Open terminal & build image for development (optional)
+   ```sh
+   docker compose up
+   ```
+8. Open terminal & build image for production (optional)
+   ```sh
+   docker-compose -f .\docker-compose.prod.yml up 
+   ```
+9. Website will run on [localhost:8000](http://localhost:8000)
 
-The current production-ready version is 3.x and you should use this version for all three components:
-
-- Saleor: https://github.com/saleor/saleor/releases/
-- Dashboard: https://github.com/saleor/saleor-dashboard/releases/
-- Storefront: https://github.com/saleor/react-storefront/releases/
+_For development, we have DB seed files in <repo>/app/fixtures with account samples which have password is 'admin'._
 
 ## Demo
 
 Want to see Saleor in action?
 
-* [View Website Here](https://demo.saleor.io/)
+* [View Website Here]()
 
 Login credentials: `admin@gmail.com`/`admin`
 
