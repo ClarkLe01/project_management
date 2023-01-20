@@ -4,10 +4,10 @@
 <br>
 
 <div align="center">
-  <a href="http://codecov.io/github/saleor/saleor?branch=master">
+  <a href="#">
     <img src="http://codecov.io/github/saleor/saleor/coverage.svg?branch=master" alt="Codecov" />
   </a>
-  <a href="https://docs.saleor.io/">
+  <a href="#">
     <img src="https://img.shields.io/badge/docs-docs.saleor.io-brightgreen.svg" alt="Documentation" />
   </a>
   <a href="https://github.com/python/black">
