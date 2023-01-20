@@ -7,9 +7,6 @@
   <a href="#">
     <img src="http://codecov.io/github/saleor/saleor/coverage.svg?branch=master" alt="Codecov" />
   </a>
-  <a href="#">
-    <img src="https://img.shields.io/badge/docs-docs.saleor.io-brightgreen.svg" alt="Documentation" />
-  </a>
   <a href="https://github.com/python/black">
     <img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black">
   </a>
