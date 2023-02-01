@@ -57,6 +57,7 @@ class ProjectDashBoardView(LoginRequiredMixin, View):
         if status:
             query_string += '&status={0}'.format(status)
             projects = projects.filter(status=status)
+        projects = projects.order_by("-updated_date")
         page = request.GET.get('page', 1)
 
         projects_paginator = Paginator(projects, PROJECT_PER_PAGE)
