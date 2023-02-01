@@ -25,7 +25,7 @@ class OwnProfile(LoginRequiredMixin, UserProfile):
 
 
 class UpdateOwnProfile(LoginRequiredMixin, View):
-    template_name = 'userprofile/temp.html'
+    template_name = 'userprofile/settings.html'
 
     def get(self, request):
         return render(request, self.template_name)
