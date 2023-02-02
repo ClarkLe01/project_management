@@ -22,4 +22,3 @@ def notify_task_update(sender, instance, created, **kwargs):
     for user in participants:
         if user != instance.user:
             Notification.objects.create(message=message, user=user, changed_by=instance.user)
-

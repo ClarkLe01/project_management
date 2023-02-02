@@ -1,7 +1,7 @@
 from django.test import TestCase
 from app.templatetags.math_caculate import minus_int, add, convert_cost
 from utils.models import Currency
-from decimal import InvalidOperation, Decimal
+from decimal import InvalidOperation
 
 
 class TemplateTagTests(TestCase):

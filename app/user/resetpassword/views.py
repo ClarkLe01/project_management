@@ -9,7 +9,6 @@ from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import get_template
 from django.core.signing import Signer
-from utils.tasks import send_email
 
 signer = Signer(salt='extra')
 

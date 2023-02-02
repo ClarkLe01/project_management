@@ -1,9 +1,8 @@
 from django.contrib import admin
-from .models import *
+from .models import Project
 from .forms import ProjectForm
 from project.files.models import File
 from guardian.admin import GuardedModelAdmin
-from simple_history.admin import SimpleHistoryAdmin
 
 
 class CollaboratorInline(admin.TabularInline):

@@ -6,22 +6,17 @@ from rest_framework import generics
 import bugsnag
 from .models import Project
 from project.files.models import File
-from user.models import *
-from utils.models import *
 from django.db.models import Q
-from .forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 import json
 from django.core.paginator import PageNotAnInteger, Paginator
 from guardian.shortcuts import get_objects_for_user
 from guardian.core import ObjectPermissionChecker
 from django.core.exceptions import PermissionDenied
-
 from task.serializers import TaskKanbanSerializer
 from user.models import User
 from utils.models import ProgrammingLanguage
 from task.models import Task
-
 from history.models import TaskHistory
 
 PROJECT_PER_PAGE = 9

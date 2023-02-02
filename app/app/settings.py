@@ -40,7 +40,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:80',
     'http://127.0.0.1:80',
 ]
-ALLOWED_HOSTS = ['smalldemoclark.live', 'ec2-44-205-72-194.compute-1.amazonaws.com', '44.205.72.194', 'localhost',  '127.0.0.1', '[::1]']
+ALLOWED_HOSTS = ['smalldemoclark.live', 'ec2-44-205-72-194.compute-1.amazonaws.com', '44.205.72.194', 'localhost', '127.0.0.1', '[::1]']
 CORS_ORIGIN_WHITELIST = [
     'http://smalldemoclark.live',
     'http://44.205.72.194:80',
@@ -296,4 +296,3 @@ CHANNEL_LAYERS = {
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'rollbar.contrib.django_rest_framework.post_exception_handler'
 }
-

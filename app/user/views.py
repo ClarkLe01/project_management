@@ -23,7 +23,7 @@ class HomeView(TemplateView):
 
 def trigger_error(request):
     try:
-        division_by_zero = 1 / 0
+        division_by_zero = 1 / 0 # noqa
         return HttpResponse('Success', status=200)
     except ZeroDivisionError:
         rollbar.report_exc_info()

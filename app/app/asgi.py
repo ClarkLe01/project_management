@@ -22,7 +22,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")
 # is populated before importing code that may import ORM models.
 django_asgi_app = get_asgi_application()
 
-import notification.routing
+import notification.routing # noqa
 application = ProtocolTypeRouter(
     {
         "http": django_asgi_app,

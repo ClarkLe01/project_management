@@ -1,7 +1,6 @@
 from django.db import models
 from simple_history.models import HistoricalRecords
 from user.models import User
-from project.models import Project
 from ckeditor.fields import RichTextField
 from project.models import Project
 

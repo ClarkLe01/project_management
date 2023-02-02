@@ -1,7 +1,6 @@
 from django import forms
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-from .models import *
-from user.models import *
+from .models import Project
 
 widgets_general = {
     'name': forms.TextInput(

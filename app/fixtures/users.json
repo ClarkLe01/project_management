@@ -15,8 +15,7 @@
             "last_name": "Le",
             "avatar": "user_1/avatar/08112022165229300-30.jpg",
             "groups": [],
-            "user_permissions": [],
-            "langcode_tags": []
+            "user_permissions": []
         }
     },
     {
@@ -35,8 +34,7 @@
             "last_name": "First",
             "avatar": "user_2/avatar/08112022174248_300-1.jpg",
             "groups": [],
-            "user_permissions": [],
-            "langcode_tags": []
+            "user_permissions": []
         }
     },
     {
@@ -55,8 +53,7 @@
             "last_name": "Second",
             "avatar": "user_3/avatar/08112022174311_300-2.jpg",
             "groups": [],
-            "user_permissions": [],
-            "langcode_tags": []
+            "user_permissions": []
         }
     },
     {
@@ -75,8 +72,7 @@
             "last_name": "Third",
             "avatar": "user_4/avatar/08112022174331_300-3.jpg",
             "groups": [],
-            "user_permissions": [],
-            "langcode_tags": []
+            "user_permissions": []
         }
     },
     {
@@ -95,8 +91,7 @@
             "last_name": "Fourth",
             "avatar": "user_5/avatar/08112022174350_300-4.jpg",
             "groups": [],
-            "user_permissions": [],
-            "langcode_tags": []
+            "user_permissions": []
         }
     },
     {
@@ -115,8 +110,7 @@
             "last_name": "Fifth",
             "avatar": "user_6/avatar/08112022174414_300-5.jpg",
             "groups": [],
-            "user_permissions": [],
-            "langcode_tags": []
+            "user_permissions": []
         }
     },
     {
@@ -135,8 +129,7 @@
             "last_name": "Sixth",
             "avatar": "user_7/avatar/08112022174432_300-6.jpg",
             "groups": [],
-            "user_permissions": [],
-            "langcode_tags": []
+            "user_permissions": []
         }
     },
     {
@@ -155,8 +148,7 @@
             "last_name": "Seventh",
             "avatar": "user_8/avatar/08112022174454_300-7.jpg",
             "groups": [],
-            "user_permissions": [],
-            "langcode_tags": []
+            "user_permissions": []
         }
     }
 ]

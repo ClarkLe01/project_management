@@ -17,12 +17,3 @@ class ProgrammingLanguage(models.Model):
 
     def __str__(self):
         return self.name
-
-
-"""
-from django.db.models import Count
-statis = ProgrammingLanguage.objects.prefetch_related('project_set').all()
-Project.objects.values('langcode_tags__name').annotate(count=Count('*')).order_by('-count')
-Project.objects.exclude(langcode_tags=None).values('langcode_tags__name').annotate(count=Count('*')).order_by('-count')
-
-"""

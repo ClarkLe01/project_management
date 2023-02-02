@@ -3,7 +3,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from datetime import datetime
-from utils.models import ProgrammingLanguage
 
 
 # Create your models here.
@@ -52,7 +51,6 @@ class User(AbstractUser):
     first_name = models.CharField("first name", max_length=150, blank=True)
     last_name = models.CharField("last name", max_length=150, blank=True)
     avatar = models.ImageField(upload_to=user_avatar_directory_path, blank=True, null=True) # noqa: 501
-    langcode_tags = models.ManyToManyField(ProgrammingLanguage, blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["first_name", "last_name"]
     objects = CustomUserManager()

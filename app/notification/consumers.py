@@ -19,7 +19,7 @@ def create_notification(receiver, typeof="task_created", status="unread"):
 def get_user(user_id):
     try:
         return User.objects.get(id=user_id)
-    except:
+    except User.DoesNotExist:
         return AnonymousUser()
 
 

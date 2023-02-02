@@ -1,14 +1,10 @@
 import glob
-
-import requests
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 from .models import File
 from project.models import Project
 from task.models import Task
-from user.models import *
-from utils.models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 import os
 from guardian.core import ObjectPermissionChecker
@@ -31,25 +27,12 @@ class DocumentProjectView(LoginRequiredMixin, View):
 class DownloadFile(LoginRequiredMixin, View):
     def get(self, request, pk):
         file = File.objects.get(pk=pk)
-
-        file_size_request = requests.get(request.scheme + '://' + request.META['HTTP_HOST'] + file.url(), stream=True)
-        file_size = int(file_size_request.headers['Content-Length'])
-        size = float(file_size / 1000000)
-        size = round(size, 2)
-        if size < 100:
-            block_size = 1024
-            filename = file.filename()
-            with open(filename, 'wb') as f:
-                for data in file_size_request.iter_content(block_size):
-                    f.write(data)
-                f.close()
-            with open(filename, 'rb') as f:
-                data = f.read()
-
-            response = HttpResponse(data, content_type='application/force-download')
-            response['Content-Disposition'] = 'attachment; filename="{0}"'.format(file.filename())
-            return response
-        return HttpResponse('Bad request', status=400)
+        with open('.' + file.url(), 'rb') as f:
+            data = f.read()
+            f.close()
+        response = HttpResponse(data, content_type='application/force-download')
+        response['Content-Disposition'] = 'attachment; filename="{0}"'.format(file.filename())
+        return response
 
 
 class DeleteFile(LoginRequiredMixin, View):
@@ -75,7 +58,7 @@ class UploadFile(LoginRequiredMixin, View):
         try:
             project = Project.objects.get(id=project_id)
             for _, file in dict(files).items():
-                file_object = File.objects.create(project=project, file=file[0])
+                File.objects.create(project=project, file=file[0])
             return HttpResponse('Success', status=200)
         except Project.DoesNotExist as e:
             bugsnag.notify(e)

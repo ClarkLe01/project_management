@@ -13,5 +13,3 @@ class TaskHistory(models.Model):
     object = models.CharField(max_length=100)
     reference = models.IntegerField(default=-1)
     date = models.DateTimeField(auto_now_add=True)
-
-

@@ -51,11 +51,6 @@ class UpdateOwnProfile(LoginRequiredMixin, View):
         return HttpResponse('OK', status=200)
 
 
-class OwnProfile(LoginRequiredMixin, UserProfile):
-    def get(self, request):
-        return super().get(request, pk=request.user.id)
-
-
 class UpdatePass(LoginRequiredMixin, View):
     def post(self, request):
         currentpass = request.POST.get("current_password")
