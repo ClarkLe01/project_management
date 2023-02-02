@@ -1,16 +1,33 @@
-# from django.contrib.auth.tokens import default_token_generator
-# from django.contrib.sessions.middleware import SessionMiddleware
-# from django.core.signing import Signer
-# from django.test import TestCase, RequestFactory, Client
-# from django.contrib.auth import get_user_model
-# from django.urls import reverse
-# from user.login.views import LoginView
-# from user.register.views import RegisterView
-# from django.contrib.auth.models import AnonymousUser
-# from rest_framework.test import APIClient
-# from rest_framework import status
-#
-#
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sessions.middleware import SessionMiddleware
+from django.core.signing import Signer
+from django.test import TestCase, RequestFactory, Client
+from django.contrib.auth import get_user_model
+from django.urls import reverse
+from user.login.views import LoginView
+from user.register.views import RegisterView
+from django.contrib.auth.models import AnonymousUser
+from rest_framework.test import APIClient
+from rest_framework import status
+from user.views import HomeView
+
+
+class HomeViewTestCase(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+
+    def test_home_view_uses_correct_template(self):
+        request = self.factory.get('/')
+        print(request)
+        response = HomeView.as_view()(request)
+        self.assertTemplateUsed(response, 'homepage/home.html')
+
+    def test_home_view_contains_correct_context_data(self):
+        request = self.factory.get('/')
+        print(request)
+        response = HomeView.as_view()(request)
+        self.assertEqual(response.status_code, 200)
+
 # class UserLoginViewTests(TestCase):
 #     def setUp(self):
 #         # Every test needs access to the request factory.

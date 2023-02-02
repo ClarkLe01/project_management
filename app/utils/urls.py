@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ProjectLangsView, ProjectLangsStatisticView
+from .views import ProjectLangsView
 
 
 app_name = 'utils'

@@ -1,10 +1,7 @@
-import json
-from asgiref.sync import async_to_sync
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import TaskHistory
 from notification.models import Notification
-import channels.layers
 
 
 @receiver(post_save, sender=TaskHistory)
