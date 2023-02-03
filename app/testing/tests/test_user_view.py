@@ -10,117 +10,121 @@ from django.contrib.auth.models import AnonymousUser
 from rest_framework.test import APIClient
 from rest_framework import status
 from user.views import HomeView
+from user.login.views import LoginView
+from user.register.views import RegisterView
+from ..factories.user import UserFactory
+from django.core import mail
 
 
 class HomeViewTestCase(TestCase):
     def setUp(self):
-        self.factory = RequestFactory()
+        self.client = Client()
 
     def test_home_view_uses_correct_template(self):
-        request = self.factory.get('/')
-        print(request)
-        response = HomeView.as_view()(request)
-        self.assertTemplateUsed(response, 'homepage/home.html')
+        response = self.client.get('/')
+        self.assertIs(response.resolver_match.func.view_class, HomeView)
 
     def test_home_view_contains_correct_context_data(self):
-        request = self.factory.get('/')
-        print(request)
-        response = HomeView.as_view()(request)
+        response = self.client.get('/')
+        # response = HomeView.as_view()(request)
+        self.assertIs(response.resolver_match.func.view_class, HomeView)
         self.assertEqual(response.status_code, 200)
 
-# class UserLoginViewTests(TestCase):
-#     def setUp(self):
-#         # Every test needs access to the request factory.
-#         self.client = Client()
-#         self.user = get_user_model().objects. \
-#             create_user(email="test@example.com", password="test123",
-#                         first_name="test", last_name="test")
-#
-#     def test_get_signin_view_as_anonymous_user(self):
-#         response = self.client.get("/signin/")
-#         self.assertEqual(response.status_code, 200)
-#
-#     def test_get_signin_view_as_authenticated_user(self):
-#         self.client.force_login(user=self.user)
-#         response = self.client.get("/signin/")
-#         self.assertRedirects(response, '/')
-#
-#     def test_successful_signin(self):
-#         response = self.client.post("/signin/", {"email": "test@example.com", "password": "test123"})
-#         self.assertEqual(response.status_code, 200)
-#
-#     def test_failed_signin(self):
-#         response = self.client.post("/signin/", {"email": "testabc@example.com", "password": "test123"})
-#         self.assertEqual(response.status_code, 401)
-#
-#
-# class UserRegisterViewTests(TestCase):
-#     def setUp(self):
-#         # Every test needs access to the request factory.
-#         self.client = Client()
-#         self.user = get_user_model().objects. \
-#             create_user(email="test@example.com", password="test123",
-#                         first_name="test", last_name="test")
-#
-#     def test_get_signup_view_as_anonymous_user(self):
-#         response = self.client.get("/signup/")
-#         self.assertEqual(response.status_code, 200)
-#
-#     def test_get_signup_view_as_authenticated_user(self):
-#         self.client.force_login(user=self.user)
-#         response = self.client.get("/signup/")
-#         self.assertRedirects(response, '/')
-#
-#     def test_successful_signup(self):
-#         response = self.client.post("/signup/", {
-#             "email": "testabc@example.com",
-#             "password": "test123",
-#             'first_name': "test",
-#             'last_name': "abc",
-#         })
-#         self.assertEqual(response.status_code, 200)
-#
-#     def test_failed_signup(self):
-#         response = self.client.post("/signup/", {
-#             "email": "test@example.com",
-#             "password": "test123",
-#             'first_name': "test",
-#             'last_name': "test",
-#         })
-#         self.assertEqual(response.status_code, 409)
-#
-#
-# class UserFogetPasswordViewTests(TestCase):
-#     def setUp(self):
-#         self.client = Client()
-#         self.user = get_user_model().objects. \
-#             create_user(email="test@example.com", password="test123",
-#                         first_name="test", last_name="test")
-#
-#         self.signer = Signer(salt='extra')
-#
-#     def test_redirect_if_authenticated(self):
-#         self.client.force_login(self.user)
-#         response = self.client.get('/forgotPassword/')
-#         self.assertRedirects(response, '/project/')
-#
-#     def test_get_view(self):
-#         response = self.client.get('/forgotPassword/')
-#         self.assertEqual(response.status_code, 200)
-#
-#     def test_send_email_if_exists(self):
-#         response = self.client.post('/forgotPassword/', {"email": "test@example.com"})
-#         self.assertEqual(response.status_code, 200)
-#
-#     def test_send_email_if_not_exists(self):
-#         response = self.client.post('/forgotPassword/', {"email": "testabasd@example.com"})
-#         self.assertEqual(response.status_code, 400)
-#
-#     def test_get_resetpassword_view(self):
-#         response = self.client.get('/resetPassword/')
-#         self.assertEqual(response.status_code, 200)
-#
-#
+
+class UserLoginViewTests(TestCase):
+    def setUp(self):
+        # Every test needs access to the request factory.
+        self.client = Client()
+        self.user = UserFactory(email="test@example.com", password="test123")
+
+    def test_get_signin_view_as_anonymous_user(self):
+        response = self.client.get("/signin/")
+        self.assertIs(response.resolver_match.func.view_class, LoginView)
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_signin_view_as_authenticated_user(self):
+        self.client.force_login(user=self.user)
+        response = self.client.get("/signin/")
+        self.assertRedirects(response, '/')
+
+    def test_successful_signin(self):
+        response = self.client.post("/signin/", {"email": "test@example.com", "password": "test123"})
+        self.assertEqual(response.status_code, 200)
+
+    def test_failed_signin(self):
+        response = self.client.post("/signin/", {"email": "testabc@example.com", "password": "test123"})
+        self.assertEqual(response.status_code, 401)
+
+
+class UserRegisterViewTests(TestCase):
+    def setUp(self):
+        # Every test needs access to the request factory.
+        self.client = Client()
+        self.user = UserFactory(email="test@example.com", password="test123")
+
+    def test_get_signup_view_as_anonymous_user(self):
+        response = self.client.get("/signup/")
+        self.assertIs(response.resolver_match.func.view_class, RegisterView)
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_signup_view_as_authenticated_user(self):
+        self.client.force_login(user=self.user)
+        response = self.client.get("/signup/")
+        self.assertRedirects(response, '/')
+
+    def test_successful_signup(self):
+        response = self.client.post("/signup/", {
+            "email": "testabc@example.com",
+            "password": "test123",
+            'first_name': "test",
+            'last_name': "abc",
+        })
+        self.assertEqual(response.status_code, 200)
+        user = get_user_model().objects.get(email='testabc@example.com')
+        self.assertEqual(user.email, "testabc@example.com")
+        self.assertEqual(user.first_name, "test")
+        self.assertEqual(user.last_name, "abc")
+        self.assertTrue(user.check_password('test123'))
+
+    def test_failed_signup(self):
+        response = self.client.post("/signup/", {
+            "email": "test@example.com",
+            "password": "test123",
+            'first_name': "test",
+            'last_name': "test",
+        })
+        self.assertEqual(response.status_code, 409)
+
+
+class ForgotPasswordViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.forgot_password_url = reverse('user:forgotPassword')
+        self.user = UserFactory(email="test@example.com", password="test123")
+
+    def test_forgot_password_view_with_authenticated_user(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.forgot_password_url)
+        self.assertRedirects(response, '/project/', status_code=302, target_status_code=200)
+
+    def test_forgot_password_view_with_valid_email(self):
+        response = self.client.post(self.forgot_password_url, {'email': 'test@example.com'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn('Password reset email has been sent to your email address.', response.content.decode())
+
+    def test_forgot_password_view_with_invalid_email(self):
+        response = self.client.post(self.forgot_password_url, {'email': 'invalid@example.com'})
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(len(mail.outbox), 0)
+        self.assertIn('Account does not exist!', response.content.decode())
+
+    def test_forgot_password_view_with_get_request(self):
+        response = self.client.get(self.forgot_password_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'authentication/reset_password/reset_password.html')
+        self.assertIn('form', response.context)
+
 # class UserUpdateViewTests(TestCase):
 #     def setUp(self):
 #         self.client = Client()

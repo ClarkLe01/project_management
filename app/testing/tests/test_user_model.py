@@ -3,14 +3,14 @@ Tests for user model.
 """
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from ..factories.user import UserFactory
+from ..factories.user import UserFactory, SuperUserFactory
 
 
 class UserModelTests(TestCase):
     """Test models."""
 
     def test_create_user(self):
-        user = UserFactory.create()
+        user = UserFactory(password='admin')
         self.assertIsInstance(user, get_user_model())
         self.assertIsNotNone(user.email)
         self.assertIsNotNone(user.first_name)
@@ -26,7 +26,7 @@ class UserModelTests(TestCase):
             ['test4@example.COM', 'test4@example.com']
         ]
         for email, expected in sample_emails:
-            user = get_user_model().objects.create_user(email, 'sample123')
+            user = UserFactory(email=email)
             self.assertEqual(user.email, expected)
 
     def test_new_user_without_email_raises_error(self):
@@ -36,9 +36,7 @@ class UserModelTests(TestCase):
 
     def test_create_superuser(self):
         """Test creating a superuser. """
-        user = get_user_model().objects.create_superuser(
-            'admin@example.com',
-            'admin'
-        )
+        user = SuperUserFactory(email='admin@example.com')
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+        self.assertEqual(user.email, str(user))
