@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.db.models import Q
-from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.tokens import default_token_generator
 from django.core.signing import Signer
 from django.test import TestCase, Client
@@ -10,11 +9,13 @@ from django.urls import reverse
 from user.views import HomeView, CollaboratorViewSetAPI, LogoutView
 from user.login.views import LoginView
 from user.register.views import RegisterView
+from user.profile.views import UserProfile, UpdateOwnProfile, OwnProfile, UpdatePass
 from user.serializers import UserSerializer
 from ..factories.user import UserFactory
 from ..factories.project import ProjectFactory
 from django.core import mail
 from django.contrib.sessions.backends.db import SessionStore
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 class HomeViewTestCase(TestCase):
@@ -276,3 +277,106 @@ class UserProfileTestCase(TestCase):
         # Check that the correct user and projects were returned in the context
         self.assertEqual(response.context['user'], self.user)
         self.assertEqual(list(response.context['projects']), [self.project])
+
+
+class UpdateOwnProfileTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = UserFactory()
+        self.url = reverse('user:updateprofile')
+
+    def test_get_updateprofile_view_as_authenticated_user(self):
+        self.client.force_login(user=self.user)
+        response = self.client.get(self.url)
+        self.assertIs(response.resolver_match.func.view_class, UpdateOwnProfile)
+        self.assertTemplateUsed(response, 'userprofile/settings.html')
+        self.assertEqual(response.status_code, 200)
+
+    def test_update_own_profile_with_authenticated_user(self):
+        # Login the user
+        self.client.force_login(user=self.user)
+
+        # Send a POST request to the UpdateOwnProfile view
+        response = self.client.post(
+            self.url,
+            {
+                'fname': 'Test',
+                'lname': 'User',
+                'files': SimpleUploadedFile("file.jpg", b"file_content"),
+            },
+        )
+
+        # Check that the response has a status code of 200 OK
+        self.assertEqual(response.status_code, 200)
+
+        user = get_user_model().objects.get(email=self.user.email)
+
+        # Check that the user's first name and last name were updated
+        self.assertEqual(user.first_name, 'Test')
+        self.assertEqual(user.last_name, 'User')
+
+        # Check that the user's avatar was updated
+        self.assertEqual(user.avatar.read(), b"file_content")
+
+    def test_update_own_profile_with_empty_first_name(self):
+        # Login the user
+        self.client.force_login(user=self.user)
+
+        # Send a POST request to the UpdateOwnProfile view with an empty first name
+        response = self.client.post(
+            self.url,
+            {
+                'lname': 'User',
+            },
+        )
+
+        # Check that the response has a status code of 200 OK
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the user's first name was not updated
+        user = get_user_model().objects.get(id=self.user.id)
+        self.assertEqual(user.first_name, self.user.first_name)
+
+        # Check that the user's last name was updated
+        self.assertEqual(user.last_name, 'User')
+
+    def test_update_own_profile_with_empty_last_name(self):
+        # Log in a user
+        self.client.force_login(user=self.user)
+
+        # Send a POST request to the update own profile view with empty last name
+        response = self.client.post(
+            self.url,
+            {
+                'fname': 'John',
+            }
+        )
+
+        # Assert that the response has a status code of 200 (OK)
+        self.assertEqual(response.status_code, 200)
+
+        # Assert that the user's first name has been updated
+        user = get_user_model().objects.get(id=self.user.id)
+        self.assertEqual(user.first_name, 'John')
+
+        # Assert that the user's last name is not empty
+        self.assertNotEqual(user.last_name, '')
+
+
+class UpdatePassTestCase(TestCase):
+    def setUp(self):
+        self.user = UserFactory(password='testpassword')
+        self.client = Client()
+        self.client.force_login(user=self.user)
+        self.url = reverse('user:updatepass')
+
+    def test_update_password_with_valid_current_password(self):
+        response = self.client.post(self.url, {'current_password': 'testpassword', 'new_password': 'newpassword'})
+        user = get_user_model().objects.get(email=self.user.email)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b'OK')
+        self.assertTrue(user.check_password('newpassword'))
+
+    def test_update_password_with_invalid_current_password(self):
+        response = self.client.post(self.url, {'current_password': 'invalidpassword', 'new_password': 'newpassword'})
+        self.assertEqual(response.status_code, 400)

@@ -1,9 +1,7 @@
 from datetime import timedelta
-
 import factory
 from project.models import Project
 from .user import UserFactory
-
 from faker import Faker
 
 fake = Faker()

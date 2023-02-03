@@ -1,5 +1,6 @@
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404
 from django.views import View
@@ -34,13 +35,7 @@ class UpdateOwnProfile(LoginRequiredMixin, View):
         files = request.FILES.get("files")
         fname = request.POST.get("fname")
         lname = request.POST.get("lname")
-        try:
-            user = User.objects.get(id=request.user.id)
-            print(user)
-        except User.DoesNotExist:
-            user = None
-        if user is None:
-            return HttpResponse('Not Found', status=404)
+        user = User.objects.get(id=request.user.id)
         if fname and fname != '':
             user.first_name = fname
         if lname and lname != '':

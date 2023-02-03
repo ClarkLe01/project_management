@@ -18,7 +18,7 @@ RUN apk update \
 
 # lint
 RUN pip install --upgrade pip
-RUN pip install flake8==3.9.2
+RUN pip install flake8
 COPY . .
 RUN flake8 --ignore=E501,F401 .
 

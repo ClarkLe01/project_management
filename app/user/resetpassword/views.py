@@ -46,7 +46,7 @@ def resetpassword_validate(request, uidb64, token):
     try:
         uid = int(signer.unsign(uidb64))
         user = User.objects.get(id=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
     if user is not None and default_token_generator.check_token(user, token):
