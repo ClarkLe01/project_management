@@ -9,7 +9,7 @@ from project.files.models import File
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 import json
-from django.core.paginator import PageNotAnInteger, Paginator
+from django.core.paginator import PageNotAnInteger, Paginator, EmptyPage, InvalidPage
 from guardian.shortcuts import get_objects_for_user
 from guardian.core import ObjectPermissionChecker
 from django.core.exceptions import PermissionDenied
@@ -58,8 +58,8 @@ class ProjectDashBoardView(LoginRequiredMixin, View):
         projects_paginator = Paginator(projects, PROJECT_PER_PAGE)
         try:
             projects = projects_paginator.page(page)
-        except PageNotAnInteger:
-            projects = projects_paginator.page(PROJECT_PER_PAGE)
+        except (EmptyPage, PageNotAnInteger) as e:
+            projects = projects_paginator.page(1)
 
         context = {
             'base': base,
@@ -102,7 +102,6 @@ class ProjectDashBoardView(LoginRequiredMixin, View):
 
         for _, file in dict(documents).items():
             file_object = File.objects.create(project=project, file=file[0])
-            print(file_object)
         return HttpResponse('Created', status=201)
 
 

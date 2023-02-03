@@ -17,3 +17,12 @@ class TaskFactory(factory.django.DjangoModelFactory):
     due_date = Faker('date_this_decade')
     task_details = Faker('sentence')
     assignee = factory.SubFactory(UserFactory, is_active=True)
+
+
+class TaskCommentFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = TaskComment
+
+    user = factory.SubFactory(UserFactory)
+    task = factory.SubFactory(TaskFactory)
+    description = factory.Faker('text', max_nb_chars=255)
