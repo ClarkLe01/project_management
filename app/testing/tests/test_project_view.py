@@ -12,6 +12,7 @@ from ..factories.project import ProjectFactory
 from ..factories.user import UserFactory
 from ..factories.utils import ProgrammingLanguageFactory, CurrencyFactory
 from ..factories.file import FileFactory
+from ..factories.task import TaskFactory, TaskCommentFactory
 from utils.tasks import updated_currency_exchange_rate
 
 
@@ -122,3 +123,13 @@ class CreateProjectViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
+class ProjectViewDetailViewTestCase(TestCase):
+
+    def setUp(self):
+        self.factory = Client()
+        self.user = UserFactory()
+        self.assignee = UserFactory()
+        self.project = ProjectFactory(created_by=self.user)
+        self.project.collaborators.add(self.assignee)
+        self.project.save()
+        self.task = TaskFactory(project=self.project, assignee=self.assignee)
