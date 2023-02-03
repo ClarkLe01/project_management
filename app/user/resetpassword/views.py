@@ -45,7 +45,6 @@ def forgotPassword(request):
 def resetpassword_validate(request, uidb64, token):
     try:
         uid = int(signer.unsign(uidb64))
-        print(uid)
         user = User.objects.get(id=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
@@ -69,11 +68,11 @@ def resetPassword(request):
             user = User.objects.get(id=uid)
             user.set_password(password)
             user.save()
-            if request.user.is_authenticated:
-                logout(request)
             return HttpResponse('Ok', status=200)
         else:
             return HttpResponse('Bad request', status=400)
     else:
+        if request.user.is_authenticated:
+            logout(request)
         return render(request, 'authentication/reset_password/new_password.html',
                       {'form': ResetPassForm()})  # noqa: 501
