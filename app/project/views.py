@@ -58,7 +58,7 @@ class ProjectDashBoardView(LoginRequiredMixin, View):
         projects_paginator = Paginator(projects, PROJECT_PER_PAGE)
         try:
             projects = projects_paginator.page(page)
-        except (EmptyPage, PageNotAnInteger) as e:
+        except (EmptyPage, PageNotAnInteger):
             projects = projects_paginator.page(1)
 
         context = {
@@ -101,7 +101,7 @@ class ProjectDashBoardView(LoginRequiredMixin, View):
         project.langcode_tags.add(*lang_list)
 
         for _, file in dict(documents).items():
-            file_object = File.objects.create(project=project, file=file[0])
+            File.objects.create(project=project, file=file[0])
         return HttpResponse('Created', status=201)
 
 

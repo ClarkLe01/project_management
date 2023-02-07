@@ -31,7 +31,6 @@ class SuperUserFactory(UserFactory):
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
-        password = 'admin'
         manager = model_class._default_manager
         instance = manager.create_superuser(*args, **kwargs)
         return instance

@@ -19,9 +19,6 @@ class OverwriteStorageTestCase(TestCase):
         # Check that the file exists
         self.assertTrue(self.storage.exists(self.test_file))
 
-        # Get the available name
-        available_name = self.storage.get_available_name(self.test_file)
-
         # Check that the file with the same name has been overwritten
         self.assertFalse(self.storage.exists(self.test_file))
 
