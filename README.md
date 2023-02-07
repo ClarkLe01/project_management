@@ -41,7 +41,7 @@
 
 ## Database Diagram
 
-![image](https://github.com/ClarkLe01/project_management/blob/main/docs/db-diagram.png?raw=true)
+[![image](https://mermaid.ink/img/pako:eNqNVNFu6jAM_ZUoz9sP9G3igsRlAzR635Aq07glW5twk3TTxPj3JWkKaenY-gBtbB-fYzs-0lwypAlF9YdDqaDeCmKf5Sqdz-aTh3S-Wh7bI_dwYQhnZL24HO2krIg2YBp9OdRGcVGSGrWGEvvxjUaVWZDZgmyp-yAKc-RvqImQhhc8B8Ol2NJ-WL4HUSLLdh9RJOTm28BT-_dvM30mtyUEtlgDr4iDFvx_gzGB4FFwpU0moMYrUwXfWeANDCiHy2tbDNKoagT6AFq_S8V63NfPq7_TSfoDfV8dhWC66lyBX3gF4Nn8cfq7ohS8iiQxm8Tw2oo4uNfM_fRRDkq-YG7aBvdypg-bxe9yDqfpnJU1w5QhwoB-zRga20B9g4_twbr9JrkU1lsQs0cfPRw32w5eCsRo2Jj0np2JDQbN6Zusnp6my_S2yrOc0LQrNQx1rvjBD3MPyMvslHguQYYe0r--ZG0ybSPqGoUZkI_uykne38tjN3uJDagq2Enl696fy89P7-qmKbHkpcJRu6tM0lGNMgXzOZN8H7HGmygJW-Anr7BQtiNwUZeScy1GvZLQ6Gh6xzGCrKiQ9I7WqOw6YXaz-mGw7dqjvYQ0sa8MC2gq34KTdYXGyM2HyGlSQKXxjraXK-zjcHr6AkdguM8?type=png)]
 
 ## Installation
 
