@@ -74,7 +74,7 @@ _For development, we have DB seed files in <repo>/app/fixtures with account samp
 
 Want to see the demo?
 
-* [View Website Here]()
+* [View Website Here](http://smalldemoclark.live/)
 
 Login credentials: `admin@gmail.com`/`admin`
 
