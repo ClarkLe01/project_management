@@ -35,16 +35,16 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
 CSRF_TRUSTED_ORIGINS = [
     'http://smalldemoclark.live',
-    'http://44.205.72.194:80',
-    'http://ec2-44-205-72-194.compute-1.amazonaws.com:80',
+    'http://44.197.220.240',
+    'http://ec2-44-197-220-240.compute-1.amazonaws.com:80',
     'http://localhost:80',
     'http://127.0.0.1:80',
 ]
-ALLOWED_HOSTS = ['smalldemoclark.live', 'ec2-44-205-72-194.compute-1.amazonaws.com', '44.205.72.194', 'localhost', '127.0.0.1', '[::1]']
+ALLOWED_HOSTS = ['smalldemoclark.live', 'ec2-44-197-220-240.compute-1.amazonaws.com', '44.197.220.240', 'localhost', '127.0.0.1', '[::1]']
 CORS_ORIGIN_WHITELIST = [
     'http://smalldemoclark.live',
-    'http://44.205.72.194:80',
-    'http://ec2-44-205-72-194.compute-1.amazonaws.com:80',
+    'http://44.197.220.240:80',
+    'http://ec2-44-197-220-240.compute-1.amazonaws.com:80',
     'http://localhost:80',
     'http://127.0.0.1:80',
 ]
