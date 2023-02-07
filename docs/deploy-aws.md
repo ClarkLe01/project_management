@@ -25,4 +25,4 @@ ssh ec2-user@<your-public-ip-instance>
 ```
 - B10: Install git and docker in [Here](https://github.com/ClarkLe01/project_management/blob/main/docs/install-docker-aws.md)
 - B11: Git clone repository
-- B12: Create environmnet file production in [Here](https://github.com/ClarkLe01/project_management/blob/main/README.md)
+- B12: Create environmnet file production in [Here](https://github.com/ClarkLe01/project_management/blob/main/README.md) and run server
