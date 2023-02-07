@@ -1,4 +1,6 @@
 import glob
+
+from asgiref.sync import sync_to_async
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
@@ -9,6 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import os
 from guardian.core import ObjectPermissionChecker
 from django.core.exceptions import PermissionDenied
+import asyncio
 import bugsnag
 
 
@@ -25,8 +28,8 @@ class DocumentProjectView(LoginRequiredMixin, View):
 
 
 class DownloadFile(LoginRequiredMixin, View):
-    def get(self, request, pk):
-        file = File.objects.get(pk=pk)
+    async def get(self, request, pk):
+        file = await sync_to_async(File.objects.get)(pk=pk)
         with open('.' + file.url(), 'rb') as f:
             data = f.read()
             f.close()
