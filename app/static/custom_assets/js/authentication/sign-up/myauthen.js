@@ -26,6 +26,17 @@ async function postRegister(url) {
             window.location.replace("/");
         });
     }
+    else if (response.status===409){
+        Swal.fire({
+            text: "Your Email existed!",
+            icon: "error",
+            buttonsStyling: false,
+            confirmButtonText: "Ok, got it!",
+            customClass: {
+                confirmButton: "btn btn-primary"
+            }
+        });
+    }
     else{
         Swal.fire({
             text: "Register Failed!",

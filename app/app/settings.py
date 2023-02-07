@@ -95,6 +95,11 @@ ACCOUNT_EMAIL_REQUIRED = True
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
+        "APP": {
+            "client_id": "904627107904-5jlucgin69fm3pac7u5kl2ajvdeved5r.apps.googleusercontent.com",
+            "secret": "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",
+            "key": ""
+        },
         'SCOPE': [
             'profile',
             'email',

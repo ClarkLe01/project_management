@@ -19,7 +19,7 @@ class RegisterView(View):
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        if User.objects.filter(username=email).exists():
+        if User.objects.filter(email=email).exists():
             return HttpResponse('Conflict', status=409)
         User.objects.create_user(
             username=email, email=email,
