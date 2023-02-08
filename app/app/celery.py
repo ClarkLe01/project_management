@@ -17,10 +17,10 @@ app.conf.beat_schedule = {
     #     "task": "project.tasks.sample_task",
     #     "schedule": crontab(minute="*/1"),
     # },
-    # "updated_currency_exchange_rate": {
-    #     "task": "utils.tasks.updated_currency_exchange_rate",
-    #     "schedule": crontab(minute="*/5"),
-    # }
+    "updated_currency_exchange_rate": {
+        "task": "utils.tasks.updated_currency_exchange_rate",
+        "schedule": crontab(minute="*/5"),
+    }
 }
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks()
