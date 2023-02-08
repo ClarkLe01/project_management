@@ -12,15 +12,16 @@ class OverwriteStorageTestCase(TestCase):
         self.test_file = "test_file.txt"
 
     def test_get_available_name_overwrite(self):
+        # Check that the file with the same name has been overwritten
+        self.assertFalse(self.storage.exists(self.test_file))
+
         # Create a test file in the storage
         with open(os.path.join(settings.MEDIA_ROOT, self.test_file), "w") as f:
             f.write("test content")
+            f.close()
 
         # Check that the file exists
         self.assertTrue(self.storage.exists(self.test_file))
-
-        # Check that the file with the same name has been overwritten
-        self.assertFalse(self.storage.exists(self.test_file))
 
     def test_get_available_name_no_overwrite(self):
         # Check that the file does not exist
