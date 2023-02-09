@@ -30,6 +30,7 @@
 
     .
     ├── app                      # Source code
+    ├── docs                     # Documentation
     ├── nginx                    # Nginx Configuration
     ├── .dockerignore
     ├── .env.prod.db.sample      # environment variables file for db images
